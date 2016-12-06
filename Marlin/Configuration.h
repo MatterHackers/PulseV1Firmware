@@ -792,9 +792,48 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 //#define FILAMENT_LCD_DISPLAY
 
 // Pulse v1 options
-#define E3DV6
-#define BONDTECH
-//#define PULSE_HEATEDBED
+
+#if 0 // A - 024
+    //#define E3DV6
+    //#define BONDTECH
+    //#define PULSE_HEATEDBED
+    #define CUSTOM_MENDEL_NAME "Pulse A-024"
+#elif 0 // A - 124
+    //#define E3DV6
+    //#define BONDTECH
+    #define PULSE_HEATEDBED
+    #define CUSTOM_MENDEL_NAME "Pulse A-124"
+#elif 0 // A - 034
+    //#define E3DV6
+    //#define BONDTECH
+    //#define PULSE_HEATEDBED
+    #define CUSTOM_MENDEL_NAME "Pulse A-034"
+#elif 0 // A - 134
+    //#define E3DV6
+    //#define BONDTECH
+    #define PULSE_HEATEDBED
+    #define CUSTOM_MENDEL_NAME "Pulse A-134"
+#elif 0 // A - 025
+    #define E3DV6
+    #define BONDTECH
+    //#define PULSE_HEATEDBED
+    #define CUSTOM_MENDEL_NAME "Pulse A-025"
+#elif 0 // A - 125
+    #define E3DV6
+    #define BONDTECH
+    #define PULSE_HEATEDBED
+    #define CUSTOM_MENDEL_NAME "Pulse A-125"
+#elif 0 // A - 035
+    #define E3DV6
+    #define BONDTECH
+    //#define PULSE_HEATEDBED
+    #define CUSTOM_MENDEL_NAME "Pulse A-035"
+#else // A - 135
+    #define E3DV6
+    #define BONDTECH
+    #define PULSE_HEATEDBED
+    #define CUSTOM_MENDEL_NAME "Pulse A-135"
+#endif
 
 #ifdef E3DV6
 	#define HEATER_0_MAXTEMP 305
