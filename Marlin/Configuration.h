@@ -823,7 +823,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
     #define BONDTECH
     #define PULSE_HEATEDBED
     #define CUSTOM_MENDEL_NAME "Pulse A-125"
-#elif 1 // A - 035
+#elif 0 // A - 035
     #define E3DV6
     #define BONDTECH
     //#define PULSE_HEATEDBED
