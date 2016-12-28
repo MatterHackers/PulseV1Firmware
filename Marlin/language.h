@@ -65,7 +65,6 @@
   #define FIRMWARE_URL "https://github.com/MarlinFirmware/Marlin"
 #endif
 
-#define MACHINE_NAME "Pulse i3"
 #define FIRMWARE_URL "MatterHackers"
 #define FIRMWARE_VER "Pulse i3"
 
