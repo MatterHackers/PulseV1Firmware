@@ -793,46 +793,57 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
 // Pulse v1 options
 
+// A = Machine type
+// -
+// 0 = Standard Bed, 1 = Heated Bed
+// 2 = No LCD, 3 = LCD
+// 4 = EZ-Struder & E3D light, 5 = BondTech & E3Dv6, 6 = 3mm BondTech & 3mm E3Dv6
+
 #if 0 // A - 024
-    //#define E3DV6
-    //#define BONDTECH
-    //#define PULSE_HEATEDBED
-    #define CUSTOM_MENDEL_NAME "Pulse A-024"
-#elif 0 // A - 124
-    //#define E3DV6
-    //#define BONDTECH
-    #define PULSE_HEATEDBED
-    #define CUSTOM_MENDEL_NAME "Pulse A-124"
-#elif 0 // A - 034
-    //#define E3DV6
-    //#define BONDTECH
-    //#define PULSE_HEATEDBED
-    #define CUSTOM_MENDEL_NAME "Pulse A-034"
-#elif 0 // A - 134
-    //#define E3DV6
-    //#define BONDTECH
-    #define PULSE_HEATEDBED
-    #define CUSTOM_MENDEL_NAME "Pulse A-134"
+	//#define E3DV6
+	//#define BONDTECH
+	//#define PULSE_HEATEDBED
+	#define CUSTOM_MENDEL_NAME "Pulse A-024"
 #elif 0 // A - 025
-    #define E3DV6
-    #define BONDTECH
-    //#define PULSE_HEATEDBED
-    #define CUSTOM_MENDEL_NAME "Pulse A-025"
-#elif 0 // A - 125
-    #define E3DV6
-    #define BONDTECH
-    #define PULSE_HEATEDBED
-    #define CUSTOM_MENDEL_NAME "Pulse A-125"
+	#define E3DV6
+	#define BONDTECH
+	//#define PULSE_HEATEDBED
+	#define CUSTOM_MENDEL_NAME "Pulse A-025"
+#elif 0 // A - 034
+	//#define E3DV6
+	//#define BONDTECH
+	//#define PULSE_HEATEDBED
+	#define CUSTOM_MENDEL_NAME "Pulse A-034"
 #elif 0 // A - 035
-    #define E3DV6
-    #define BONDTECH
-    //#define PULSE_HEATEDBED
-    #define CUSTOM_MENDEL_NAME "Pulse A-035"
-#else // A - 135
-    #define E3DV6
-    #define BONDTECH
-    #define PULSE_HEATEDBED
-    #define CUSTOM_MENDEL_NAME "Pulse A-135"
+	#define E3DV6
+	#define BONDTECH
+	//#define PULSE_HEATEDBED
+	#define CUSTOM_MENDEL_NAME "Pulse A-035"
+#elif 0 // A - 124
+	//#define E3DV6
+	//#define BONDTECH
+	#define PULSE_HEATEDBED
+	#define CUSTOM_MENDEL_NAME "Pulse A-124"
+#elif 0 // A - 125
+	#define E3DV6
+	#define BONDTECH
+	#define PULSE_HEATEDBED
+	#define CUSTOM_MENDEL_NAME "Pulse A-125"
+#elif 0 // A - 134
+	//#define E3DV6
+	//#define BONDTECH
+	#define PULSE_HEATEDBED
+	#define CUSTOM_MENDEL_NAME "Pulse A-134"
+#elif 0 // A - 135
+	#define E3DV6
+	#define BONDTECH
+	#define PULSE_HEATEDBED
+	#define CUSTOM_MENDEL_NAME "Pulse A-135"
+#else // A - 136
+	#define E3DV6
+	#define BONDTECH3MM
+	#define PULSE_HEATEDBED
+	#define CUSTOM_MENDEL_NAME "Pulse A-136"
 #endif
 
 #define FIRMWARE_VERSION " 1"
@@ -848,8 +859,12 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
 #ifdef BONDTECH
 	#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,490}  // Bondtech
-#else
-	#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,475}  // EZR
+#else 
+	#ifdef BONDTECH3MM 
+		#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,510}  // Bondtech 3mm
+	#else
+		#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,475}  // EZR
+	#endif
 #endif
 
 #ifdef PULSE_HEATEDBED
