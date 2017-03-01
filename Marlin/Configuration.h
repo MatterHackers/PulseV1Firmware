@@ -352,7 +352,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
 #define BedType 3
 #define ControllerType 3
-#define ExtruderType 5
+#define ExtruderType 6
 
 #if BedType == 0 // Standard Bed
 #define TEMP_SENSOR_BED 0
@@ -412,85 +412,9 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,510}  // Bondtech 3mm
 #endif
 
-#if 1 // This code needs to be verified to work - and then the else condition deleted
 #define STRINGIZE2(s) #s
 #define STRINGIZE(s) STRINGIZE2(s)
 #define CUSTOM_MENDEL_NAME "Pulse A-" STRINGIZE(BedType) STRINGIZE(ControllerType) STRINGIZE(ExtruderType)
-#else
-#if BedType == 0
-	#if ControllerType == 2
-		#if ExtruderType == 4
-			#define CUSTOM_MENDEL_NAME "Pulse A-024"
-		#elif ExtruderType == 5
-			#define CUSTOM_MENDEL_NAME "Pulse A-025"
-		#elif ExtruderType == 6
-			#define CUSTOM_MENDEL_NAME "Pulse A-026"
-		#endif
-	#elif ControllerType == 3
-		#if ExtruderType == 4
-			#define CUSTOM_MENDEL_NAME "Pulse A-034"
-		#elif ExtruderType == 5
-			#define CUSTOM_MENDEL_NAME "Pulse A-035"
-		#elif ExtruderType == 6
-			#define CUSTOM_MENDEL_NAME "Pulse A-036"
-		#endif
-	#endif
-#elif BedType == 1
-	#if ControllerType == 2
-		#if ExtruderType == 4
-			#define CUSTOM_MENDEL_NAME "Pulse A-124"
-		#elif ExtruderType == 5
-			#define CUSTOM_MENDEL_NAME "Pulse A-125"
-		#elif ExtruderType == 6
-			#define CUSTOM_MENDEL_NAME "Pulse A-126"
-		#endif
-	#elif ControllerType == 3
-		#if ExtruderType == 4
-			#define CUSTOM_MENDEL_NAME "Pulse A-134"
-		#elif ExtruderType == 5
-			#define CUSTOM_MENDEL_NAME "Pulse A-135"
-		#elif ExtruderType == 6
-			#define CUSTOM_MENDEL_NAME "Pulse A-136"
-		#endif
-	#endif
-#elif BedType == 2
-	#if ControllerType == 2
-		#if ExtruderType == 4
-			#define CUSTOM_MENDEL_NAME "Pulse A-224"
-		#elif ExtruderType == 5
-			#define CUSTOM_MENDEL_NAME "Pulse A-225"
-		#elif ExtruderType == 6
-			#define CUSTOM_MENDEL_NAME "Pulse A-226"
-		#endif
-	#elif ControllerType == 3
-		#if ExtruderType == 4
-			#define CUSTOM_MENDEL_NAME "Pulse A-234"
-		#elif ExtruderType == 5
-			#define CUSTOM_MENDEL_NAME "Pulse A-235"
-		#elif ExtruderType == 6
-			#define CUSTOM_MENDEL_NAME "Pulse A-236"
-		#endif
-	#endif
-#elif BedType == 3
-	#if ControllerType == 2
-		#if ExtruderType == 4
-			#define CUSTOM_MENDEL_NAME "Pulse A-324"
-		#elif ExtruderType == 5
-			#define CUSTOM_MENDEL_NAME "Pulse A-325"
-		#elif ExtruderType= = 6
-			#define CUSTOM_MENDEL_NAME "Pulse A-326"
-		#endif
-	#elif ControllerType == 3
-		#if ExtruderType == 4
-			#define CUSTOM_MENDEL_NAME "Pulse A-334"
-		#elif ExtruderType == 5
-			#define CUSTOM_MENDEL_NAME "Pulse A-335"
-		#elif ExtruderType == 6
-			#define CUSTOM_MENDEL_NAME "Pulse A-336"
-		#endif
-	#endif
-#endif
-#endif
 
 #define FIRMWARE_VERSION " 1"
 #define MACHINE_NAME CUSTOM_MENDEL_NAME
@@ -635,7 +559,8 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
 // default settings
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {78.7402,78.7402,200.0*8/3,760*1.1}  // default steps per unit for Ultimaker
+// this is set in our custom pulse section
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   {78.7402,78.7402,200.0*8/3,760*1.1}  // default steps per unit for Ultimaker
 #define DEFAULT_MAX_FEEDRATE          {250, 250, 25, 25}    // (mm/sec)
 #define DEFAULT_MAX_ACCELERATION      {1200,1200,500,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
