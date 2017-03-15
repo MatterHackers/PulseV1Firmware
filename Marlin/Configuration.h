@@ -341,13 +341,85 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #define min_software_endstops false // If true, axis won't move to coordinates less than HOME_POS.
 #define max_software_endstops true  // If true, axis won't move to coordinates greater than the defined lengths below.
 
+// *************** START PULSE OPTIONS
+
+// Pulse v1 options
+// A = Machine type
+// -
+// 0 = Standard Bed, 1 = Heated Bed, 2 = Big Not Heated b Bed, 3 = Big Heated Bed
+// 2 = No LCD, 3 = LCD
+// 4 = EZ-Struder & E3D light, 5 = BondTech & E3Dv6, 6 = 3mm BondTech & 3mm E3Dv6
+
+#define BedType 3
+#define ControllerType 3
+#define ExtruderType 6
+
+#if BedType == 0 // Standard Bed
+#define TEMP_SENSOR_BED 0
 // Travel limits after homing
 #define X_MAX_POS 205
 #define X_MIN_POS 0
 #define Y_MAX_POS 205
 #define Y_MIN_POS 0
+#define Z_MAX_POS 180
+#define Z_MIN_POS -10
+#elif BedType == 1 // Heated Bed
+#define TEMP_SENSOR_BED 5
+// Travel limits after homing
+#define X_MAX_POS 205
+#define X_MIN_POS 0
+#define Y_MAX_POS 205
+#define Y_MIN_POS 0
+#define Z_MAX_POS 180
+#define Z_MIN_POS -10
+#elif BedType == 2 // Big Standard Bed
+#define TEMP_SENSOR_BED 0
+// Travel limits after homing
+#define X_MAX_POS 253
+#define X_MIN_POS 0
+#define Y_MAX_POS 225
+#define Y_MIN_POS 0
 #define Z_MAX_POS 175
 #define Z_MIN_POS -10
+#elif BedType == 3 // Big Heated Bed
+#define TEMP_SENSOR_BED 5
+#define Z_MAX_POS 175 
+// Travel limits after homing
+#define X_MAX_POS 253
+#define X_MIN_POS 0
+#define Y_MAX_POS 225
+#define Y_MIN_POS 0
+#define Z_MAX_POS 175
+#define Z_MIN_POS -10
+#endif
+
+#if ControllerType == 2 // no controller
+#elif ControllerType == 3 // LCD controller (no change)
+#define ControllerString = "3"
+#endif
+
+#if ExtruderType == 4 // EZ Struder
+#define HEATER_0_MAXTEMP 245
+#define TEMP_SENSOR_0 5
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,475}  // EZR
+#elif ExtruderType == 5 // BondTech & E3Dv6
+#define HEATER_0_MAXTEMP 305
+#define TEMP_SENSOR_0 5
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,490}  // Bondtech
+#elif ExtruderType == 6 // BondTech & E3Dv6 3mm
+#define HEATER_0_MAXTEMP 305
+#define TEMP_SENSOR_0 5
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,510}  // Bondtech 3mm
+#endif
+
+#define STRINGIZE2(s) #s
+#define STRINGIZE(s) STRINGIZE2(s)
+#define CUSTOM_MENDEL_NAME "Pulse A-" STRINGIZE(BedType) STRINGIZE(ControllerType) STRINGIZE(ExtruderType)
+
+#define FIRMWARE_VERSION " 1"
+#define MACHINE_NAME CUSTOM_MENDEL_NAME
+
+// *************** END PULSE OPTIONS
 
 #define X_MAX_LENGTH (X_MAX_POS - X_MIN_POS)
 #define Y_MAX_LENGTH (Y_MAX_POS - Y_MIN_POS)
@@ -487,7 +559,8 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
 // default settings
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {78.7402,78.7402,200.0*8/3,760*1.1}  // default steps per unit for Ultimaker
+// this is set in our custom pulse section
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   {78.7402,78.7402,200.0*8/3,760*1.1}  // default steps per unit for Ultimaker
 #define DEFAULT_MAX_FEEDRATE          {250, 250, 25, 25}    // (mm/sec)
 #define DEFAULT_MAX_ACCELERATION      {1200,1200,500,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
@@ -790,91 +863,6 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
 //When using an LCD, uncomment the line below to display the Filament sensor data on the last line instead of status.  Status will appear for 5 sec.
 //#define FILAMENT_LCD_DISPLAY
-
-// Pulse v1 options
-
-// A = Machine type
-// -
-// 0 = Standard Bed, 1 = Heated Bed
-// 2 = No LCD, 3 = LCD
-// 4 = EZ-Struder & E3D light, 5 = BondTech & E3Dv6, 6 = 3mm BondTech & 3mm E3Dv6
-
-#if 0 // A - 024
-	//#define E3DV6
-	//#define BONDTECH
-	//#define PULSE_HEATEDBED
-	#define CUSTOM_MENDEL_NAME "Pulse A-024"
-#elif 0 // A - 025
-	#define E3DV6
-	#define BONDTECH
-	//#define PULSE_HEATEDBED
-	#define CUSTOM_MENDEL_NAME "Pulse A-025"
-#elif 0 // A - 034
-	//#define E3DV6
-	//#define BONDTECH
-	//#define PULSE_HEATEDBED
-	#define CUSTOM_MENDEL_NAME "Pulse A-034"
-#elif 0 // A - 035
-	#define E3DV6
-	#define BONDTECH
-	//#define PULSE_HEATEDBED
-	#define CUSTOM_MENDEL_NAME "Pulse A-035"
-#elif 0 // A - 124
-	//#define E3DV6
-	//#define BONDTECH
-	#define PULSE_HEATEDBED
-	#define CUSTOM_MENDEL_NAME "Pulse A-124"
-#elif 0 // A - 125
-	#define E3DV6
-	#define BONDTECH
-	#define PULSE_HEATEDBED
-	#define CUSTOM_MENDEL_NAME "Pulse A-125"
-#elif 0 // A - 134
-	//#define E3DV6
-	//#define BONDTECH
-	#define PULSE_HEATEDBED
-	#define CUSTOM_MENDEL_NAME "Pulse A-134"
-#elif 0 // A - 135
-	#define E3DV6
-	#define BONDTECH
-	#define PULSE_HEATEDBED
-	#define CUSTOM_MENDEL_NAME "Pulse A-135"
-#else // A - 136
-	#define E3DV6
-	#define BONDTECH3MM
-	#define PULSE_HEATEDBED
-	#define CUSTOM_MENDEL_NAME "Pulse A-136"
-#endif
-
-#define FIRMWARE_VERSION " 1"
-#define MACHINE_NAME CUSTOM_MENDEL_NAME
-
-#ifdef E3DV6
-	#define HEATER_0_MAXTEMP 305
-	#define TEMP_SENSOR_0 5
-#else
-	#define HEATER_0_MAXTEMP 245
-	#define TEMP_SENSOR_0 5
-#endif
-
-#ifdef BONDTECH
-	#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,490}  // Bondtech
-#else 
-	#ifdef BONDTECH3MM 
-		#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,510}  // Bondtech 3mm
-	#else
-		#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,475}  // EZR
-	#endif
-#endif
-
-#ifdef PULSE_HEATEDBED
-	#define TEMP_SENSOR_BED 5
-	#define Z_MAX_POS 175 
-#else
-	#define TEMP_SENSOR_BED 0
-	#define Z_MAX_POS 180 
-#endif
-
 
 #include "Configuration_adv.h"
 #include "thermistortables.h"
