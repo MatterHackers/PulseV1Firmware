@@ -2,6 +2,7 @@
 #define CONFIGURATION_H
 
 #include "boards.h"
+#include "Configuration_Pulse.h"
 
 // This configuration file contains the basic settings.
 // Advanced settings can be found in Configuration_adv.h
@@ -56,7 +57,7 @@
 #endif
 
 // Define this to set a custom name for your generic Mendel,
-#define CUSTOM_MENDEL_NAME "Pulse i3"
+//#define CUSTOM_MENDEL_NAME "Pulse i3" // defined in Configuration_Pulse.h
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -115,7 +116,7 @@
 #define TEMP_SENSOR_0 5
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
-#define TEMP_SENSOR_BED 0
+//#define TEMP_SENSOR_BED 0 // defined in Configuration_Pulse.h
 
 // This makes temp sensor 1 a redundant sensor for sensor 0. If the temperatures difference between these sensors is to high the print will be aborted.
 //#define TEMP_SENSOR_1_AS_REDUNDANT
@@ -286,6 +287,7 @@ your extruder heater takes 2 minutes to hit the target on heating.
   // #define ENDSTOPPULLUP_XMIN
   // #define ENDSTOPPULLUP_YMIN
   // #define ENDSTOPPULLUP_ZMIN
+  // #define ENDSTOPPULLUP_ROS0
 #endif
 
 #ifdef ENDSTOPPULLUPS
@@ -295,15 +297,17 @@ your extruder heater takes 2 minutes to hit the target on heating.
   #define ENDSTOPPULLUP_XMIN
   #define ENDSTOPPULLUP_YMIN
   #define ENDSTOPPULLUP_ZMIN
+  #define ENDSTOPPULLUP_ROS0
 #endif
 
 // The pullups are needed if you directly connect a mechanical endswitch between the signal and ground pins.
 const bool X_MIN_ENDSTOP_INVERTING = true; // set to true to invert the logic of the endstop.
 const bool Y_MIN_ENDSTOP_INVERTING = true; // set to true to invert the logic of the endstop.
-const bool Z_MIN_ENDSTOP_INVERTING = true; // set to true to invert the logic of the endstop.
+const bool Z_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool X_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of the endstop.
 const bool Y_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of the endstop.
 const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of the endstop.
+const bool NDSTOPPULLUP_ROS0_INVERTING = true; // set to true to invert the logic of the endstop.
 //#define DISABLE_MAX_ENDSTOPS
 //#define DISABLE_MIN_ENDSTOPS
 
@@ -341,93 +345,12 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #define min_software_endstops false // If true, axis won't move to coordinates less than HOME_POS.
 #define max_software_endstops true  // If true, axis won't move to coordinates greater than the defined lengths below.
 
-// *************** START PULSE OPTIONS
-
-// Pulse v1 options
-// A = Machine type
-// -
-// 0 = Standard Bed, 1 = Heated Bed, 2 = Big Not Heated b Bed, 3 = Big Heated Bed
-// 2 = No LCD, 3 = LCD
-// 4 = EZ-Struder & E3D light, 5 = BondTech & E3Dv6, 6 = 3mm BondTech & 3mm E3Dv6
-
-#define BedType 3
-#define ControllerType 3
-#define ExtruderType 6
-
-#if BedType == 0 // Standard Bed
-#define TEMP_SENSOR_BED 0
-// Travel limits after homing
-#define X_MAX_POS 205
-#define X_MIN_POS 0
-#define Y_MAX_POS 205
-#define Y_MIN_POS 0
-#define Z_MAX_POS 180
-#define Z_MIN_POS -10
-#elif BedType == 1 // Heated Bed
-#define TEMP_SENSOR_BED 5
-// Travel limits after homing
-#define X_MAX_POS 205
-#define X_MIN_POS 0
-#define Y_MAX_POS 205
-#define Y_MIN_POS 0
-#define Z_MAX_POS 180
-#define Z_MIN_POS -10
-#elif BedType == 2 // Big Standard Bed
-#define TEMP_SENSOR_BED 0
-// Travel limits after homing
-#define X_MAX_POS 253
-#define X_MIN_POS 0
-#define Y_MAX_POS 225
-#define Y_MIN_POS 0
-#define Z_MAX_POS 175
-#define Z_MIN_POS -10
-#elif BedType == 3 // Big Heated Bed
-#define TEMP_SENSOR_BED 5
-#define Z_MAX_POS 175 
-// Travel limits after homing
-#define X_MAX_POS 253
-#define X_MIN_POS 0
-#define Y_MAX_POS 225
-#define Y_MIN_POS 0
-#define Z_MAX_POS 175
-#define Z_MIN_POS -10
-#endif
-
-#if ControllerType == 2 // no controller
-#elif ControllerType == 3 // LCD controller (no change)
-#define ControllerString = "3"
-#endif
-
-#if ExtruderType == 4 // EZ Struder
-#define HEATER_0_MAXTEMP 245
-#define TEMP_SENSOR_0 5
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,475}  // EZR
-#elif ExtruderType == 5 // BondTech & E3Dv6
-#define HEATER_0_MAXTEMP 305
-#define TEMP_SENSOR_0 5
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,490}  // Bondtech
-#elif ExtruderType == 6 // BondTech & E3Dv6 3mm
-#define HEATER_0_MAXTEMP 305
-#define TEMP_SENSOR_0 5
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,510}  // Bondtech 3mm
-#endif
-
-#define STRINGIZE2(s) #s
-#define STRINGIZE(s) STRINGIZE2(s)
-#define CUSTOM_MENDEL_NAME "Pulse A-" STRINGIZE(BedType) STRINGIZE(ControllerType) STRINGIZE(ExtruderType)
-
-#define FIRMWARE_VERSION " 1"
-#define MACHINE_NAME CUSTOM_MENDEL_NAME
-
-// *************** END PULSE OPTIONS
+// OPTIONS FOR THIS CAME FROM Configuration_Pulse.h
 
 #define X_MAX_LENGTH (X_MAX_POS - X_MIN_POS)
 #define Y_MAX_LENGTH (Y_MAX_POS - Y_MIN_POS)
 #define Z_MAX_LENGTH (Z_MAX_POS - Z_MIN_POS)
 //============================= Bed Auto Leveling ===========================
-
-//#define ENABLE_AUTO_BED_LEVELING // Delete the comment to enable (remove // at the start of the line)
-#define Z_PROBE_REPEATABILITY_TEST  // If not commented out, Z-Probe Repeatability test will be included if Auto Bed Leveling is Enabled.
 
 #ifdef ENABLE_AUTO_BED_LEVELING
 
@@ -450,16 +373,9 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
   // Note: this feature occupies 10'206 byte
   #ifdef AUTO_BED_LEVELING_GRID
 
-    // set the rectangle in which to probe
-    #define LEFT_PROBE_BED_POSITION 15
-    #define RIGHT_PROBE_BED_POSITION 170
-    #define BACK_PROBE_BED_POSITION 180
-    #define FRONT_PROBE_BED_POSITION 20
-
      // set the number of grid points per dimension
      // I wouldn't see a reason to go above 3 (=9 probing points on the bed)
-    #define AUTO_BED_LEVELING_GRID_POINTS 2
-
+    #define AUTO_BED_LEVELING_GRID_POINTS 3
 
   #else  // not AUTO_BED_LEVELING_GRID
     // with no grid, just probe 3 arbitrary points.  A simple cross-product
@@ -477,9 +393,9 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
   // these are the offsets to the probe relative to the extruder tip (Hotend - Probe)
   // X and Y offsets must be integers
-  #define X_PROBE_OFFSET_FROM_EXTRUDER -25
-  #define Y_PROBE_OFFSET_FROM_EXTRUDER -29
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER -12.35
+  #define X_PROBE_OFFSET_FROM_EXTRUDER 0
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER 0
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER 0
 
   #define Z_RAISE_BEFORE_HOMING 4       // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                         // Be sure you have this distance over your Z_MAX_POS in case

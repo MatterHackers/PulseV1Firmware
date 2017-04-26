@@ -2782,12 +2782,6 @@ Sigma_Exit:
       SERIAL_PROTOCOLLN("");
 #endif
       break;
-    case 120: // M120
-      enable_endstops(false) ;
-      break;
-    case 121: // M121
-      enable_endstops(true) ;
-      break;
     case 119: // M119
     SERIAL_PROTOCOLLN(MSG_M119_REPORT);
       #if defined(X_MIN_PIN) && X_MIN_PIN > -1
@@ -2814,9 +2808,19 @@ Sigma_Exit:
         SERIAL_PROTOCOLPGM(MSG_Z_MAX);
         SERIAL_PROTOCOLLN(((READ(Z_MAX_PIN)^Z_MAX_ENDSTOP_INVERTING)?MSG_ENDSTOP_HIT:MSG_ENDSTOP_OPEN));
       #endif
+      #if defined(RUN_OUT_SENSOR_0) && RUN_OUT_SENSOR_0 > -1
+        SERIAL_PROTOCOLPGM("ros_0: ");
+        SERIAL_PROTOCOLLN(((READ(RUN_OUT_SENSOR_0)^NDSTOPPULLUP_ROS0_INVERTING)?MSG_ENDSTOP_HIT:MSG_ENDSTOP_OPEN));
+      #endif
       break;
       //TODO: update for all axis, use for loop
     #ifdef BLINKM
+    case 120: // M120
+      enable_endstops(false) ;
+      break;
+    case 121: // M121
+      enable_endstops(true) ;
+      break;
     case 150: // M150
       {
         byte red;
