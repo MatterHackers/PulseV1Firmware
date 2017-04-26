@@ -2,6 +2,7 @@
 #define PINS_H
 
 #include "boards.h"
+#include "Configuration_Pulse.h"
 
 #if !MB(5DPRINT)
 #define X_MS1_PIN -1
@@ -605,10 +606,17 @@
     #define Y_MIN_PIN          14
     #define Y_MAX_PIN          -1 // 15
 
+    // this is so we can use the y max switch as a fillement run out switch
+    #define RUN_OUT_SENSOR_0   15
+
     #define Z_STEP_PIN         46
     #define Z_DIR_PIN          48
     #define Z_ENABLE_PIN       62
-    #define Z_MIN_PIN          -1 // 18
+	#ifdef ENABLE_AUTO_BED_LEVELING
+    #define Z_MIN_PIN          18
+	#else
+    #define Z_MIN_PIN          -1
+	#endif
     #define Z_MAX_PIN          19
 
     #define Y2_STEP_PIN        36
@@ -2964,7 +2972,7 @@ DaveX plan for Teensylu/printrboard-type pinouts (ref teensylu & sprinter) for a
 #define Z_MIN_PIN          -1
 #endif
 
-#define SENSITIVE_PINS {0, 1, X_STEP_PIN, X_DIR_PIN, X_ENABLE_PIN, X_MIN_PIN, X_MAX_PIN, Y_STEP_PIN, Y_DIR_PIN, Y_ENABLE_PIN, Y_MIN_PIN, Y_MAX_PIN, Z_STEP_PIN, Z_DIR_PIN, Z_ENABLE_PIN, Z_MIN_PIN, Z_MAX_PIN, PS_ON_PIN, \
+#define SENSITIVE_PINS {0, 1, X_STEP_PIN, X_DIR_PIN, X_ENABLE_PIN, X_MIN_PIN, X_MAX_PIN, Y_STEP_PIN, Y_DIR_PIN, Y_ENABLE_PIN, Y_MIN_PIN, Y_MAX_PIN, Z_STEP_PIN, Z_DIR_PIN, Z_ENABLE_PIN, Z_MIN_PIN, Z_MAX_PIN, RUN_OUT_SENSOR_0, PS_ON_PIN, \
                         HEATER_BED_PIN, FAN_PIN,                  \
                         _E0_PINS _E1_PINS _E2_PINS             \
                         analogInputToDigitalPin(TEMP_0_PIN), analogInputToDigitalPin(TEMP_1_PIN), analogInputToDigitalPin(TEMP_2_PIN), analogInputToDigitalPin(TEMP_BED_PIN) }

@@ -938,6 +938,12 @@ void st_init()
     #endif
   #endif
 
+  #if defined(RUN_OUT_SENSOR_0) && RUN_OUT_SENSOR_0 > -1
+    SET_INPUT(RUN_OUT_SENSOR_0);
+    #ifdef ENDSTOPPULLUP_ROS0
+      WRITE(RUN_OUT_SENSOR_0,HIGH);
+    #endif
+  #endif
 
   //Initialize Step Pins
   #if defined(X_STEP_PIN) && (X_STEP_PIN > -1)
