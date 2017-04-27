@@ -342,7 +342,7 @@ const bool NDSTOPPULLUP_ROS0_INVERTING = true; // set to true to invert the logi
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR 1
 
-#define min_software_endstops false // If true, axis won't move to coordinates less than HOME_POS.
+#define min_software_endstops true // If true, axis won't move to coordinates less than HOME_POS.
 #define max_software_endstops true  // If true, axis won't move to coordinates greater than the defined lengths below.
 
 // OPTIONS FOR THIS CAME FROM Configuration_Pulse.h

@@ -4,7 +4,7 @@
 // Pulse v1 options
 // A = Machine type
 // -
-// 0 = Standard Bed, 1 = Heated Bed, 2 = Big Not Heated b Bed, 3 = Big Heated Bed, 4 = Big Heated Bed w' FSR probe
+// 0 = Standard Bed, 1 = Heated Bed, 2 = Big Not Heated b Bed, 3 = Big Heated Bed, 4 = Big Heated Bed w' probe
 // 2 = No LCD, 3 = LCD
 // 4 = EZ-Struder & E3D light, 5 = BondTech & E3Dv6, 6 = 3mm BondTech & 3mm E3Dv6
 
@@ -49,16 +49,15 @@
 #define Y_MIN_POS 0
 #define Z_MAX_POS 175
 #define Z_MIN_POS -10
-#elif BedType == 4 // Big Heated Bed w' FSR probe
+#elif BedType == 4 // Big Heated Bed w' probe
 #define TEMP_SENSOR_BED 5
-#define Z_MAX_POS 175 
 // Travel limits after homing
 #define X_MAX_POS 240
 #define X_MIN_POS 0
-#define Y_MAX_POS 215
+#define Y_MAX_POS 213
 #define Y_MIN_POS 0
-#define Z_MAX_POS 175
-#define Z_MIN_POS -10
+#define Z_MAX_POS 180
+#define Z_MIN_POS 0 // Happens automatically because there is a z-min switch so anything less than zero is ignored.
 #define ENABLE_AUTO_BED_LEVELING // Delete the comment to enable (remove // at the start of the line)
 #define Z_PROBE_REPEATABILITY_TEST  // If not commented out, Z-Probe Repeatability test will be included if Auto Bed Leveling is Enabled.
 // set the rectangle in which to probe
