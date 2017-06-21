@@ -3136,7 +3136,7 @@ Sigma_Exit:
     #if NUM_SERVOS > 0
     case 280: // M280 - set servo position absolute. P: servo index, S: angle or microseconds
       {
-        int servo_index = 0;
+        int servo_index = -1;
         int servo_position = 0;
         if (code_seen('P'))
           servo_index = code_value();
