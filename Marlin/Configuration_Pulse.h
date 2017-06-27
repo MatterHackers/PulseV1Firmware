@@ -14,8 +14,8 @@
 // Third Digit (Hotend & Extruder)
 // 4 = EZ-Struder & E3D light, 5 = BondTech & E3Dv6, 6 = 3mm BondTech & 3mm E3Dv6
 
-#define BedType 7
-#define ControllerType 2
+#define BedType 5
+#define ControllerType 3
 #define ExtruderType 5
 
 #if BedType == 0 // Standard Bed
@@ -77,7 +77,7 @@
 #define X_MIN_POS 0
 #define Y_MAX_POS 215
 #define Y_MIN_POS 0
-#define Z_MAX_POS 200
+#define Z_MAX_POS 195
 #define Z_MIN_POS -10
 
 #elif BedType == 6 // Not Heated, Inductive Zmax, w' probe
@@ -99,7 +99,7 @@
 #define X_MIN_POS 0
 #define Y_MAX_POS 213
 #define Y_MIN_POS 0
-#define Z_MAX_POS 200
+#define Z_MAX_POS 195
 #define Z_MIN_POS 0 // Happens automatically because there is a z-min switch so anything less than zero is ignored.
 #define ENABLE_AUTO_BED_LEVELING // Delete the comment to enable (remove // at the start of the line)
 //#define Z_PROBE_REPEATABILITY_TEST  // If not commented out, Z-Probe Repeatability test will be included if Auto Bed Leveling is Enabled.
