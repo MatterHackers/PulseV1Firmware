@@ -5,7 +5,7 @@
 // A = Machine type
 // 
 // First Digit (Bed & Leveling)
-// 0 = Standard Bed, 1 = Heated Bed, 2 = Big Not Heated b Bed, 3 = Big Heated Bed,
+// 0 = Standard Bed, 1 = Heated Bed, 2 = Big Not Heated Bed, 3 = Big Heated Bed,
 // 4 = Not Heated, Inductive Zmax, 5 = Heated, Inductive Zmax, 6 = Not Heated, Probe, 7 = Heated, Probe
 //
 // Second Digit (Electronics)
@@ -14,9 +14,9 @@
 // Third Digit (Hotend & Extruder)
 // 4 = EZ-Struder & E3D light, 5 = BondTech & E3Dv6, 6 = 3mm BondTech & 3mm E3Dv6
 
-#define BedType 5
+#define BedType 7
 #define ControllerType 3
-#define ExtruderType 5
+#define ExtruderType 6
 
 #if BedType == 0 // Standard Bed
 #define TEMP_SENSOR_BED 0
@@ -117,7 +117,7 @@
 #elif ExtruderType == 5 // BondTech & E3Dv6
 #define HEATER_0_MAXTEMP 305
 #define TEMP_SENSOR_0 5
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,490}  // Bondtech
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,470}  // Bondtech
 #elif ExtruderType == 6 // BondTech & E3Dv6 3mm
 #define HEATER_0_MAXTEMP 305
 #define TEMP_SENSOR_0 5
