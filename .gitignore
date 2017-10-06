@@ -118,3 +118,6 @@ applet/
 #PlatformIO files/dirs
 .pioenvs
 .piolib
+AutoBuild/AutoBuild/obj/
+AutoBuild/.vs/
+AutoBuild/AutoBuild/bin/
