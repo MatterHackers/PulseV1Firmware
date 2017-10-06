@@ -38,6 +38,8 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
+#include "Configuration_Pulse.h"
+
 /**
  *
  *  ***********************************
