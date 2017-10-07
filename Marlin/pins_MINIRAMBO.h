@@ -31,21 +31,23 @@
 #define BOARD_NAME          "Mini Rambo"
 #define LARGE_FLASH         true
 
+#define SERVO0_PIN         23
+
 //
 // Limit Switches
 //
-#define X_MIN_PIN          12
-#define X_MAX_PIN          30
-#define Y_MIN_PIN          11
-#define Y_MAX_PIN          24
-#define Z_MIN_PIN          10
-#define Z_MAX_PIN          23
+#define X_MIN_PIN          12 //12
+#define X_MAX_PIN          -1 //30
+#define Y_MIN_PIN          11 //11
+#define Y_MAX_PIN          -1 //24
+#define Z_MIN_PIN          -1 //10
+#define Z_MAX_PIN          10  //23
 
 //
 // Z Probe (when not Z_MIN_PIN)
 //
 #ifndef Z_MIN_PROBE_PIN
-  #define Z_MIN_PROBE_PIN  23
+  #define Z_MIN_PROBE_PIN  24
 #endif
 
 //
@@ -140,3 +142,18 @@
 
   #endif // NEWPANEL
 #endif // ULTRA_LCD
+
+ #if defined(VIKI2) || defined(miniVIKI)
+    #define BEEPER_PIN 85
+    // Pins for DOGM SPI LCD Support
+    #define DOGLCD_A0  70 
+    #define DOGLCD_CS  71 
+    #define LCD_SCREEN_ROT_180
+
+    #endif // Viki2
+        
+#ifdef TEMP_STAT_LEDS
+      #define STAT_LED_RED_PIN      30 //22
+      #define STAT_LED_BLUE_PIN      84 //32
+#endif
+
