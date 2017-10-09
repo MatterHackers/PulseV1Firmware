@@ -23,6 +23,7 @@
 #ifndef MARLIN_CONFIG_H
 #define MARLIN_CONFIG_H
 
+#include "Configuration_Pulse.h"
 #include "fastio.h"
 #include "macros.h"
 #include "boards.h"

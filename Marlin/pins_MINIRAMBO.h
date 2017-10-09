@@ -43,6 +43,8 @@
 #define Z_MIN_PIN          -1 //10
 #define Z_MAX_PIN          10  //23
 
+#define FIL_RUNOUT_PIN     30 // use the x max pin
+
 //
 // Z Probe (when not Z_MIN_PIN)
 //
@@ -149,8 +151,7 @@
     #define DOGLCD_A0  70 
     #define DOGLCD_CS  71 
     #define LCD_SCREEN_ROT_180
-
-    #endif // Viki2
+#endif // Viki2
         
 #ifdef TEMP_STAT_LEDS
       #define STAT_LED_RED_PIN      30 //22
