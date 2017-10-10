@@ -30,7 +30,7 @@
 	#define Y_MAX_POS 213
 	#define Y_MIN_POS 0
 	#define Z_MAX_POS 195
-	#define Z_MIN_POS 0 // Happens automatically because there is a z-min switch so anything less than zero is ignored.
+	#define Z_MIN_POS 0 
 	#define AUTO_BED_LEVELING_BILINEAR // Delete the comment to enable (remove // at the start of the line)
 	//#define Z_PROBE_REPEATABILITY_TEST  // If not commented out, Z-Probe Repeatability test will be included if Auto Bed Leveling is Enabled.
 #endif
@@ -46,14 +46,23 @@
 	#define HEATER_0_MAXTEMP 255
 	#define TEMP_SENSOR_0 5
 	#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,92.4}  // EZR
+	#define  DEFAULT_Kp 18.45
+	#define  DEFAULT_Ki 1.22
+	#define  DEFAULT_Kd 69.84
 #elif ExtruderType == 2 // BondTech & E3Dv6
 	#define HEATER_0_MAXTEMP 305
 	#define TEMP_SENSOR_0 5
 	#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,470}  // Bondtech
+	#define  DEFAULT_Kp 18.45
+	#define  DEFAULT_Ki 1.22
+	#define  DEFAULT_Kd 69.84
 #elif ExtruderType == 3 // BondTech & E3Dv6 3mm
 	#define HEATER_0_MAXTEMP 305
 	#define TEMP_SENSOR_0 5
 	#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,510}  // Bondtech 3mm
+	#define  DEFAULT_Kp 18.45
+	#define  DEFAULT_Ki 1.22
+	#define  DEFAULT_Kd 69.84
 #endif
 
 #define STRINGIZE2(s) #s

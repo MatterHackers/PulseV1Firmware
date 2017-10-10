@@ -270,12 +270,12 @@
 // Extruder temperature must be close to target for this long before M109 returns success
 #define TEMP_RESIDENCY_TIME 10  // (seconds)
 #define TEMP_HYSTERESIS 4 // 3       // (degC) range of +/- temperatures considered "close" to the target one
-#define TEMP_WINDOW     2 // 1       // (degC) Window around target to start the residency timer x degC early.
+#define TEMP_WINDOW     3 // 2 // 1       // (degC) Window around target to start the residency timer x degC early.
 
 // Bed temperature must be close to target for this long before M190 returns success
 #define TEMP_BED_RESIDENCY_TIME 10  // (seconds)
-#define TEMP_BED_HYSTERESIS 3       // (degC) range of +/- temperatures considered "close" to the target one
-#define TEMP_BED_WINDOW     1       // (degC) Window around target to start the residency timer x degC early.
+#define TEMP_BED_HYSTERESIS 4 // 3       // (degC) range of +/- temperatures considered "close" to the target one
+#define TEMP_BED_WINDOW     2 // 1       // (degC) Window around target to start the residency timer x degC early.
 
 // The minimal temperature defines the temperature below which the heater will not be enabled It is used
 // to check that the wiring to the thermistor is not broken.
@@ -318,9 +318,10 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
   // Ultimaker
-  #define  DEFAULT_Kp 22.2
-  #define  DEFAULT_Ki 1.08
-  #define  DEFAULT_Kd 114
+  // defined in Configuration_Pulse.h
+  //#define  DEFAULT_Kp 22.2
+  //#define  DEFAULT_Ki 1.08
+  //#define  DEFAULT_Kd 114
 
   // MakerGear
   //#define  DEFAULT_Kp 7.0
@@ -738,7 +739,7 @@
                                  // It is assumed that when logic high = filament available
                                  //                    when logic  low = filament ran out
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
-  #define FIL_RUNOUT_INVERTING false // set to true to invert the logic of the sensor.
+  #define FIL_RUNOUT_INVERTING true // set to true to invert the logic of the sensor.
   #define ENDSTOPPULLUP_FIL_RUNOUT // Uncomment to use internal pullup for filament runout pins if the sensor is defined.
   #define FILAMENT_RUNOUT_SCRIPT "M600"
 #endif
