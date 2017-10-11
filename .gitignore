@@ -6,3 +6,8 @@ applet/
 *.bak
 *.DS_Store
 *.idea
+AutoBuild/.vs/
+Marlin/Build/
+Marlin/Development/
+AutoBuild/AutoBuild/obj/
+AutoBuild/AutoBuild/bin/
