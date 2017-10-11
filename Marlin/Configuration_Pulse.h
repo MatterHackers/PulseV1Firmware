@@ -46,23 +46,23 @@
 	#define HEATER_0_MAXTEMP 255
 	#define TEMP_SENSOR_0 5
 	#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,92.4}  // EZR
-	#define  DEFAULT_Kp 18.45
-	#define  DEFAULT_Ki 1.22
-	#define  DEFAULT_Kd 69.84
+	#define  DEFAULT_Kp 15.84
+	#define  DEFAULT_Ki 1.07
+	#define  DEFAULT_Kd 58.40
 #elif ExtruderType == 2 // BondTech & E3Dv6
 	#define HEATER_0_MAXTEMP 305
 	#define TEMP_SENSOR_0 5
 	#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,470}  // Bondtech
-	#define  DEFAULT_Kp 18.45
-	#define  DEFAULT_Ki 1.22
-	#define  DEFAULT_Kd 69.84
+	#define  DEFAULT_Kp 15.84
+	#define  DEFAULT_Ki 1.07
+	#define  DEFAULT_Kd 58.40
 #elif ExtruderType == 3 // BondTech & E3Dv6 3mm
 	#define HEATER_0_MAXTEMP 305
 	#define TEMP_SENSOR_0 5
 	#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,510}  // Bondtech 3mm
-	#define  DEFAULT_Kp 18.45
-	#define  DEFAULT_Ki 1.22
-	#define  DEFAULT_Kd 69.84
+	#define  DEFAULT_Kp 15.84
+	#define  DEFAULT_Ki 1.07
+	#define  DEFAULT_Kd 58.40
 #endif
 
 #define STRINGIZE2(s) #s
