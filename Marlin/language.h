@@ -102,7 +102,7 @@
   /* nothing here yet */
 
 // Common serial messages
-#define MSG_MARLIN "Marlin"
+#define MSG_MARLIN "Pulse"
 
 // Serial Console Messages (do not translate those!)
 

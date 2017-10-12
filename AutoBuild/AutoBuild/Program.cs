@@ -140,8 +140,9 @@ namespace AutoBuild
 	{
 		private static readonly string[] activeFirmware = new string[]
 		{
-			"524", "525", "534", "535",
-			"725", "734","735", "736",
+			"111", "112", "113",
+			"121", "122", "123",
+			"131", "132", "133",
 		};
 
 		private static void GetOption(string typeDescription, string[] options, ref int selection, int startingIndex)
@@ -187,23 +188,22 @@ namespace AutoBuild
 			else
 			{
 				// First Digit (Bed & Leveling)
-				// 0 = Standard Bed, 1 = Heated Bed, 2 = Big Not Heated Bed, 3 = Big Heated Bed,
-				// 4 = Not Heated, Inductive Zmax, 5 = Heated, Inductive Zmax, 6 = Not Heated, Probe, 7 = Heated, Probe
+				// 1 = Heated, Probe
 				int bedType = -1;
-				string[] bedOptions = new string[] { "Standard Bed", "Heated Bed", "Big Not Heated Bed", "Big Heated Bed", "Not Heated, Inductive Zmax", "Heated, Inductive Zmax", "Not Heated, Probe", "Heated, Probe" };
-				GetOption("Select Bed Type:", bedOptions, ref bedType, 0);
+				string[] bedOptions = new string[] { "Heated, Probe" };
+				GetOption("Select Bed Type:", bedOptions, ref bedType, 1);
 
 				// Second Digit (Electronics)
-				// 2 = No LCD, 3 = LCD
+				// 1 = No LCD, 2 = LCD, 3 = Viki
 				int electronicsType = -1;
-				string[] electronicsOptions = new string[] { "No LCD", "LCD" };
-				GetOption("Select Electronics Type:", electronicsOptions, ref electronicsType, 2);
+				string[] electronicsOptions = new string[] { "No LCD", "LCD", "Viki" };
+				GetOption("Select Electronics Type:", electronicsOptions, ref electronicsType, 1);
 
 				// Third Digit (Hotend & Extruder)
-				// 4 = EZ-Struder & E3D light, 5 = BondTech & E3Dv6, 6 = 3mm BondTech & 3mm E3Dv6
+				// 1 = EZ-Struder & E3D light, 2 = BondTech & E3Dv6, 3 = 3mm BondTech & 3mm E3Dv6
 				int hotendExtruderType = -1;
 				string[] hotendExtruderOptions = new string[] { "EZ-Struder & E3D light", "BondTech & E3Dv6", "3mm BondTech & 3mm E3Dv6" };
-				GetOption("Select Hotend and Extruder Type:", hotendExtruderOptions, ref hotendExtruderType, 4);
+				GetOption("Select Hotend and Extruder Type:", hotendExtruderOptions, ref hotendExtruderType, 1);
 
 				var builder = new BuildFirmware(bedType, electronicsType, hotendExtruderType);
 			}

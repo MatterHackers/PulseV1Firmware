@@ -67,10 +67,8 @@
 
 #define STRINGIZE2(s) #s
 #define STRINGIZE(s) STRINGIZE2(s)
-#define CUSTOM_MACHINE_NAME "Pulse B-" STRINGIZE(BedType) STRINGIZE(ControllerType) STRINGIZE(ExtruderType)
-
 #define FIRMWARE_VERSION " 1"
-#define MACHINE_NAME CUSTOM_MACHINE_NAME
+#define CUSTOM_MACHINE_NAME "Pulse B-" STRINGIZE(BedType) STRINGIZE(ControllerType) STRINGIZE(ExtruderType) FIRMWARE_VERSION
 
 // set the rectangle in which to probe
 #define LEFT_PROBE_BED_POSITION 35 // (X_MIN_POS + 15)
