@@ -14,10 +14,10 @@
 // Third Digit (Hotend & Extruder)
 // 1 = EZ-Struder & E3D light, 2 = BondTech & E3Dv6, 3 = 3mm BondTech & 3mm E3Dv6
 
-#define MachineType B
+#define MachineType "B"
 #define BedType 1
 #define ControllerType 2
-#define ExtruderType 2
+#define ExtruderType 3
 
 // B - defines that this is MOTHERBOARD BOARD_MINIRAMBO
 #define MOTHERBOARD BOARD_MINIRAMBO
@@ -67,8 +67,10 @@
 
 #define STRINGIZE2(s) #s
 #define STRINGIZE(s) STRINGIZE2(s)
+#define MODLE_NUMBER STRINGIZE(BedType) STRINGIZE(ControllerType) STRINGIZE(ExtruderType)
 #define FIRMWARE_VERSION " 1"
-#define CUSTOM_MACHINE_NAME "Pulse B-" STRINGIZE(BedType) STRINGIZE(ControllerType) STRINGIZE(ExtruderType) FIRMWARE_VERSION
+#define CUSTOM_MACHINE_NAME "Pulse " MachineType "-" MODLE_NUMBER FIRMWARE_VERSION
+#define SHORT_BUILD_VERSION MachineType "-" MODLE_NUMBER
 
 // set the rectangle in which to probe
 #define LEFT_PROBE_BED_POSITION 35 // (X_MIN_POS + 15)
