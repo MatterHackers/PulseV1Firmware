@@ -397,7 +397,7 @@
 #define DIGIPOT_MOTOR_CURRENT {135,135,135,135,135} // Values 0-255 (RAMBO 135 = ~0.75A, 185 = ~1A)
 
 // Motor Current controlled via PWM (Overridable on supported boards with PWM-driven motor driver current)
-//#define PWM_MOTOR_CURRENT {1300, 1300, 1250} // Values in milliamps
+//#define PWM_MOTOR_CURRENT {1000, 1000, 1200} // Values in milliamps
 
 // uncomment to enable an I2C based DIGIPOT like on the Azteeg X3 Pro
 //#define DIGIPOT_I2C
