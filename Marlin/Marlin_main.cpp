@@ -672,6 +672,7 @@ XYZ_CONSTS_FROM_CONFIG(signed char, home_dir, HOME_DIR)
  */
 
 void stop();
+void stop_probe();
 
 void get_available_commands();
 void process_next_command();
@@ -2014,7 +2015,7 @@ static void clean_up_after_endstop_or_probe_move() {
 
     // When deploying make sure BLTOUCH is not already triggered
     #if ENABLED(BLTOUCH)
-      if (deploy && TEST_BLTOUCH()) { stop(); return true; }
+      if (deploy && TEST_BLTOUCH()) { stop_probe(); return true; }
     #elif ENABLED(Z_PROBE_SLED)
       if (axis_unhomed_error(true, false, false)) { stop(); return true; }
     #elif ENABLED(Z_PROBE_ALLEN_KEY)
@@ -10150,6 +10151,7 @@ void kill(const char* lcd_msg) {
   } // Wait for reset
 }
 
+
 /**
  * Turn off heaters and stop the print in progress
  * After a stop the machine may be resumed with M999
@@ -10161,6 +10163,16 @@ void stop() {
     Stopped_gcode_LastN = gcode_LastN; // Save last g_code for restart
     SERIAL_ERROR_START;
     SERIAL_ERRORLNPGM(MSG_ERR_STOPPED);
+    LCD_MESSAGEPGM(MSG_STOPPED);
+  }
+}
+
+void stop_probe() {
+  thermalManager.disable_all_heaters();
+  if (IsRunning()) {
+    Running = false;
+    Stopped_gcode_LastN = gcode_LastN; // Save last g_code for restart
+    SERIAL_ERRORLNPGM(MSG_PROBE_ERR_STOPPED);
     LCD_MESSAGEPGM(MSG_STOPPED);
   }
 }

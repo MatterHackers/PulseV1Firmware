@@ -135,6 +135,7 @@
 #define MSG_COUNT_A                         " Count A: "
 #define MSG_ERR_KILLED                      "Printer halted. kill() called!"
 #define MSG_ERR_STOPPED                     "Printer stopped due to errors. Fix the error and use M999 to restart. (Temperature is reset. Set it after restarting)"
+#define MSG_PROBE_ERR_STOPPED               "M999: Probe not deployed. 1. Turn printer off and back on. 2. Connect to printer. 3. Home printer. 4. Manually pull down probe pin. 5. Restart leveling."
 #define MSG_BUSY_PROCESSING                 "busy: processing"
 #define MSG_BUSY_PAUSED_FOR_USER            "busy: paused for user"
 #define MSG_BUSY_PAUSED_FOR_INPUT           "busy: paused for input"
