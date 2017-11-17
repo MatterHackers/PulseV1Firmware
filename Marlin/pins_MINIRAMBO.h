@@ -154,7 +154,7 @@
 #endif // Viki2
         
 #ifdef TEMP_STAT_LEDS
-      #define STAT_LED_RED_PIN      30 //22
-      #define STAT_LED_BLUE_PIN      84 //32
+      #define STAT_LED_RED_PIN      19 //22
+      #define STAT_LED_BLUE_PIN      18 //32
 #endif
 
