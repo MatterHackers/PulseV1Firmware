@@ -499,7 +499,7 @@
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2[, E3]]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 250, 250, 30, 25 }
+#define DEFAULT_MAX_FEEDRATE          { 250, 250, 30, 50 }
 
 /**
  * Default Max Acceleration (change/s) change = mm/s
@@ -1388,7 +1388,7 @@
 // Temperature status LEDs that display the hotend and bed temperature.
 // If all hotends and bed temperature and temperature setpoint are < 54C then the BLUE led is on.
 // Otherwise the RED led is on. There is 1C hysteresis.
-#define TEMP_STAT_LEDS
+//#define TEMP_STAT_LEDS
 
 // M240  Triggers a camera by emulating a Canon RC-1 Remote
 // Data from: http://www.doc-diy.net/photo/rc-1_hacked/
