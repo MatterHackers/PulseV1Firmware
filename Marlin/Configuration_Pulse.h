@@ -6,7 +6,7 @@
 // A = RAMPS, B = RamboMini
 // 
 // First Digit (Bed & Leveling)
-// 1 = Heated, Probe, BuildTak, 2 = Garolite
+// 1 = Heated, Probe, BuildTak, 2 = Heated, Probe, BuildTak, Tall Frame
 //
 // Second Digit (Electronics)
 // 1 = No LCD, 2 = LCD, 3 = Viki
@@ -14,23 +14,23 @@
 // Third Digit (Hotend & Extruder)
 // 1 = EZ-Struder & E3D light, 2 = BondTech & E3Dv6, 3 = 3mm BondTech & 3mm E3Dv6
 
-#define MachineType "B"
+#define MachineType "C"
 #define BedType 1
 #define ControllerType 2
-#define ExtruderType 2
+#define ExtruderType 3
 
 // B - defines that this is MOTHERBOARD BOARD_MINIRAMBO
 #define MOTHERBOARD BOARD_MINIRAMBO
 
-#if BedType == 1 // Big Heated Bed w' probe
+#if BedType == 1 // Big Heated Bed w' probe & New larger frame
 	#define TEMP_SENSOR_BED 5
 	// Travel limits after homing
-	#define X_MAX_POS 240
+	#define X_MAX_POS 245
 	#define X_MIN_POS 0
-	#define Y_MAX_POS 213
+	#define Y_MAX_POS 220
 	#define Y_MIN_POS 0
-	#define Z_MAX_POS 195
-	#define Z_MIN_POS 0 
+	#define Z_MAX_POS 215
+	#define Z_MIN_POS -5
 	#define AUTO_BED_LEVELING_BILINEAR // Delete the comment to enable (remove // at the start of the line)
 	//#define Z_PROBE_REPEATABILITY_TEST  // If not commented out, Z-Probe Repeatability test will be included if Auto Bed Leveling is Enabled.
 #endif
@@ -39,6 +39,7 @@
 #elif ControllerType == 2 // LCD controller (no change)
 	#define REPRAP_DISCOUNT_SMART_CONTROLLER
 #elif ControllerType == 3 // Viki controller
+	#define TEMP_STAT_LEDS
 	#define LCD_I2C_VIKI
 #endif
 

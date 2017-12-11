@@ -51,7 +51,7 @@ namespace AutoBuild
 			{
 				// wait to make sure the file is closed
 				Thread.Sleep(500);
-				var destFile = Path.Combine(hexPath, "..", $"{BedType}{ControllerType}{ExtruderType}.hex");
+				var destFile = Path.Combine(hexPath, "..", $"C{BedType}{ControllerType}{ExtruderType}.hex");
 				if(File.Exists(destFile))
 				{
 					File.Delete(destFile);
@@ -72,9 +72,16 @@ namespace AutoBuild
 			var timer = Stopwatch.StartNew();
 			var pathAndFile = Path.Combine(hexPath, hexFile);
 			while(Directory.Exists(hexPath)
-				&& timer.Elapsed.TotalSeconds < 10)
+				&& timer.Elapsed.TotalSeconds < 30)
 			{
-				Directory.Delete(hexPath, true);
+				try
+				{
+					Directory.Delete(hexPath, true);
+				}
+				catch
+				{
+
+				}
 				Thread.Sleep(1000);
 			}
 
@@ -140,6 +147,7 @@ namespace AutoBuild
 	{
 		private static readonly string[] activeFirmware = new string[]
 		{
+			// big bed with level sensor & new tall frame
 			"111", "112", "113",
 			"121", "122", "123",
 			//"131", "132", "133",
