@@ -151,6 +151,7 @@ namespace AutoBuild
 			"111", "112", "113",
 			"121", "122", "123",
 			//"131", "132", "133",
+			"231", "232", "233",
 		};
 
 		private static void GetOption(string typeDescription, string[] options, ref int selection, int startingIndex)

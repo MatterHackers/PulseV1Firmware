@@ -3,10 +3,10 @@
 
 // Pulse v2 options
 // Letter (Machine Type)
-// A = RAMPS, B = RamboMini
+// A = RAMPS, B = RamboMini, C = RamboMini, Tall Frame
 // 
 // First Digit (Bed & Leveling)
-// 1 = Heated, Probe, BuildTak, 2 = Heated, Probe, BuildTak, Tall Frame
+// 1 = BuildTak, 2 = Garalite, Tall Frame
 //
 // Second Digit (Electronics)
 // 1 = No LCD, 2 = LCD, 3 = Viki
@@ -19,10 +19,10 @@
 #define ControllerType 2
 #define ExtruderType 3
 
-// B - defines that this is MOTHERBOARD BOARD_MINIRAMBO
+// C - defines that this is MOTHERBOARD BOARD_MINIRAMBO
 #define MOTHERBOARD BOARD_MINIRAMBO
 
-#if BedType == 1 // Big Heated Bed w' probe & New larger frame
+#if BedType == 1 || BedType == 2 // Big Heated Bed w' probe & New larger frame
 	#define TEMP_SENSOR_BED 5
 	// Travel limits after homing
 	#define X_MAX_POS 245
@@ -40,7 +40,7 @@
 	#define REPRAP_DISCOUNT_SMART_CONTROLLER
 #elif ControllerType == 3 // Viki controller
 	#define TEMP_STAT_LEDS
-	#define LCD_I2C_VIKI
+	#define VIKI2
 #endif
 
 #if ExtruderType == 1 // EZ Struder
@@ -69,7 +69,7 @@
 #define STRINGIZE2(s) #s
 #define STRINGIZE(s) STRINGIZE2(s)
 #define MODLE_NUMBER STRINGIZE(BedType) STRINGIZE(ControllerType) STRINGIZE(ExtruderType)
-#define FIRMWARE_VERSION " 2"
+#define FIRMWARE_VERSION " 1"
 #define CUSTOM_MACHINE_NAME "Pulse " MachineType "-" MODLE_NUMBER FIRMWARE_VERSION
 #define SHORT_BUILD_VERSION MachineType "-" MODLE_NUMBER
 
