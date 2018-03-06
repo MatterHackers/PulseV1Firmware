@@ -3,10 +3,10 @@
 
 // Pulse v2 options
 // Letter (Machine Type)
-// A = RAMPS, B = RamboMini
+// A = RAMPS, B = RamboMini, C = RamboMini, Tall Frame
 // 
 // First Digit (Bed & Leveling)
-// 1 = Heated, Probe, BuildTak, 2 = Heated, Probe, BuildTak, Tall Frame
+// 1 = BuildTak, 2 = Garalite, Tall Frame
 //
 // Second Digit (Electronics)
 // 1 = No LCD, 2 = LCD, 3 = Viki
@@ -16,13 +16,13 @@
 
 #define MachineType "C"
 #define BedType 1
-#define ControllerType 3
+#define ControllerType 2
 #define ExtruderType 3
 
-// B - defines that this is MOTHERBOARD BOARD_MINIRAMBO
+// C - defines that this is MOTHERBOARD BOARD_MINIRAMBO
 #define MOTHERBOARD BOARD_MINIRAMBO
 
-#if BedType == 1 // Big Heated Bed w' probe & New larger frame
+#if BedType == 1 || BedType == 2 // Big Heated Bed w' probe & New larger frame
 	#define TEMP_SENSOR_BED 5
 	// Travel limits after homing
 	#define X_MAX_POS 245
