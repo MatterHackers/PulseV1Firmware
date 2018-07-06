@@ -15,9 +15,9 @@
 // 1 = EZ-Struder & E3D light, 2 = BondTech & E3Dv6, 3 = 3mm BondTech & 3mm E3Dv6
 
 #define MachineType "C"
-#define BedType 1
-#define ControllerType 2
-#define ExtruderType 3
+#define BedType 2
+#define ControllerType 3
+#define ExtruderType 2
 
 // C - defines that this is MOTHERBOARD BOARD_MINIRAMBO
 #define MOTHERBOARD BOARD_MINIRAMBO
@@ -31,7 +31,7 @@
 	#define Y_MIN_POS 0
 	#define Z_MAX_POS 215
 	#define Z_MIN_POS -5
-	#define AUTO_BED_LEVELING_BILINEAR // Delete the comment to enable (remove // at the start of the line)
+	//#define AUTO_BED_LEVELING_BILINEAR // Delete the comment to enable (remove // at the start of the line)
 	//#define Z_PROBE_REPEATABILITY_TEST  // If not commented out, Z-Probe Repeatability test will be included if Auto Bed Leveling is Enabled.
 #endif
 
