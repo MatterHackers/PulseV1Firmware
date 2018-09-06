@@ -873,7 +873,7 @@
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
 //#define MANUAL_X_HOME_POS 0
-//#define MANUAL_Y_HOME_POS 0
+#define MANUAL_Y_HOME_POS -5
 //#define MANUAL_Z_HOME_POS 0 // Distance between the nozzle to printbed after homing
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
@@ -943,13 +943,21 @@
 // @section temperature
 
 // Preheat Constants
-#define PREHEAT_1_TEMP_HOTEND 210
-#define PREHEAT_1_TEMP_BED     55
-#define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
+#define PREHEAT_1_TEMP_HOTEND 210   // PLA
+#define PREHEAT_1_TEMP_BED     55   //
+#define PREHEAT_1_FAN_SPEED     0   // Value from 0 to 255
 
-#define PREHEAT_2_TEMP_HOTEND 240
-#define PREHEAT_2_TEMP_BED    90
-#define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
+#define PREHEAT_2_TEMP_HOTEND 240   //ABS
+#define PREHEAT_2_TEMP_BED    90    //
+#define PREHEAT_2_FAN_SPEED     0   // Value from 0 to 255
+
+#define PREHEAT_3_TEMP_HOTEND 245   // RYNO
+#define PREHEAT_3_TEMP_BED    55    //
+#define PREHEAT_3_FAN_SPEED     0   // Value from 0 to 255
+
+#define PREHEAT_4_TEMP_HOTEND 255  // NylonX
+#define PREHEAT_4_TEMP_BED    55   //
+#define PREHEAT_4_FAN_SPEED    0   // Value from 0 to 255
 
 //
 // Nozzle Park -- EXPERIMENTAL

@@ -6,7 +6,7 @@
 // A = RAMPS, B = RamboMini, C = RamboMini, Tall Frame
 // 
 // First Digit (Bed & Leveling)
-// 1 = BuildTak, 2 = Garalite, Tall Frame
+// 1 = Standard bed, 2 = FlexPlate System
 //
 // Second Digit (Electronics)
 // 1 = No LCD, 2 = LCD, 3 = Viki
@@ -15,7 +15,7 @@
 // 1 = EZ-Struder & E3D light, 2 = BondTech & E3Dv6, 3 = 3mm BondTech & 3mm E3Dv6
 
 #define MachineType "C"
-#define BedType 2
+#define BedType 1
 #define ControllerType 3
 #define ExtruderType 2
 
@@ -25,12 +25,12 @@
 #if BedType == 1 || BedType == 2 // Big Heated Bed w' probe & New larger frame
 	#define TEMP_SENSOR_BED 5
 	// Travel limits after homing
-	#define X_MAX_POS 245
+	#define X_MAX_POS 250
 	#define X_MIN_POS 0
 	#define Y_MAX_POS 220
 	#define Y_MIN_POS 0
 	#define Z_MAX_POS 215
-	#define Z_MIN_POS -5
+	#define Z_MIN_POS -10
 	//#define AUTO_BED_LEVELING_BILINEAR // Delete the comment to enable (remove // at the start of the line)
 	//#define Z_PROBE_REPEATABILITY_TEST  // If not commented out, Z-Probe Repeatability test will be included if Auto Bed Leveling is Enabled.
 #endif
@@ -69,7 +69,7 @@
 #define STRINGIZE2(s) #s
 #define STRINGIZE(s) STRINGIZE2(s)
 #define MODLE_NUMBER STRINGIZE(BedType) STRINGIZE(ControllerType) STRINGIZE(ExtruderType)
-#define FIRMWARE_VERSION " 1"
+#define FIRMWARE_VERSION " 3"
 #define CUSTOM_MACHINE_NAME "Pulse " MachineType "-" MODLE_NUMBER FIRMWARE_VERSION
 #define SHORT_BUILD_VERSION MachineType "-" MODLE_NUMBER
 
