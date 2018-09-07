@@ -274,9 +274,9 @@ void Config_Postprocess() {
     #endif
 
     #if DISABLED(ULTIPANEL)
-      const int lcd_preheat_hotend_temp[2] = { PREHEAT_1_TEMP_HOTEND, PREHEAT_2_TEMP_HOTEND },
-                lcd_preheat_bed_temp[2] = { PREHEAT_1_TEMP_BED, PREHEAT_2_TEMP_BED },
-                lcd_preheat_fan_speed[2] = { PREHEAT_1_FAN_SPEED, PREHEAT_2_FAN_SPEED };
+      const int lcd_preheat_hotend_temp[4] = { PREHEAT_1_TEMP_HOTEND, PREHEAT_2_TEMP_HOTEND, PREHEAT_3_TEMP_HOTEND, PREHEAT_4_TEMP_HOTEND},
+                lcd_preheat_bed_temp[4] = { PREHEAT_1_TEMP_BED, PREHEAT_2_TEMP_BED, PREHEAT_3_TEMP_BED, PREHEAT_4_TEMP_BED},
+                lcd_preheat_fan_speed[4] = { PREHEAT_1_FAN_SPEED, PREHEAT_2_FAN_SPEED, PREHEAT_3_FAN_SPEED, PREHEAT_4_FAN_SPEED};
     #endif // !ULTIPANEL
 
     EEPROM_WRITE(lcd_preheat_hotend_temp);
@@ -460,7 +460,7 @@ void Config_Postprocess() {
       #endif
 
       #if DISABLED(ULTIPANEL)
-        int lcd_preheat_hotend_temp[2], lcd_preheat_bed_temp[2], lcd_preheat_fan_speed[2];
+        int lcd_preheat_hotend_temp[4], lcd_preheat_bed_temp[4], lcd_preheat_fan_speed[4];
       #endif
 
       EEPROM_READ(lcd_preheat_hotend_temp);
@@ -632,10 +632,17 @@ void Config_ResetDefault() {
   #if ENABLED(ULTIPANEL)
     lcd_preheat_hotend_temp[0] = PREHEAT_1_TEMP_HOTEND;
     lcd_preheat_hotend_temp[1] = PREHEAT_2_TEMP_HOTEND;
+    lcd_preheat_hotend_temp[2] = PREHEAT_3_TEMP_HOTEND;
+    lcd_preheat_hotend_temp[3] = PREHEAT_4_TEMP_HOTEND;
     lcd_preheat_bed_temp[0] = PREHEAT_1_TEMP_BED;
     lcd_preheat_bed_temp[1] = PREHEAT_2_TEMP_BED;
+    lcd_preheat_bed_temp[2] = PREHEAT_3_TEMP_BED;
+    lcd_preheat_bed_temp[3] = PREHEAT_4_TEMP_BED;
     lcd_preheat_fan_speed[0] = PREHEAT_1_FAN_SPEED;
     lcd_preheat_fan_speed[1] = PREHEAT_2_FAN_SPEED;
+    lcd_preheat_fan_speed[2] = PREHEAT_3_FAN_SPEED;
+    lcd_preheat_fan_speed[3] = PREHEAT_4_FAN_SPEED;
+  
   #endif
 
   #if HAS_LCD_CONTRAST

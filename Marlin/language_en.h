@@ -52,7 +52,7 @@
   #define MSG_DISABLE_STEPPERS                "Disable steppers"
 #endif
 #ifndef MSG_AUTO_HOME
-  #define MSG_AUTO_HOME                       "Auto home"
+  #define MSG_AUTO_HOME                       "Home All Axes"
 #endif
 #ifndef MSG_AUTO_HOME_X
   #define MSG_AUTO_HOME_X                     "Home X"
@@ -116,6 +116,36 @@
 #endif
 #ifndef MSG_PREHEAT_2_SETTINGS
   #define MSG_PREHEAT_2_SETTINGS              MSG_PREHEAT_2 " conf"
+#endif
+#ifndef MSG_PREHEAT_3
+  #define MSG_PREHEAT_3                       "Preheat RYNO"
+#endif
+#ifndef MSG_PREHEAT_3_N
+  #define MSG_PREHEAT_3_N                     MSG_PREHEAT_3 " "
+#endif
+#ifndef MSG_PREHEAT_3_ALL
+  #define MSG_PREHEAT_3_ALL                   MSG_PREHEAT_3 " All"
+#endif
+#ifndef MSG_PREHEAT_3_BEDONLY
+  #define MSG_PREHEAT_3_BEDONLY               MSG_PREHEAT_3 " Bed"
+#endif
+#ifndef MSG_PREHEAT_3_SETTINGS
+  #define MSG_PREHEAT_3_SETTINGS              MSG_PREHEAT_3 " conf"
+#endif
+#ifndef MSG_PREHEAT_4
+  #define MSG_PREHEAT_4                       "Preheat NylonX"
+#endif
+#ifndef MSG_PREHEAT_4_N
+  #define MSG_PREHEAT_4_N                     MSG_PREHEAT_4 " "
+#endif
+#ifndef MSG_PREHEAT_4_ALL
+  #define MSG_PREHEAT_4_ALL                   MSG_PREHEAT_4 " All"
+#endif
+#ifndef MSG_PREHEAT_4_BEDONLY
+  #define MSG_PREHEAT_4_BEDONLY               MSG_PREHEAT_4 " Bed"
+#endif
+#ifndef MSG_PREHEAT_4_SETTINGS
+  #define MSG_PREHEAT_4_SETTINGS              MSG_PREHEAT_4 " conf"
 #endif
 #ifndef MSG_COOLDOWN
   #define MSG_COOLDOWN                        "Cooldown"
@@ -277,7 +307,7 @@
   #define MSG_CONTRAST                        "LCD contrast"
 #endif
 #ifndef MSG_STORE_EPROM
-  #define MSG_STORE_EPROM                     "Store memory"
+  #define MSG_STORE_EPROM                     "Save to EEPROM"
 #endif
 #ifndef MSG_LOAD_EPROM
   #define MSG_LOAD_EPROM                      "Load memory"
