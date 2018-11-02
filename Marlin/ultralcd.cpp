@@ -623,10 +623,10 @@ void kill_screen(const char* lcd_msg) {
         MENU_ITEM(function, MSG_LIGHTS_ON, toggle_case_light);
     #endif
 
-    #if ENABLED(BLTOUCH)
-      if (!endstops.z_probe_enabled && TEST_BLTOUCH())
-        MENU_ITEM(gcode, MSG_BLTOUCH_RESET, PSTR("M280 P" STRINGIFY(Z_ENDSTOP_SERVO_NR) " S" STRINGIFY(BLTOUCH_RESET)));
-    #endif
+   // #if ENABLED(BLTOUCH)
+   //   if (!endstops.z_probe_enabled && TEST_BLTOUCH())
+   //     MENU_ITEM(gcode, MSG_BLTOUCH_RESET, PSTR("M280 P" STRINGIFY(Z_ENDSTOP_SERVO_NR) " S" STRINGIFY(BLTOUCH_RESET)));
+   // #endif
 
     if (planner.movesplanned() || IS_SD_PRINTING) {
       MENU_ITEM(submenu, MSG_TUNE, lcd_tune_menu);
@@ -1358,14 +1358,8 @@ void lcd_preheat_material3_hotend0123() {
 
     //
     // Level Bed
-    //
-    #if HAS_ABL
-      MENU_ITEM(gcode, MSG_LEVEL_BED,
-        axis_homed[X_AXIS] && axis_homed[Y_AXIS] ? PSTR("G29") : PSTR("G28\nG29")
-      );
-    #elif ENABLED(MANUAL_BED_LEVELING)
-      MENU_ITEM(submenu, MSG_LEVEL_BED, lcd_level_bed);
-    #endif
+    
+
 
     //
     // Move Axis
@@ -1385,9 +1379,11 @@ void lcd_preheat_material3_hotend0123() {
       #if TEMP_SENSOR_1 != 0 || TEMP_SENSOR_2 != 0 || TEMP_SENSOR_3 != 0 || TEMP_SENSOR_BED != 0
         MENU_ITEM(submenu, MSG_PREHEAT_1, lcd_preheat_material1_menu);
         MENU_ITEM(submenu, MSG_PREHEAT_2, lcd_preheat_material2_menu);
-        MENU_ITEM(submenu, MSG_PREHEAT_3, lcd_preheat_material3_menu);
-        MENU_ITEM(submenu, MSG_PREHEAT_4, lcd_preheat_material4_menu);
-      #else
+#ifdef LCD_MATERIAL_EXTRA
+		MENU_ITEM(submenu, MSG_PREHEAT_3, lcd_preheat_material3_menu);
+		MENU_ITEM(submenu, MSG_PREHEAT_4, lcd_preheat_material4_menu);
+#endif
+	#else
         MENU_ITEM(submenu, MSG_PREHEAT_1, lcd_preheat_material1_menu);
         MENU_ITEM(submenu, MSG_PREHEAT_2, lcd_preheat_material2_menu);
         MENU_ITEM(submenu, MSG_PREHEAT_3, lcd_preheat_material3_menu);
