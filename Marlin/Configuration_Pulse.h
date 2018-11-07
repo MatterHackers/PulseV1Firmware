@@ -22,6 +22,15 @@
 // C - defines that this is MOTHERBOARD BOARD_MINIRAMBO
 #define MOTHERBOARD BOARD_MINIRAMBO
 
+#define NEO_HAL
+#ifdef NEO_HAL
+	#include "neoHAL.h"
+	extern neoHAL neo_hal;
+	extern long neo_rotation_count;
+	extern int neo_last_angle;
+	#define neo_circumference (10.699 * PI)
+#endif
+
 #if BedType == 1 // Standard heated bed with BuildTak or Garolite
 	#define TEMP_SENSOR_BED 5
 	// Travel limits after homing

@@ -631,6 +631,14 @@ static bool send_ok[BUFSIZE];
   boolean chdkActive = false;
 #endif
 
+#ifdef NEO_HAL
+  neoHAL neo_hal = NULL;
+  millis_t neo_next_read_time_ms;
+  bool neo_setup = false;
+  long neo_rotation_count = 0;
+  int neo_last_angle = 0;
+#endif
+
 #if ENABLED(PID_EXTRUSION_SCALING)
   int lpq_len = 20;
 #endif
@@ -10094,6 +10102,44 @@ void idle(
     bool no_stepper_sleep/*=false*/
   #endif
 ) {
+#ifdef NEO_HAL
+	if(neo_setup == false)
+	{
+		neo_setup = true;
+		// setup the sensor
+		neo_hal = neoHAL();
+		neo_hal.begin();
+		neo_hal.origin = 0;
+		uint16_t angle = neo_hal.readAngle();
+		if (angle < 2048) {
+			neo_hal.origin = angle + 2048;
+		}
+		else {
+			neo_hal.origin = angle + 2048 - 4096;
+		}
+	}
+
+	// update the sensor data
+	millis_t ms = millis();
+	if(ms > neo_next_read_time_ms)
+	{
+		uint16_t stat = neo_hal.status();
+		int angle = neo_hal.readAngle() - 2048;
+
+		// check if we have move bast the start and on which side (since the last read)
+		if (angle > 1024 and neo_last_angle < -1024) {
+			neo_rotation_count--;
+		}
+		else if (angle < -1024 and neo_last_angle > 1024) {
+			neo_rotation_count++;
+		}
+
+		neo_last_angle = angle;
+		// read a max of 20 times a second
+		neo_next_read_time_ms =  ms + 50;
+	}
+#endif
+
   lcd_update();
 
   host_keepalive();
