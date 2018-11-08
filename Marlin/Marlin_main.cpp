@@ -10136,7 +10136,7 @@ void idle(
 
 		neo_last_angle = angle;
 		// read a max of 20 times a second
-		neo_next_read_time_ms =  ms + 50;
+		neo_next_read_time_ms =  ms + 10;
 	}
 #endif
 

@@ -222,8 +222,9 @@ void Endstops::M119() {
     SERIAL_PROTOCOLLN(((READ(FIL_RUNOUT_PIN)^FIL_RUNOUT_INVERTING)?MSG_ENDSTOP_HIT:MSG_ENDSTOP_OPEN));
   #endif
   #ifdef NEO_HAL
-	float distance = neo_rotation_count * neo_circumference;
-	SERIAL_PROTOCOLPGM("pos_0: "); SERIAL_PROTOCOL(distance);
+	float distance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
+	SERIAL_PROTOCOLPGM("pos_0: ");
+	SERIAL_PROTOCOLLN(distance);
 #endif
 } // Endstops::M119
 
