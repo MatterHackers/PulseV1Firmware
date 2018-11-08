@@ -27,6 +27,7 @@
 	#include "neoHAL.h"
 	extern neoHAL neo_hal;
 	extern long neo_rotation_count;
+	extern long neo_read_count;
 	extern int neo_last_angle;
 	#define neo_circumference (10.699 * PI)
 #endif

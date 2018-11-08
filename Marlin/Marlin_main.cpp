@@ -636,6 +636,7 @@ static bool send_ok[BUFSIZE];
   millis_t neo_next_read_time_ms;
   bool neo_setup = false;
   long neo_rotation_count = 0;
+  long neo_read_count = 0;
   int neo_last_angle = 0;
 #endif
 
@@ -4575,6 +4576,23 @@ inline void gcode_G92() {
           position_shift[i] += v - p; // Offset the coordinate space
           update_software_endstops((AxisEnum)i);
         }
+        #ifdef NEO_HAL
+		else
+		{
+			// anytime we reset the E position set the distance back to 0
+			//float distance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
+			neo_hal.origin = 0;
+			uint16_t angle = neo_hal.readAngle();
+			if (angle < 2048) {
+				neo_hal.origin = angle + 2048;
+			}
+			else {
+				neo_hal.origin = angle + 2048 - 4096;
+			}
+			neo_rotation_count = 0;
+			neo_last_angle = 0;
+		}
+        #endif
       #endif
     }
   }
@@ -10133,10 +10151,11 @@ void idle(
 		else if (angle < -1024 and neo_last_angle > 1024) {
 			neo_rotation_count++;
 		}
+		neo_read_count++;
 
 		neo_last_angle = angle;
 		// read a max of 20 times a second
-		neo_next_read_time_ms =  ms + 10;
+		neo_next_read_time_ms =  ms + 5;
 	}
 #endif
 
