@@ -16,8 +16,8 @@
 
 #define MachineType "D"
 #define BedType 2
-#define ControllerType 3
-#define ExtruderType 2
+#define ControllerType 1
+#define ExtruderType 1
 
 // C - defines that this is MOTHERBOARD BOARD_MINIRAMBO
 #define MOTHERBOARD BOARD_MINIRAMBO
@@ -82,9 +82,11 @@
 #if ControllerType == 1 // no controller
 #elif ControllerType == 2 // LCD controller (no change)
 	#define REPRAP_DISCOUNT_SMART_CONTROLLER
+	#define BABYSTEPPING
 #elif ControllerType == 3 // Viki controller
 	#define TEMP_STAT_LEDS
 	#define VIKI2
+	#define BABYSTEPPING
 #endif
 
 #if ExtruderType == 1 // EZ Struder
