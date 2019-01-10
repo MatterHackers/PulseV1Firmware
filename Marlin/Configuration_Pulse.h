@@ -16,11 +16,21 @@
 
 #define MachineType "D"
 #define BedType 2
-#define ControllerType 3
-#define ExtruderType 2
+#define ControllerType 1
+#define ExtruderType 1
 
 // C - defines that this is MOTHERBOARD BOARD_MINIRAMBO
 #define MOTHERBOARD BOARD_MINIRAMBO
+
+#define NEO_HAL
+#ifdef NEO_HAL
+	#include "neoHAL.h"
+	extern neoHAL neo_hal;
+	extern long neo_rotation_count;
+	extern long neo_read_count;
+	extern int neo_last_angle;
+	#define neo_circumference (10.699 * PI)
+#endif
 
 #if BedType == 1 // Standard heated bed with BuildTak or Garolite
 	#define TEMP_SENSOR_BED 5
@@ -72,9 +82,11 @@
 #if ControllerType == 1 // no controller
 #elif ControllerType == 2 // LCD controller (no change)
 	#define REPRAP_DISCOUNT_SMART_CONTROLLER
+	#define BABYSTEPPING
 #elif ControllerType == 3 // Viki controller
 	#define TEMP_STAT_LEDS
 	#define VIKI2
+	#define BABYSTEPPING
 #endif
 
 #if ExtruderType == 1 // EZ Struder
