@@ -222,11 +222,14 @@ void Endstops::M119() {
     SERIAL_PROTOCOLLN(((READ(FIL_RUNOUT_PIN)^FIL_RUNOUT_INVERTING)?MSG_ENDSTOP_HIT:MSG_ENDSTOP_OPEN));
   #endif
   #ifdef NEO_HAL
-	float distance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
-	SERIAL_PROTOCOLPGM("pos_0: ");
+	float sensorDistance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
+	SERIAL_PROTOCOLPGM("pos_0: SENSOR:");
 	//SERIAL_PROTOCOL(neo_read_count);
 	//SERIAL_PROTOCOLPGM(" ");
-	SERIAL_PROTOCOLLN(distance);
+	SERIAL_PROTOCOL(sensorDistance);
+	SERIAL_PROTOCOLPGM(" STEPPER:");
+	float motorDistance = stepper.get_axis_position_mm(E_AXIS);
+	SERIAL_PROTOCOLLN(motorDistance);
 #endif
 } // Endstops::M119
 
