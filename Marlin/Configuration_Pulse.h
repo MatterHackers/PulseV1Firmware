@@ -15,9 +15,9 @@
 // 1 = EZ-Struder & E3D light, 2 = BondTech & E3Dv6, 3 = 3mm BondTech & 3mm E3Dv6
 
 #define MachineType "D"
-#define BedType 2
-#define ControllerType 3
-#define ExtruderType 2
+#define BedType 4
+#define ControllerType 1
+#define ExtruderType 5	
 
 // C - defines that this is MOTHERBOARD BOARD_MINIRAMBO
 #define MOTHERBOARD BOARD_MINIRAMBO
@@ -41,7 +41,7 @@
 	#define X_MIN_POS 0
 	#define Y_MAX_POS 230
 	#define Y_MIN_POS -5
-	#define Z_MAX_POS 210
+	#define Z_MAX_POS 205
 	#define Z_MIN_POS -10
 	#define AUTO_BED_LEVELING_BILINEAR // Delete the comment to enable (remove // at the start of the line)
 	#define Z_PROBE_REPEATABILITY_TEST  // If not commented out, Z-Probe Repeatability test will be included if Auto Bed Leveling is Enabled.
@@ -72,13 +72,15 @@
 #if ControllerType == 1 // no controller
 #elif ControllerType == 2 // LCD controller (no change)
 	#define REPRAP_DISCOUNT_SMART_CONTROLLER
+  #define BABYSTEPPING
 #elif ControllerType == 3 // Viki controller
 	#define TEMP_STAT_LEDS
 	#define VIKI2
+  #define BABYSTEPPING
 #endif
 
 #if ExtruderType == 1 // EZ Struder
-	#define HEATER_0_MAXTEMP 255
+	#define HEATER_0_MAXTEMP 305
 	#define TEMP_SENSOR_0 5
 	#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,92.4}  // EZR
 	#define  DEFAULT_Kp 15.84
@@ -100,6 +102,22 @@
 	#define  DEFAULT_Ki 1.07
 	#define  DEFAULT_Kd 58.40
 	#define LCD_MATERIAL_EXTRA
+#elif ExtruderType == 4 // BondTech BMG & E3D V6 1.75mm
+	#define HEATER_0_MAXTEMP 305
+	#define TEMP_SENSOR_0 5
+	#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,415}  // Bondtech 3mm
+	#define  DEFAULT_Kp 15.84
+	#define  DEFAULT_Ki 1.07
+	#define  DEFAULT_Kd 58.40
+	#define LCD_MATERIAL_EXTRA
+#elif ExtruderType == 5 // BondTech QR 3mm Volcano/HV
+  #define HEATER_0_MAXTEMP 305
+  #define TEMP_SENSOR_0 5
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,510}  // Bondtech 3mm
+  #define  DEFAULT_Kp 15.84
+  #define  DEFAULT_Ki 1.07
+  #define  DEFAULT_Kd 58.40
+  #define LCD_MATERIAL_EXTRA  
 #endif
 
 #define STRINGIZE2(s) #s
