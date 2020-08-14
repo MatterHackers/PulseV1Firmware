@@ -409,63 +409,27 @@ void _O2 Endstops::report_states() {
   #if HAS_X_MIN
     ES_REPORT(X_MIN);
   #endif
-  #if HAS_X2_MIN
-    ES_REPORT(X2_MIN);
-  #endif
-  #if HAS_X_MAX
-    ES_REPORT(X_MAX);
-  #endif
-  #if HAS_X2_MAX
-    ES_REPORT(X2_MAX);
-  #endif
   #if HAS_Y_MIN
     ES_REPORT(Y_MIN);
-  #endif
-  #if HAS_Y2_MIN
-    ES_REPORT(Y2_MIN);
-  #endif
-  #if HAS_Y_MAX
-    ES_REPORT(Y_MAX);
-  #endif
-  #if HAS_Y2_MAX
-    ES_REPORT(Y2_MAX);
   #endif
   #if HAS_Z_MIN
     ES_REPORT(Z_MIN);
   #endif
-  #if HAS_Z2_MIN
-    ES_REPORT(Z2_MIN);
-  #endif
-  #if HAS_Z3_MIN
-    ES_REPORT(Z3_MIN);
-  #endif
-  #if HAS_Z4_MIN
-    ES_REPORT(Z4_MIN);
-  #endif
   #if HAS_Z_MAX
     ES_REPORT(Z_MAX);
-  #endif
-  #if HAS_Z2_MAX
-    ES_REPORT(Z2_MAX);
-  #endif
-  #if HAS_Z3_MAX
-    ES_REPORT(Z3_MAX);
-  #endif
-  #if HAS_Z4_MAX
-    ES_REPORT(Z4_MAX);
   #endif
   #if HAS_CUSTOM_PROBE_PIN
     print_es_state(READ(Z_MIN_PROBE_PIN) != Z_MIN_PROBE_ENDSTOP_INVERTING, PSTR(STR_Z_PROBE));
   #endif
   #ifdef NEO_HAL
-	float sensorDistance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
-	SERIAL_ECHOPGM("pos_0: SENSOR:");
-	//SERIAL_PROTOCOL(neo_read_count);
-	//SERIAL_PROTOCOLPGM(" ");
-	ES_REPORT(sensorDistance);
-	SERIAL_ECHOPGM(" STEPPER:");
-	float motorDistance = stepper.get_axis_position_mm(E_AXIS);
-	ES_REPORT(motorDistance);
+	 float sensorDistance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
+	 SERIAL_ECHOPAIR_F("pos_0: SENSOR:", sensorDistance);
+	 //SERIAL_PROTOCOL(neo_read_count);
+	 //SERIAL_PROTOCOLPGM(" ");
+	 //ES_REPORT(sensorDistance);
+	 float motorDistance = stepper.position(E_AXIS);
+   SERIAL_ECHOLNPAIR_F(" STEPPER:", motorDistance);
+	 //ES_REPORT(motorDistance);
 #endif
   #if HAS_FILAMENT_SENSOR
     #if NUM_RUNOUT_SENSORS == 1

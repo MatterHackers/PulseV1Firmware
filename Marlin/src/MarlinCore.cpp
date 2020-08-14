@@ -727,17 +727,28 @@ void idle(TERN_(ADVANCED_PAUSE_FEATURE, bool no_stepper_sleep/*=false*/)) {
 			neo_hal.origin = angle + 2048 - 4096;
 		}
 	}
-  #endif
 
-  #ifdef NEO_HAL
-    neoHAL neo_hal = NULL;
-    millis_t neo_next_read_time_ms;
-    bool neo_setup = false;
-    long neo_rotation_count = 0;
-    long neo_read_count = 0;
-    int neo_last_angle = 0;
-  #endif
+	// update the sensor data
+	millis_t ms = millis();
+	if(ms > neo_next_read_time_ms)
+	{
+		uint16_t stat = neo_hal.status();
+		int angle = neo_hal.readAngle() - 2048;
 
+		// check if we have move bast the start and on which side (since the last read)
+		if (angle > 1024 and neo_last_angle < -1024) {
+			neo_rotation_count--;
+		}
+		else if (angle < -1024 and neo_last_angle > 1024) {
+			neo_rotation_count++;
+		}
+		neo_read_count++;
+
+		neo_last_angle = angle;
+		// read a max of 20 times a second
+		neo_next_read_time_ms =  ms + 5;
+	}
+#endif
   // Handle Power-Loss Recovery
   #if ENABLED(POWER_LOSS_RECOVERY) && PIN_EXISTS(POWER_LOSS)
     if (printJobOngoing()) recovery.outage();

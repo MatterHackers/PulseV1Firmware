@@ -78,7 +78,20 @@ void GcodeSuite::G92() {
               if (i == E_AXIS) {
                 sync_E = true;
                 current_position.e = v;       // When using coordinate spaces, only E is set directly
+                  // anytime we reset the E position set the distance back to 0
+                  //float distance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
+                  neo_hal.origin = 0;
+                  uint16_t angle = neo_hal.readAngle();
+                  if (angle < 2048) {
+                    neo_hal.origin = angle + 2048;
+                  }
+                  else {
+                    neo_hal.origin = angle + 2048 - 4096;
+                  }
+                  neo_rotation_count = 0;
+                  neo_last_angle = 0;
               }
+
               else {
                 position_shift[i] += d;       // Other axes simply offset the coordinate space
                 update_workspace_offset((AxisEnum)i);
