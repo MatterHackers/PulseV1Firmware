@@ -2462,7 +2462,7 @@
 
   #define X_HYBRID_THRESHOLD     100  // [mm/s]
   #define Y_HYBRID_THRESHOLD     100
-  #define Z_HYBRID_THRESHOLD       5
+  #define Z_HYBRID_THRESHOLD      10
   #define E0_HYBRID_THRESHOLD      5
 
 
