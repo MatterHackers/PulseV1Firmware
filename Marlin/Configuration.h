@@ -41,7 +41,7 @@
 	extern long neo_rotation_count;
 	extern long neo_read_count;
 	extern int neo_last_angle;
-	#define neo_circumference (10.699 * PI)
+	#define neo_circumference (7.45 * PI)  // measured diameter of Bondtech gears = 7.45mm
 #endif
 
 
@@ -489,33 +489,33 @@
   #define HEATER_1_MAXTEMP 255
   #define BED_MAXTEMP 125
   #define Z_MAX_POS 215
-  #define DEFAULT_Kp 15.84
-  #define DEFAULT_Ki 1.07
-  #define DEFAULT_Kd 58.40
+  #define DEFAULT_Kp 20.03
+  #define DEFAULT_Ki 2.22
+  #define DEFAULT_Kd 45.12
 #elif HotEndType == 2
   #define HEATER_0_MAXTEMP 305
   #define HEATER_1_MAXTEMP 305
   #define BED_MAXTEMP 125
   #define Z_MAX_POS 215
-  #define DEFAULT_Kp 15.84
-  #define DEFAULT_Ki 1.07
-  #define DEFAULT_Kd 58.40
+  #define DEFAULT_Kp 20.03
+  #define DEFAULT_Ki 2.22
+  #define DEFAULT_Kd 45.12
 #elif HotEndType == 3
   #define HEATER_0_MAXTEMP 305
   #define HEATER_1_MAXTEMP 305
   #define BED_MAXTEMP 125
   #define Z_MAX_POS 205
-  #define DEFAULT_Kp 15.84
-  #define DEFAULT_Ki 1.07
-  #define DEFAULT_Kd 58.40
+  #define DEFAULT_Kp 20.03
+  #define DEFAULT_Ki 2.22
+  #define DEFAULT_Kd 45.12
 #elif HotEndType == 4
   #define HEATER_0_MAXTEMP 305
   #define HEATER_1_MAXTEMP 305
   #define BED_MAXTEMP 125
   #define Z_MAX_POS 215
-  #define DEFAULT_Kp 15.84
-  #define DEFAULT_Ki 1.07
-  #define DEFAULT_Kd 58.40
+  #define DEFAULT_Kp 20.03
+  #define DEFAULT_Ki 2.22
+  #define DEFAULT_Kd 45.12
 #endif
 
 #define HEATER_2_MAXTEMP 275
@@ -597,9 +597,9 @@
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 96.00
-  #define DEFAULT_bedKi 3.94
-  #define DEFAULT_bedKd 589.53
+  #define DEFAULT_bedKp 33.76
+  #define DEFAULT_bedKi 1.95
+  #define DEFAULT_bedKd 389.06
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from pidautotune
@@ -1066,7 +1066,7 @@
 #define PROBING_MARGIN 10
 
 // X and Y axis travel speed (mm/m) between probes
-#define XY_PROBE_SPEED 8000
+#define XY_PROBE_SPEED 9000
 
 // Feedrate (mm/m) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 #define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
@@ -1718,7 +1718,7 @@
  *
  * View the current statistics with M78.
  */
-//#define PRINTCOUNTER
+#define PRINTCOUNTER
 
 //=============================================================================
 //============================= LCD and SD support ============================
@@ -1883,6 +1883,7 @@
 #if LCDType == 2
   #define REPRAP_DISCOUNT_SMART_CONTROLLER
   #define BABYSTEPPING
+  #define REVERSE_ENCODER_DIRECTION
 #elif LCDType == 3
   #define VIKI2
   #define BABYSTEPPING

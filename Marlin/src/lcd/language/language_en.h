@@ -54,14 +54,14 @@ namespace Language_en {
   PROGMEM Language_Str MSG_KILL_SUBCALL_OVERFLOW           = _UxGT("Subcall Overflow");
   PROGMEM Language_Str MSG_LCD_ENDSTOPS                    = _UxGT("Endstops"); // Max length 8 characters
   PROGMEM Language_Str MSG_LCD_SOFT_ENDSTOPS               = _UxGT("Soft Endstops");
-  PROGMEM Language_Str MSG_MAIN                            = _UxGT("Main");
+  PROGMEM Language_Str MSG_MAIN                            = _UxGT("Main Menu");
   PROGMEM Language_Str MSG_ADVANCED_SETTINGS               = _UxGT("Advanced Settings");
   PROGMEM Language_Str MSG_CONFIGURATION                   = _UxGT("Configuration");
   PROGMEM Language_Str MSG_AUTOSTART                       = _UxGT("Autostart");
   PROGMEM Language_Str MSG_DISABLE_STEPPERS                = _UxGT("Disable Steppers");
   PROGMEM Language_Str MSG_DEBUG_MENU                      = _UxGT("Debug Menu");
   PROGMEM Language_Str MSG_PROGRESS_BAR_TEST               = _UxGT("Progress Bar Test");
-  PROGMEM Language_Str MSG_AUTO_HOME                       = _UxGT("Auto Home");
+  PROGMEM Language_Str MSG_AUTO_HOME                       = _UxGT("Home All Axes");
   PROGMEM Language_Str MSG_AUTO_HOME_X                     = _UxGT("Home X");
   PROGMEM Language_Str MSG_AUTO_HOME_Y                     = _UxGT("Home Y");
   PROGMEM Language_Str MSG_AUTO_HOME_Z                     = _UxGT("Home Z");
@@ -248,7 +248,7 @@ namespace Language_en {
   PROGMEM Language_Str MSG_BED                             = _UxGT("Bed");
   PROGMEM Language_Str MSG_CHAMBER                         = _UxGT("Enclosure");
   PROGMEM Language_Str MSG_FAN_SPEED                       = _UxGT("Fan Speed");
-  PROGMEM Language_Str MSG_FAN_SPEED_N                     = _UxGT("Fan Speed ~");
+  PROGMEM Language_Str MSG_FAN_SPEED_N                     = _UxGT("Part Fan");
   PROGMEM Language_Str MSG_STORED_FAN_N                    = _UxGT("Stored Fan ~");
   PROGMEM Language_Str MSG_EXTRA_FAN_SPEED                 = _UxGT("Extra Fan Speed");
   PROGMEM Language_Str MSG_EXTRA_FAN_SPEED_N               = _UxGT("Extra Fan Speed ~");
@@ -339,7 +339,7 @@ namespace Language_en {
   PROGMEM Language_Str MSG_MEDIA_UPDATE                    = _UxGT("Media Update");
   PROGMEM Language_Str MSG_RESET_PRINTER                   = _UxGT("Reset Printer");
   PROGMEM Language_Str MSG_REFRESH                         = LCD_STR_REFRESH _UxGT("Refresh");
-  PROGMEM Language_Str MSG_INFO_SCREEN                     = _UxGT("Info Screen");
+  PROGMEM Language_Str MSG_INFO_SCREEN                     = _UxGT("Home Screen");
   PROGMEM Language_Str MSG_PREPARE                         = _UxGT("Prepare");
   PROGMEM Language_Str MSG_TUNE                            = _UxGT("Tune");
   PROGMEM Language_Str MSG_POWER_MONITOR                   = _UxGT("Power monitor");
