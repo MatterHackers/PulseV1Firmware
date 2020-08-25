@@ -174,6 +174,7 @@ class Endstops {
 };
 
 extern Endstops endstops;
+extern void Check_On_Runout();
 
 /**
  * A class to save and change the endstop state,

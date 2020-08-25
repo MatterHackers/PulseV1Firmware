@@ -747,6 +747,7 @@ void idle(TERN_(ADVANCED_PAUSE_FEATURE, bool no_stepper_sleep/*=false*/)) {
 		neo_last_angle = angle;
 		// read a max of 20 times a second
 		neo_next_read_time_ms =  ms + 5;
+    Check_On_Runout();
 	}
 #endif
   // Handle Power-Loss Recovery

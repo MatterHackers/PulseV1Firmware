@@ -52,6 +52,54 @@ Endstops endstops;
 
 // private:
 
+bool FilamentPositionSensorDetected = false;
+float LastSensorDistance;
+float LastStepperDistance;
+int ExtrusionDiscrepency;
+
+void Check_On_Runout()
+{
+  float sensorDistance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
+  float motorDistance = current_position[E_AXIS];
+  if (sensorDistance < -1 || sensorDistance > 1)
+  {
+    FilamentPositionSensorDetected = true;
+  }
+
+  if (FilamentPositionSensorDetected)
+  {
+    float stepperDelta = abs(motorDistance - LastStepperDistance);
+
+    // if we think we should have move the filament by more than 1mm
+    if (stepperDelta > 1)
+    {
+      float sensorDelta = abs(sensorDistance - LastSensorDistance);
+      // check if the sensor data is within a tolerance of the stepper data
+
+      float deltaRatio = sensorDelta / stepperDelta;
+      if (deltaRatio < .5 || deltaRatio > 2)
+      {
+        // we have a discrepancy set a runout state
+        ExtrusionDiscrepency++;
+        if (ExtrusionDiscrepency > 2)
+        {
+          digitalWrite(FIL_RUNOUT_PIN, HIGH);
+          ExtrusionDiscrepency = 0;
+        }
+      }
+      else
+      {
+        digitalWrite(FIL_RUNOUT_PIN, LOW);
+        ExtrusionDiscrepency = 0;
+      }
+
+      // and record this position
+      LastSensorDistance = sensorDistance;
+      LastStepperDistance = motorDistance;
+    }
+  }
+}
+
 bool Endstops::enabled, Endstops::enabled_globally; // Initialized by settings.load()
 volatile uint8_t Endstops::hit_state;
 
@@ -424,12 +472,8 @@ void _O2 Endstops::report_states() {
   #ifdef NEO_HAL
 	 float sensorDistance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
 	 SERIAL_ECHOPAIR_F("pos_0: SENSOR:", sensorDistance);
-	 //SERIAL_PROTOCOL(neo_read_count);
-	 //SERIAL_PROTOCOLPGM(" ");
-	 //ES_REPORT(sensorDistance);
-	 float motorDistance = stepper.position(E_AXIS);
+	 float motorDistance = current_position[E_AXIS];
    SERIAL_ECHOLNPAIR_F(" STEPPER:", motorDistance);
-	 //ES_REPORT(motorDistance);
 #endif
   #if HAS_FILAMENT_SENSOR
     #if NUM_RUNOUT_SENSORS == 1

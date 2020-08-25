@@ -82,7 +82,7 @@
 #define E0_ENABLE_PIN                         26
 #define E0_CS_PIN                             66
 
-//
+#define FIL_RUNOUT_PIN                        73
 // Temperature Sensors
 //
 #define TEMP_0_PIN                             0  // Analog Input
@@ -111,22 +111,7 @@
 #define LED_PIN                               13
 #define CASE_LIGHT_PIN                        9
 
-//
-// M3/M4/M5 - Spindle/Laser Control
-//
-// use P1 connector for spindle pins
-//#define SPINDLE_LASER_PWM_PIN                  9  // Hardware PWM
-//#define SPINDLE_LASER_ENA_PIN                 18  // Pullup!
-//#define SPINDLE_DIR_PIN                       19
 
-//
-// Průša i3 MK2 Multiplexer Support
-//
-//#define E_MUX0_PIN                            17
-//#define E_MUX1_PIN                            16
-//#define E_MUX2_PIN                            78  // 84 in MK2 Firmware, with BEEPER as 78
-
-//
 // LCD / Controller
 //
 #define BTN_EN1                         14  //TX3
