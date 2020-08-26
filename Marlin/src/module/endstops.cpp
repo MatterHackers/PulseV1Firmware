@@ -58,7 +58,6 @@ float LastSensorDistance;
 float LastStepperDistance;
 int ExtrusionDiscrepency;
 unsigned long RunOutDectectTime = 0;
-bool RunOutTriggered = false;
 
 void Check_On_Runout()
 {
@@ -76,11 +75,9 @@ void Check_On_Runout()
 
     if (FilamentPositionSensorDetected)
     {
-      if (RunOutTriggered
-          && digitalRead(FIL_RUNOUT_PIN) == HIGH
+      if (digitalRead(FIL_RUNOUT_PIN) == HIGH
           && millis() - RunOutDectectTime > 5000)
       {
-        RunOutTriggered = false;
         digitalWrite(FIL_RUNOUT_PIN, LOW);
       }
 
@@ -99,7 +96,6 @@ void Check_On_Runout()
           ExtrusionDiscrepency++;
           if (ExtrusionDiscrepency > 2)
           {
-            RunOutTriggered = true;
             digitalWrite(FIL_RUNOUT_PIN, HIGH);
             RunOutDectectTime = millis();
             ExtrusionDiscrepency = 0;
