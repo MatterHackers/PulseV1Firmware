@@ -62,7 +62,7 @@ bool RunOutTriggered = false;
 
 void Check_On_Runout()
 {
-    if (CardReader::isPrinting())
+    if (!CardReader::isPrinting())
     {
       return;
     }
