@@ -37,6 +37,7 @@
   #define SD_ORDER(N,C) N
 #endif
 
+
 #define MAX_DIR_DEPTH     10       // Maximum folder depth
 #define MAXDIRNAMELENGTH   8       // DOS folder name size
 #define MAXPATHNAMELENGTH  (1 + (MAXDIRNAMELENGTH + 1) * (MAX_DIR_DEPTH) + 1 + FILENAME_LENGTH) // "/" + N * ("ADIRNAME/") + "filename.ext"
@@ -135,7 +136,7 @@ public:
 
   // Helper for open and remove
   static const char* diveToFile(const bool update_cwd, SdFile*& curDir, const char * const path, const bool echo=false);
-
+ 
   #if ENABLED(SDCARD_SORT_ALPHA)
     static void presort();
     static void getfilename_sorted(const uint16_t nr);

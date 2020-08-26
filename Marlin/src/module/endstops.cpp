@@ -32,6 +32,7 @@
 #include "temperature.h"
 #include "../lcd/ultralcd.h"
 
+
 #if ENABLED(ENDSTOP_INTERRUPTS_FEATURE)
   #include HAL_PATH(../HAL, endstop_interrupts.h)
 #endif
@@ -56,48 +57,65 @@ bool FilamentPositionSensorDetected = false;
 float LastSensorDistance;
 float LastStepperDistance;
 int ExtrusionDiscrepency;
+unsigned long RunOutDectectTime = 0;
+bool RunOutTriggered = false;
 
 void Check_On_Runout()
 {
-  float sensorDistance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
-  float motorDistance = current_position[E_AXIS];
-  if (sensorDistance < -1 || sensorDistance > 1)
-  {
-    FilamentPositionSensorDetected = true;
-  }
-
-  if (FilamentPositionSensorDetected)
-  {
-    float stepperDelta = abs(motorDistance - LastStepperDistance);
-
-    // if we think we should have move the filament by more than 1mm
-    if (stepperDelta > 1)
+    if (CardReader::isPrinting())
     {
-      float sensorDelta = abs(sensorDistance - LastSensorDistance);
-      // check if the sensor data is within a tolerance of the stepper data
+      return;
+    }
 
-      float deltaRatio = sensorDelta / stepperDelta;
-      if (deltaRatio < .5 || deltaRatio > 2)
+    float sensorDistance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
+    float motorDistance = current_position[E_AXIS];
+    if (sensorDistance < -1 || sensorDistance > 1)
+    {
+      FilamentPositionSensorDetected = true;
+    }
+
+    if (FilamentPositionSensorDetected)
+    {
+      if (RunOutTriggered
+          && digitalRead(FIL_RUNOUT_PIN) == HIGH
+          && millis() - RunOutDectectTime > 5000)
       {
-        // we have a discrepancy set a runout state
-        ExtrusionDiscrepency++;
-        if (ExtrusionDiscrepency > 2)
+        RunOutTriggered = false;
+        digitalWrite(FIL_RUNOUT_PIN, LOW);
+      }
+
+      float stepperDelta = abs(motorDistance - LastStepperDistance);
+
+      // if we think we should have move the filament by more than 1mm
+      if (stepperDelta > 1)
+      {
+        float sensorDelta = abs(sensorDistance - LastSensorDistance);
+        // check if the sensor data is within a tolerance of the stepper data
+
+        float deltaRatio = sensorDelta / stepperDelta;
+        if (deltaRatio < .5 || deltaRatio > 2)
         {
-          digitalWrite(FIL_RUNOUT_PIN, HIGH);
+          // we have a discrepancy set a runout state
+          ExtrusionDiscrepency++;
+          if (ExtrusionDiscrepency > 2)
+          {
+            RunOutTriggered = true;
+            digitalWrite(FIL_RUNOUT_PIN, HIGH);
+            RunOutDectectTime = millis();
+            ExtrusionDiscrepency = 0;
+          }
+        }
+        else
+        {
+          digitalWrite(FIL_RUNOUT_PIN, LOW);
           ExtrusionDiscrepency = 0;
         }
-      }
-      else
-      {
-        digitalWrite(FIL_RUNOUT_PIN, LOW);
-        ExtrusionDiscrepency = 0;
-      }
 
-      // and record this position
-      LastSensorDistance = sensorDistance;
-      LastStepperDistance = motorDistance;
+        // and record this position
+        LastSensorDistance = sensorDistance;
+        LastStepperDistance = motorDistance;
+      }
     }
-  }
 }
 
 bool Endstops::enabled, Endstops::enabled_globally; // Initialized by settings.load()
