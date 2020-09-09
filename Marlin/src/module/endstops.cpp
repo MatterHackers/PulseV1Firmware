@@ -63,7 +63,7 @@ void Check_On_Runout()
 {
     if (!CardReader::isPrinting())
     {
-      return;
+      //return;
     }
 
     float sensorDistance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
@@ -75,10 +75,10 @@ void Check_On_Runout()
 
     if (FilamentPositionSensorDetected)
     {
-      if (digitalRead(FIL_RUNOUT_PIN) == HIGH
+      if (digitalRead(FIL_RUNOUT_PIN) == LOW
           && millis() - RunOutDectectTime > 5000)
       {
-        digitalWrite(FIL_RUNOUT_PIN, LOW);
+        digitalWrite(FIL_RUNOUT_PIN, HIGH);
       }
 
       float stepperDelta = abs(motorDistance - LastStepperDistance);
@@ -96,14 +96,14 @@ void Check_On_Runout()
           ExtrusionDiscrepency++;
           if (ExtrusionDiscrepency > 2)
           {
-            digitalWrite(FIL_RUNOUT_PIN, HIGH);
+            digitalWrite(FIL_RUNOUT_PIN, LOW);
             RunOutDectectTime = millis();
             ExtrusionDiscrepency = 0;
           }
         }
         else
         {
-          digitalWrite(FIL_RUNOUT_PIN, LOW);
+          digitalWrite(FIL_RUNOUT_PIN, HIGH);
           ExtrusionDiscrepency = 0;
         }
 
