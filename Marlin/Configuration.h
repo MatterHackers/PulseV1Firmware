@@ -1166,7 +1166,12 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR false
+#if ExtruderType == 1
+  #define INVERT_E0_DIR true
+#else
+  #define INVERT_E0_DIR false
+#endif
+
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
