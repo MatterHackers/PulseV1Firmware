@@ -61,7 +61,7 @@ unsigned long RunOutDectectTime = 0;
 
 void Check_On_Runout()
 {
-    if (!CardReader::isPrinting())
+    if (CardReader::isPrinting())
     {
       //return;
     }
