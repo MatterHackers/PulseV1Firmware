@@ -59,60 +59,60 @@ float LastStepperDistance;
 int ExtrusionDiscrepency;
 unsigned long RunOutDectectTime = 0;
 
-void Check_On_Runout()
-{
-    if (CardReader::isPrinting())
-    {
-      //return;
-    }
+// void Check_On_Runout()
+// {
+//     if (CardReader::isPrinting())
+//     {
+//       //return;
+//     }
 
-    float sensorDistance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
-    float motorDistance = current_position[E_AXIS];
-    if (sensorDistance < -1 || sensorDistance > 1)
-    {
-      FilamentPositionSensorDetected = true;
-    }
+//     float sensorDistance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
+//     float motorDistance = current_position[E_AXIS];
+//     if (sensorDistance < -1 || sensorDistance > 1)
+//     {
+//       FilamentPositionSensorDetected = true;
+//     }
 
-    if (FilamentPositionSensorDetected)
-    {
-      if (digitalRead(FIL_RUNOUT_PIN) == LOW
-          && millis() - RunOutDectectTime > 5000)
-      {
-        digitalWrite(FIL_RUNOUT_PIN, HIGH);
-      }
+//     if (FilamentPositionSensorDetected)
+//     {
+//       if (digitalRead(FIL_RUNOUT_PIN) == LOW
+//           && millis() - RunOutDectectTime > 5000)
+//       {
+//         digitalWrite(FIL_RUNOUT_PIN, HIGH);
+//       }
 
-      float stepperDelta = abs(motorDistance - LastStepperDistance);
+//       float stepperDelta = abs(motorDistance - LastStepperDistance);
 
-      // if we think we should have move the filament by more than 1mm
-      if (stepperDelta > 1)
-      {
-        float sensorDelta = abs(sensorDistance - LastSensorDistance);
-        // check if the sensor data is within a tolerance of the stepper data
+//       // if we think we should have move the filament by more than 1mm
+//       if (stepperDelta > 1)
+//       {
+//         float sensorDelta = abs(sensorDistance - LastSensorDistance);
+//         // check if the sensor data is within a tolerance of the stepper data
 
-        float deltaRatio = sensorDelta / stepperDelta;
-        if (deltaRatio < .5 || deltaRatio > 2)
-        {
-          // we have a discrepancy set a runout state
-          ExtrusionDiscrepency++;
-          if (ExtrusionDiscrepency > 2)
-          {
-            digitalWrite(FIL_RUNOUT_PIN, LOW);
-            RunOutDectectTime = millis();
-            ExtrusionDiscrepency = 0;
-          }
-        }
-        else
-        {
-          digitalWrite(FIL_RUNOUT_PIN, HIGH);
-          ExtrusionDiscrepency = 0;
-        }
+//         float deltaRatio = sensorDelta / stepperDelta;
+//         if (deltaRatio < .5 || deltaRatio > 2)
+//         {
+//           // we have a discrepancy set a runout state
+//           ExtrusionDiscrepency++;
+//           if (ExtrusionDiscrepency > 2)
+//           {
+//             digitalWrite(FIL_RUNOUT_PIN, LOW);
+//             RunOutDectectTime = millis();
+//             ExtrusionDiscrepency = 0;
+//           }
+//         }
+//         else
+//         {
+//           digitalWrite(FIL_RUNOUT_PIN, HIGH);
+//           ExtrusionDiscrepency = 0;
+//         }
 
-        // and record this position
-        LastSensorDistance = sensorDistance;
-        LastStepperDistance = motorDistance;
-      }
-    }
-}
+//         // and record this position
+//         LastSensorDistance = sensorDistance;
+//         LastStepperDistance = motorDistance;
+//       }
+//     }
+// }
 
 bool Endstops::enabled, Endstops::enabled_globally; // Initialized by settings.load()
 volatile uint8_t Endstops::hit_state;

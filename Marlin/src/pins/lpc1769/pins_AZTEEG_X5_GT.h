@@ -36,7 +36,7 @@
 // Servos
 //
 #define SERVO0_PIN                         P1_23
-
+#define FIL_RUNOUT_PIN                     P1_22
 //
 // Limit Switches
 //
