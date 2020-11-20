@@ -31,6 +31,7 @@
 #include "../sd/cardreader.h"
 #include "temperature.h"
 #include "../lcd/ultralcd.h"
+#include "Configuration.h"
 
 
 #if ENABLED(ENDSTOP_INTERRUPTS_FEATURE)
@@ -61,9 +62,9 @@ unsigned long RunOutDectectTime = 0;
 
 void Check_On_Runout()
 {
-    if (CardReader::isPrinting())
+    if (!CardReader::isPrinting())
     {
-      //return;
+      return;
     }
 
     float sensorDistance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
@@ -485,8 +486,13 @@ void _O2 Endstops::report_states() {
   #endif
   #ifdef NEO_HAL
 	 float sensorDistance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
+   int e = planner.position[E_AXIS];
+   float motorDistance = e / (float)415;
+   SERIAL_ECHOLNPAIR("e=", e);
+   SERIAL_ECHOLNPAIR_F("stepper e=", stepper.count_position.e);
 	 SERIAL_ECHOPAIR_F("pos_0: SENSOR:", sensorDistance);
-	 float motorDistance = current_position[E_AXIS];
+	 //float motorDistance = current_position[E_AXIS]
+   //float motorDistance = (e / planner.settings.axis_steps_per_mm[E_AXIS_N(active_extruder)]);
    SERIAL_ECHOLNPAIR_F(" STEPPER:", motorDistance);
 #endif
   #if HAS_FILAMENT_SENSOR
