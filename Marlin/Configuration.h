@@ -489,9 +489,9 @@
   #define HEATER_1_MAXTEMP 255
   #define BED_MAXTEMP 125
   #define Z_MAX_POS 215
-  #define DEFAULT_Kp 20.03
-  #define DEFAULT_Ki 2.22
-  #define DEFAULT_Kd 45.12
+  #define DEFAULT_Kp 17.75
+  #define DEFAULT_Ki 1.35
+  #define DEFAULT_Kd 58.18
 #elif HotEndType == 2
   #define HEATER_0_MAXTEMP 305
   #define HEATER_1_MAXTEMP 305
