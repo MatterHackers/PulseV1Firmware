@@ -84,13 +84,13 @@ unsigned long RunOutDectectTime = 0;
 //       float stepperDelta = abs(motorDistance - LastStepperDistance);
 
 //       // if we think we should have move the filament by more than 1mm
-//       if (stepperDelta > 1)
+//       if (stepperDelta > 2)
 //       {
 //         float sensorDelta = abs(sensorDistance - LastSensorDistance);
 //         // check if the sensor data is within a tolerance of the stepper data
 
 //         float deltaRatio = sensorDelta / stepperDelta;
-//         if (deltaRatio < .5 || deltaRatio > 2)
+//         if (deltaRatio < .33 || deltaRatio > 3)
 //         {
 //           // we have a discrepancy set a runout state
 //           ExtrusionDiscrepency++;
