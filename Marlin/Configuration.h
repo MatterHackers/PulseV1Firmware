@@ -24,14 +24,14 @@
 #include "src/neoHAL.h"
 
 #define MachineType "E"
-#define ExtruderType 4  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
-#define HotEndType 2  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito
-#define LCDType 3 // 1 = None, 2 = RepRapLCD, 3 = Viki2
+#define ExtruderType 1 // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
+#define HotEndType 1  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
+#define LCDType 1 // 1 = None, 2 = RepRapLCD, 3 = Viki2
 
 #define STRINGIZE2(s) #s
 #define STRINGIZE(s) STRINGIZE2(s)
 #define MODEL_NUMBER STRINGIZE(ExtruderType) STRINGIZE(HotEndType) STRINGIZE(LCDType)
-#define FIRMWARE_VERSION " 1"
+#define FIRMWARE_VERSION " 2"
 #define CUSTOM_MACHINE_NAME "Pulse " MachineType "-" MODEL_NUMBER FIRMWARE_VERSION
 #define SHORT_BUILD_VERSION MachineType "-" MODEL_NUMBER
 
@@ -485,37 +485,46 @@
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
 #if HotEndType == 1
-  #define HEATER_0_MAXTEMP 255
-  #define HEATER_1_MAXTEMP 255
+  #define HEATER_0_MAXTEMP 265
+  #define HEATER_1_MAXTEMP 265
   #define BED_MAXTEMP 125
   #define Z_MAX_POS 215
   #define DEFAULT_Kp 17.75
   #define DEFAULT_Ki 1.35
   #define DEFAULT_Kd 58.18
 #elif HotEndType == 2
-  #define HEATER_0_MAXTEMP 305
-  #define HEATER_1_MAXTEMP 305
+  #define HEATER_0_MAXTEMP 315
+  #define HEATER_1_MAXTEMP 315
   #define BED_MAXTEMP 125
   #define Z_MAX_POS 215
   #define DEFAULT_Kp 20.03
   #define DEFAULT_Ki 2.22
   #define DEFAULT_Kd 45.12
 #elif HotEndType == 3
-  #define HEATER_0_MAXTEMP 305
-  #define HEATER_1_MAXTEMP 305
+  #define HEATER_0_MAXTEMP 315
+  #define HEATER_1_MAXTEMP 315
   #define BED_MAXTEMP 125
   #define Z_MAX_POS 205
   #define DEFAULT_Kp 20.03
   #define DEFAULT_Ki 2.22
   #define DEFAULT_Kd 45.12
 #elif HotEndType == 4
-  #define HEATER_0_MAXTEMP 305
-  #define HEATER_1_MAXTEMP 305
+  #define HEATER_0_MAXTEMP 315
+  #define HEATER_1_MAXTEMP 315
   #define BED_MAXTEMP 125
   #define Z_MAX_POS 215
-  #define DEFAULT_Kp 20.03
+  #define DEFAULT_Kp 18
   #define DEFAULT_Ki 2.22
-  #define DEFAULT_Kd 45.12
+  #define DEFAULT_Kd 55
+#elif HotEndType == 5
+  #define HEATER_0_MAXTEMP 315
+  #define HEATER_1_MAXTEMP 315
+  #define BED_MAXTEMP 125
+  #define Z_MAX_POS 215
+  #define DEFAULT_Kp 18
+  #define DEFAULT_Ki 2.22
+  #define DEFAULT_Kd 55
+
 #endif
 
 #define HEATER_2_MAXTEMP 275
@@ -799,12 +808,16 @@
 //#define DISTINCT_E_FACTORS
 #if ExtruderType == 1
   #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 92.4}
+  #define INVERT_E0_DIR true
 #elif ExtruderType == 2
   #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 470}
+  #define INVERT_E0_DIR false
 #elif ExtruderType == 3
   #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 510}
+  #define INVERT_E0_DIR false
 #elif ExtruderType == 4
   #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 415}
+  #define INVERT_E0_DIR false
 #endif
 
 
@@ -1100,9 +1113,9 @@
  * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
-#define Z_CLEARANCE_DEPLOY_PROBE   10 // Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  10 // Z Clearance between probe points
-#define Z_CLEARANCE_MULTI_PROBE     10 // Z Clearance between multiple probes
+#define Z_CLEARANCE_DEPLOY_PROBE   7 // Z Clearance for Deploy/Stow
+#define Z_CLEARANCE_BETWEEN_PROBES  7 // Z Clearance between probe points
+#define Z_CLEARANCE_MULTI_PROBE     7 // Z Clearance between multiple probes
 //#define Z_AFTER_PROBING           5 // Z position after probing is done
 
 #define Z_PROBE_LOW_POINT          -5 // Farthest distance below the trigger-point to go before stopping
@@ -1885,7 +1898,11 @@
 //======================== LCD / Controller Selection =========================
 //========================   (Character-based LCDs)   =========================
 //=============================================================================
-#if LCDType == 2
+#if LCDType == 1
+  #define REPRAP_DISCOUNT_SMART_CONTROLLER
+  #define BABYSTEPPING
+  #define REVERSE_ENCODER_DIRECTION
+#elif LCDType == 2
   #define REPRAP_DISCOUNT_SMART_CONTROLLER
   #define BABYSTEPPING
   #define REVERSE_ENCODER_DIRECTION
