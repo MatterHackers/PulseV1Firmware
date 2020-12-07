@@ -62,7 +62,9 @@ extern xyze_pos_t current_position,  // High-level current tool position
 #endif
 
 // Scratch space for a cartesian result
-extern xyz_pos_t cartes;
+extern xyze_pos_t cartes;
+extern const xyze_pos_t lpos;
+extern const xyze_pos_t npos;
 
 // Until kinematics.cpp is created, declare this here
 #if IS_KINEMATIC

@@ -253,6 +253,8 @@ class Stepper {
       static bool initialized;
     #endif
 
+    static xyze_long_t count_position;
+
   private:
 
     static block_t* current_block;          // A pointer to the block currently being traced
@@ -348,7 +350,7 @@ class Stepper {
     static xyz_long_t endstops_trigsteps;
 
     // Positions of stepper motors, in step units
-    static xyze_long_t count_position;
+    //static xyze_long_t count_position;
 
     // Current stepper motor directions (+1 or -1)
     static xyze_int8_t count_direction;
@@ -428,7 +430,7 @@ class Stepper {
     static void set_axis_position(const AxisEnum a, const int32_t &v);
 
     // Report the positions of the steppers, in steps
-    static void report_a_position(const xyz_long_t &pos);
+    static void report_a_position(const xyze_long_t &pos);
     static void report_positions();
 
     // Discard current block and free any resources

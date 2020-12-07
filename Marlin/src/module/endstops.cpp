@@ -32,6 +32,7 @@
 #include "temperature.h"
 #include "../lcd/ultralcd.h"
 #include "Configuration.h"
+#include "motion.h"
 
 
 #if ENABLED(ENDSTOP_INTERRUPTS_FEATURE)
@@ -486,14 +487,18 @@ void _O2 Endstops::report_states() {
   #endif
   #ifdef NEO_HAL
 	 float sensorDistance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
-   int e = planner.position[E_AXIS];
-   float motorDistance = e / (float)415;
-   SERIAL_ECHOLNPAIR("e=", e);
-   SERIAL_ECHOLNPAIR_F("stepper e=", stepper.count_position.e);
+   int e = planner.position_float[E_AXIS];
+   float motorDistance = e ;
+   SERIAL_ECHOLNPAIR("e planner position=", e);
+   SERIAL_ECHOLNPAIR_F("a=", planner.steps_dist_mm.e);
+   SERIAL_ECHOLNPAIR_F("b=", lpos.e);
+   SERIAL_ECHOLNPAIR_F("c=", Stepper::count_position[E_AXIS]);
+   SERIAL_ECHOLNPAIR_F("d=", npos.e);
+   //SERIAL_ECHOLNPAIR_F("e stepper position=", planner.position_float[E_AXIS]);
 	 SERIAL_ECHOPAIR_F("pos_0: SENSOR:", sensorDistance);
 	 //float motorDistance = current_position[E_AXIS]
    //float motorDistance = (e / planner.settings.axis_steps_per_mm[E_AXIS_N(active_extruder)]);
-   SERIAL_ECHOLNPAIR_F(" STEPPER:", motorDistance);
+   SERIAL_ECHOLNPAIR_F(" E Motor Target Position:", motorDistance);
 #endif
   #if HAS_FILAMENT_SENSOR
     #if NUM_RUNOUT_SENSORS == 1
