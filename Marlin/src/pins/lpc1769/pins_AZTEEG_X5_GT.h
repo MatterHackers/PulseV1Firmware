@@ -71,18 +71,18 @@
   #define Z_CS_PIN                         P0_21  // BSD2660 default
 #endif
 
-#define E0_STEP_PIN                        P2_00
-#define E0_DIR_PIN                         P0_05
-#define E0_ENABLE_PIN                      P0_04
-#ifndef E0_CS_PIN
-  #define E0_CS_PIN                        P0_04  // BSD2660 default
+#define Z2_STEP_PIN                        P2_00  //
+#define Z2_DIR_PIN                         P0_05  //
+#define Z2_ENABLE_PIN                      P0_04  //
+#ifndef Z2_CS_PIN                                 //
+  #define Z2_CS_PIN                        P0_04  // BSD2660 default
 #endif
 
-#define E1_STEP_PIN                        P2_08
-#define E1_DIR_PIN                         P2_13
-#define E1_ENABLE_PIN                      P4_29
-#ifndef E1_CS_PIN
-  #define E1_CS_PIN                        P4_29  // BSD2660 default
+#define E0_STEP_PIN                        P2_08  //
+#define E0_DIR_PIN                         P2_13  //
+#define E0_ENABLE_PIN                      P4_29  //
+#ifndef E0_CS_PIN                                 //    
+  #define E0_CS_PIN                        P4_29  // BSD2660 default
 #endif
 
 //

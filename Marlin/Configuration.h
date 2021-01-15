@@ -25,14 +25,14 @@
 #define BoardPlatform 2 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
 #define MachineType "E"
 #define ExtruderType 4 // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
-#define HotEndType 4  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
+#define HotEndType 2  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
 #define LCDType 3 // 1 = None, 2 = RepRapLCD, 3 = Viki2
 
 #define STRINGIZE2(s) #s
 #define STRINGIZE(s) STRINGIZE2(s)
 #define MODEL_NUMBER STRINGIZE(ExtruderType) STRINGIZE(HotEndType) STRINGIZE(LCDType)
 #define FIRMWARE_VERSION "S 1"
-#define CUSTOM_MACHINE_NAME "Pulse " MachineType "-" MODEL_NUMBER FIRMWARE_VERSION
+#define CUSTOM_MACHINE_NAME "Blade" MachineType "-" MODEL_NUMBER FIRMWARE_VERSION
 #define SHORT_BUILD_VERSION MachineType "-" MODEL_NUMBER
 
 
@@ -687,7 +687,7 @@
 
 // Uncomment one of these options to enable CoreXY, CoreXZ, or CoreYZ kinematics
 // either in the usual order or reversed
-//#define COREXY
+#define COREXY
 //#define COREXZ
 //#define COREYZ
 //#define COREYX
@@ -766,16 +766,17 @@
   #define X_DRIVER_TYPE  TMC2660
   #define Y_DRIVER_TYPE  TMC2660
   #define Z_DRIVER_TYPE  TMC2660
+  #define Z2_DRIVER_TYPE TMC2660
   #define E0_DRIVER_TYPE TMC2660
 #elif BoardPlatform ==1
   #define X_DRIVER_TYPE  TMC2130
   #define Y_DRIVER_TYPE  TMC2130
   #define Z_DRIVER_TYPE  TMC2130
+  #define Z2_DRIVER_TYPE TMC2130
   #define E0_DRIVER_TYPE TMC2130
 #endif
 //#define X2_DRIVER_TYPE A4988
 //#define Y2_DRIVER_TYPE A4988
-//#define Z2_DRIVER_TYPE A4988
 //#define Z3_DRIVER_TYPE A4988
 //#define Z4_DRIVER_TYPE A4988
 //#define E1_DRIVER_TYPE A4988
