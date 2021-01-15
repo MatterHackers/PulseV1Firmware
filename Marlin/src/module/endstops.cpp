@@ -488,6 +488,8 @@ void _O2 Endstops::report_states() {
 	 SERIAL_ECHOPAIR_F("pos_0: SENSOR:", sensorDistance);
 	 float motorDistance = current_position[E_AXIS];
    SERIAL_ECHOLNPAIR_F(" STEPPER:", motorDistance);
+   SERIAL_ECHOLNPAIR_F("Actual Stepper Position:", stepper.position(E_AXIS));
+
 #endif
   #if HAS_FILAMENT_SENSOR
     #if NUM_RUNOUT_SENSORS == 1

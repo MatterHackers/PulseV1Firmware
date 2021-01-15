@@ -252,6 +252,7 @@ class Stepper {
       static uint32_t motor_current_setting[3];
       static bool initialized;
     #endif
+ 
 
   private:
 

@@ -94,7 +94,7 @@ bool relative_mode; // = false;
  *   Used by 'line_to_current_position' to do a move after changing it.
  *   Used by 'sync_plan_position' to update 'planner.position'.
  */
-xyze_pos_t current_position = { X_HOME_POS, Y_HOME_POS, Z_HOME_POS };
+xyze_pos_t current_position = { X_HOME_POS, Y_HOME_POS, Z_HOME_POS};
 
 /**
  * Cartesian Destination
@@ -154,7 +154,7 @@ const feedRate_t homing_feedrate_mm_s[XYZ] PROGMEM = {
 };
 
 // Cartesian conversion result goes here:
-xyz_pos_t cartes;
+xyze_pos_t cartes;
 
 #if IS_KINEMATIC
 
