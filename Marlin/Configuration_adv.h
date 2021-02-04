@@ -406,8 +406,9 @@
  *
  * Define one or both of these to override the default 0-255 range.
  */
-//#define FAN_MIN_PWM 50
-//#define FAN_MAX_PWM 128
+#if BoardPlatform == 2
+  #define FAN_MAX_PWM 75 
+#endif
 
 /**
  * FAST PWM FAN Settings
@@ -450,7 +451,14 @@
  * Multiple extruders can be assigned to the same pin in which case
  * the fan will turn on when any selected extruder is above the threshold.
  */
-#define E0_AUTO_FAN_PIN 8
+#if BoardPlatform == 2
+  #define E0_AUTO_FAN_PIN P0_26
+#elif BoardPlatform == 1
+  #define E0_AUTO_FAN_PIN 8
+#endif
+
+#define EXTRUDER_AUTO_FAN_TEMPERATURE 50
+
 #define E1_AUTO_FAN_PIN -1
 #define E2_AUTO_FAN_PIN -1
 #define E3_AUTO_FAN_PIN -1
@@ -460,10 +468,14 @@
 #define E7_AUTO_FAN_PIN -1
 #define CHAMBER_AUTO_FAN_PIN -1
 
-#define EXTRUDER_AUTO_FAN_TEMPERATURE 50
-#define EXTRUDER_AUTO_FAN_SPEED 255   // 255 == full speed
-#define CHAMBER_AUTO_FAN_TEMPERATURE 30
-#define CHAMBER_AUTO_FAN_SPEED 255
+#if BoardPlatform == 2
+  #define EXTRUDER_AUTO_FAN_SPEED 75   // 255 == full speed
+  #define CHAMBER_AUTO_FAN_TEMPERATURE 30
+  #define CHAMBER_AUTO_FAN_SPEED 255
+#elif
+  #define EXTRUDER_AUTO_FAN_SPEED 255
+#endif
+
 
 /**
  * Part-Cooling Fan Multiplexer
@@ -813,7 +825,7 @@
  * Set DISABLE_INACTIVE_? 'true' to shut down axis steppers after an idle period.
  * The Deactive Time can be overridden with M18 and M84. Set to 0 for No Timeout.
  */
-#define DEFAULT_STEPPER_DEACTIVE_TIME 120
+#define DEFAULT_STEPPER_DEACTIVE_TIME 30
 #define DISABLE_INACTIVE_X true
 #define DISABLE_INACTIVE_Y true
 #define DISABLE_INACTIVE_Z true  // Set 'false' if the nozzle could fall onto your printed part!
@@ -2220,6 +2232,7 @@
   #define HOLD_MULTIPLIER    0.5       // Scales down the holding current from run current
   #define INTERPOLATE       true       // Interpolate X/Y/Z_MICROSTEPS to 256
 
+#if BoardPlatform == 1
   #if AXIS_IS_TMC(X)
     #define X_CURRENT       800        // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
@@ -2227,6 +2240,55 @@
     #define X_RSENSE         0.22
     #define X_CHAIN_POS      0         // <=0 : Not chained. 1 : MCU MOSI connected. 2 : Next in chain, ...
   #endif
+  #if AXIS_IS_TMC(Y)
+    #define Y_CURRENT       800
+    #define Y_CURRENT_HOME  Y_CURRENT
+    #define Y_MICROSTEPS     16
+    #define Y_RSENSE         0.22
+    #define Y_CHAIN_POS      0
+  #endif
+    #if AXIS_IS_TMC(Z)
+    #define Z_CURRENT        800
+    #define Z_CURRENT_HOME   Z_CURRENT
+    #define Z_MICROSTEPS     16
+    #define Z_RSENSE         0.22
+    #define Z_CHAIN_POS      0
+  #endif
+   #if AXIS_IS_TMC(E0)
+    #define E0_CURRENT       500
+    #define E0_MICROSTEPS    16
+    #define E0_RSENSE        0.22
+    #define E0_CHAIN_POS     0
+  #endif
+#elif BoardPlatform == 2
+  #if AXIS_IS_TMC(X)
+    #define X_CURRENT       900        // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
+    #define X_MICROSTEPS     16        // 0..256
+    #define X_RSENSE         0.10
+    #define X_CHAIN_POS      0         // <=0 : Not chained. 1 : MCU MOSI connected. 2 : Next in chain, ...
+  #endif
+  #if AXIS_IS_TMC(Y)
+    #define Y_CURRENT       900
+    #define Y_CURRENT_HOME  Y_CURRENT
+    #define Y_MICROSTEPS     16
+    #define Y_RSENSE         0.10
+    #define Y_CHAIN_POS      0
+  #endif
+    #if AXIS_IS_TMC(Z)
+    #define Z_CURRENT        900
+    #define Z_CURRENT_HOME   Z_CURRENT
+    #define Z_MICROSTEPS     16
+    #define Z_RSENSE         0.10
+    #define Z_CHAIN_POS      0
+  #endif
+   #if AXIS_IS_TMC(E0)
+    #define E0_CURRENT       600
+    #define E0_MICROSTEPS    16
+    #define E0_RSENSE        0.10
+    #define E0_CHAIN_POS     0
+  #endif
+#endif
 
   #if AXIS_IS_TMC(X2)
     #define X2_CURRENT      800
@@ -2236,28 +2298,12 @@
     #define X2_CHAIN_POS     -1
   #endif
 
-  #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT       800
-    #define Y_CURRENT_HOME  Y_CURRENT
-    #define Y_MICROSTEPS     16
-    #define Y_RSENSE         0.22
-    #define Y_CHAIN_POS      0
-  #endif
-
   #if AXIS_IS_TMC(Y2)
     #define Y2_CURRENT      800
     #define Y2_CURRENT_HOME Y2_CURRENT
     #define Y2_MICROSTEPS    16
     #define Y2_RSENSE         0.11
     #define Y2_CHAIN_POS     -1
-  #endif
-
-  #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT        800
-    #define Z_CURRENT_HOME   Z_CURRENT
-    #define Z_MICROSTEPS     16
-    #define Z_RSENSE         0.22
-    #define Z_CHAIN_POS      0
   #endif
 
   #if AXIS_IS_TMC(Z2)
@@ -2282,13 +2328,6 @@
     #define Z4_MICROSTEPS    16
     #define Z4_RSENSE         0.11
     #define Z4_CHAIN_POS     -1
-  #endif
-
-  #if AXIS_IS_TMC(E0)
-    #define E0_CURRENT       800
-    #define E0_MICROSTEPS    16
-    #define E0_RSENSE        0.22
-    #define E0_CHAIN_POS     0
   #endif
 
   #if AXIS_IS_TMC(E1)
@@ -2405,16 +2444,20 @@
    * Use for drivers that do not use a dedicated enable pin, but rather handle the same
    * function through a communication line such as SPI or UART.
    */
-  //#define SOFTWARE_DRIVER_ENABLE
+  #if BoardPlatform == 2
+    #define SOFTWARE_DRIVER_ENABLE
+  #endif
 
   /**
    * TMC2130, TMC2160, TMC2208, TMC2209, TMC5130 and TMC5160 only
    * Use Trinamic's ultra quiet stepping mode.
    * When disabled, Marlin will use spreadCycle stepping mode.
    */
-  #define STEALTHCHOP_XY
-  #define STEALTHCHOP_Z
-  #define STEALTHCHOP_E
+  #if BoardPlatform == 1
+    #define STEALTHCHOP_XY
+    #define STEALTHCHOP_Z
+    #define STEALTHCHOP_E
+  #endif
 
   /**
    * Optimize spreadCycle chopper parameters by using predefined parameter sets
@@ -2431,7 +2474,12 @@
    * Define you own with
    * { <off_time[1..15]>, <hysteresis_end[-3..12]>, hysteresis_start[1..8] }
    */
-  #define CHOPPER_TIMING CHOPPER_PRUSAMK3_24V
+  
+  #if BoardPlatform == 1
+    #define CHOPPER_TIMING CHOPPER_PRUSAMK3_24V
+   #elif BoardPlatform ==2
+    #define CHOPPER_TIMING { 4, -2, 1 }
+  #endif
 
   /**
    * Monitor Trinamic drivers
@@ -2447,7 +2495,7 @@
   #define MONITOR_DRIVER_STATUS
 
   #if ENABLED(MONITOR_DRIVER_STATUS)
-    #define CURRENT_STEP_DOWN     50  // [mA]
+    #define CURRENT_STEP_DOWN     25  // [mA]
     #define REPORT_CURRENT_CHANGE
     #define STOP_ON_ERROR
   #endif
@@ -2459,7 +2507,10 @@
    * STEALTHCHOP_(XY|Z|E) must be enabled to use HYBRID_THRESHOLD.
    * M913 X/Y/Z/E to live tune the setting
    */
-  #define HYBRID_THRESHOLD
+
+  #if BoardPlatform == 1
+    #define HYBRID_THRESHOLD
+  #endif
 
   #define X_HYBRID_THRESHOLD     100  // [mm/s]
   #define Y_HYBRID_THRESHOLD     100
@@ -2535,7 +2586,7 @@
    * Beta feature!
    * Create a 50/50 square wave step pulse optimal for stepper drivers.
    */
-  //#define SQUARE_WAVE_STEPPING
+  #define SQUARE_WAVE_STEPPING
 
   /**
    * Enable M122 debugging command for TMC stepper drivers.
