@@ -482,6 +482,10 @@ void _O2 Endstops::report_states() {
   #if HAS_Z_MAX
     ES_REPORT(Z_MAX);
   #endif
+   #if HAS_X_MAX
+    ES_REPORT(X_MAX);
+  #endif
+
   #if HAS_CUSTOM_PROBE_PIN
     print_es_state(READ(Z_MIN_PROBE_PIN) != Z_MIN_PROBE_ENDSTOP_INVERTING, PSTR(STR_Z_PROBE));
   #endif
@@ -491,9 +495,9 @@ void _O2 Endstops::report_states() {
    float motorDistance = e ;
    SERIAL_ECHOLNPAIR("e planner position=", e);
    SERIAL_ECHOLNPAIR_F("a=", planner.steps_dist_mm.e);
-   SERIAL_ECHOLNPAIR_F("b=", lpos.e);
+   //SERIAL_ECHOLNPAIR_F("b=", lpos.e);
    SERIAL_ECHOLNPAIR_F("c=", Stepper::count_position[E_AXIS]);
-   SERIAL_ECHOLNPAIR_F("d=", npos.e);
+   //SERIAL_ECHOLNPAIR_F("d=", npos.e);
    //SERIAL_ECHOLNPAIR_F("e stepper position=", planner.position_float[E_AXIS]);
 	 SERIAL_ECHOPAIR_F("pos_0: SENSOR:", sensorDistance);
 	 //float motorDistance = current_position[E_AXIS]
