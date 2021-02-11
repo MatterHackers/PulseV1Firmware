@@ -28,7 +28,6 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***************************************************************************/
 
-
 #ifndef NEOHAL_H
 #define NEOHAL_H
 #include "stdint.h"
@@ -58,48 +57,47 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 0b110   24            2
 // 0b111   10            4 
 
-// class neoHAL
-// {  
+class neoHAL
+{  
+public:
+  neoHAL(uint8_t addr=0x36);
+  void begin(uint8_t FTH=0b001, uint8_t SF=0b00);
+  uint16_t readAngle();
+  uint8_t status();
+  void setOrigin();
+  uint8_t readByte(uint8_t reg);
+  void writeByte(uint8_t reg, uint8_t val);
+  
+  uint16_t  angle = 0;
+  uint16_t  rawAngle = 0;
+  float degrees = 0;
+  float rad = 0;
+  uint16_t origin = 0;
+  uint8_t stat = 0;
+  
+  union {
+  char raw[20];
+  struct {
+   uint8_t header;      // alignment header
+   uint8_t ID;          // message ID
+   uint8_t status;
+   uint8_t reserve1;
+   uint16_t angle;
+   uint16_t origin;
+   uint16_t reserve2;
+   uint16_t reserve3;
+   uint16_t reserve4;
+   uint16_t reserve5;
+   uint16_t reserve6;
+   uint16_t reserve7;
+  } pcs;
+} DX;
 
-// public:
-//   neoHAL(uint8_t addr=0x36);
-//   void begin(uint8_t FTH=0b001, uint8_t SF=0b00);
-//   uint16_t readAngle();
-//   uint8_t status();
-//   void setOrigin();
-//   uint8_t readByte(uint8_t reg);
-//   void writeByte(uint8_t reg, uint8_t val);
+void updateDX();
   
-//   uint16_t  angle = 0;
-//   uint16_t  rawAngle = 0;
-//   float degrees = 0;
-//   float rad = 0;
-//   uint16_t origin = 0;
-//   uint8_t stat = 0;
+private:
+  int _address = 0x36;
   
-//   union {
-//   char raw[20];
-//   struct {
-//    uint8_t header;      // alignment header
-//    uint8_t ID;          // message ID
-//    uint8_t status;
-//    uint8_t reserve1;
-//    uint16_t angle;
-//    uint16_t origin;
-//    uint16_t reserve2;
-//    uint16_t reserve3;
-//    uint16_t reserve4;
-//    uint16_t reserve5;
-//    uint16_t reserve6;
-//    uint16_t reserve7;
-//   } pcs;
-// } DX;
-
-// void updateDX();
-  
-// private:
-//   int _address = 0x36;
-  
-// };
+};
 
 #endif

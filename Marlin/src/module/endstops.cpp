@@ -63,9 +63,9 @@ unsigned long RunOutDectectTime = 0;
 
 // void Check_On_Runout()
 // {
-//     if (CardReader::isPrinting())
+//     if (!CardReader::isPrinting())
 //     {
-//       //return;
+//       return;
 //     }
 
 //     float sensorDistance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
@@ -85,7 +85,7 @@ unsigned long RunOutDectectTime = 0;
 
 //       float stepperDelta = abs(motorDistance - LastStepperDistance);
 
-//       // if we think we should have move the filament by more than 1mm
+//       // if we think we should have moved the filament by more than 1mm
 //       if (stepperDelta > 2)
 //       {
 //         float sensorDelta = abs(sensorDistance - LastSensorDistance);
@@ -491,21 +491,12 @@ void _O2 Endstops::report_states() {
    float motorDistance = e ;
    SERIAL_ECHOLNPAIR("e planner position=", e);
    SERIAL_ECHOLNPAIR_F("a=", planner.steps_dist_mm.e);
-   SERIAL_ECHOLNPAIR_F("b=", lpos.e);
    SERIAL_ECHOLNPAIR_F("c=", Stepper::count_position[E_AXIS]);
-   SERIAL_ECHOLNPAIR_F("d=", npos.e);
    //SERIAL_ECHOLNPAIR_F("e stepper position=", planner.position_float[E_AXIS]);
 	 SERIAL_ECHOPAIR_F("pos_0: SENSOR:", sensorDistance);
-<<<<<<< HEAD
-	 //float motorDistance = current_position[E_AXIS]
-   //float motorDistance = (e / planner.settings.axis_steps_per_mm[E_AXIS_N(active_extruder)]);
-   SERIAL_ECHOLNPAIR_F(" E Motor Target Position:", motorDistance);
-=======
-	 float motorDistance = current_position[E_AXIS];
    SERIAL_ECHOLNPAIR_F(" STEPPER:", motorDistance);
    SERIAL_ECHOLNPAIR_F("Actual Stepper Position:", stepper.position(E_AXIS));
 
->>>>>>> 03eb0f0a6b18472463ab05e00f712281deb217b5
 #endif
   #if HAS_FILAMENT_SENSOR
     #if NUM_RUNOUT_SENSORS == 1

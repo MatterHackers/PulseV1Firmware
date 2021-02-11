@@ -20,23 +20,33 @@
  *
  */
 #pragma once
-#include "src/neoHAL.h"
+#if BoardPlatform == 1
+  #include "src/neoHAL.h"
+#endif
+
+#define MachineType "E"
 
 #define BoardPlatform 2 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
-#define MachineType "E"
-#define ExtruderType 4 // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
+#define ExtruderType 2  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
 #define HotEndType 4  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
 #define LCDType 3 // 1 = None, 2 = RepRapLCD, 3 = Viki2
 
 #define STRINGIZE2(s) #s
 #define STRINGIZE(s) STRINGIZE2(s)
 #define MODEL_NUMBER STRINGIZE(ExtruderType) STRINGIZE(HotEndType) STRINGIZE(LCDType)
-#define FIRMWARE_VERSION "S 1"
+
+#if BoardPlatform == 1
+  #define FIRMWARE_VERSION " 1"
+#elif BoardPlatform == 2
+  #define FIRMWARE_VERSION "S 1"
+#endif
+
 #define CUSTOM_MACHINE_NAME "Pulse " MachineType "-" MODEL_NUMBER FIRMWARE_VERSION
 #define SHORT_BUILD_VERSION MachineType "-" MODEL_NUMBER
 
-
-//#define NEO_HAL
+#if BoardPlatform == 1
+  #define NEO_HAL
+#endif
 #ifdef NEO_HAL
 	extern neoHAL neo_hal;
 	extern long neo_rotation_count;
@@ -1280,7 +1290,7 @@
  * RAMPS-based boards use SERVO3_PIN for the first runout sensor.
  * For other boards you may need to define FIL_RUNOUT_PIN, FIL_RUNOUT2_PIN, etc.
  */
-//#define FILAMENT_RUNOUT_SENSOR
+#define FILAMENT_RUNOUT_SENSOR
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
   #define NUM_RUNOUT_SENSORS   1     // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
   #define FIL_RUNOUT_STATE     LOW   // Pin state indicating that filament is NOT present.

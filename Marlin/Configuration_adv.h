@@ -472,7 +472,7 @@
   #define EXTRUDER_AUTO_FAN_SPEED 75   // 255 == full speed
   #define CHAMBER_AUTO_FAN_TEMPERATURE 30
   #define CHAMBER_AUTO_FAN_SPEED 255
-#elif
+#elif BoardPlatform == 1
   #define EXTRUDER_AUTO_FAN_SPEED 255
 #endif
 
