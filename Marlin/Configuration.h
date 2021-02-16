@@ -26,10 +26,10 @@
 
 #define MachineType "E"
 
-#define BoardPlatform 2 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
-#define ExtruderType 2  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
-#define HotEndType 4  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
-#define LCDType 3 // 1 = None, 2 = RepRapLCD, 3 = Viki2
+#define BoardPlatform 1 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
+#define ExtruderType 4  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
+#define HotEndType 5  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
+#define LCDType 2 // 1 = None, 2 = RepRapLCD, 3 = Viki2
 
 #define STRINGIZE2(s) #s
 #define STRINGIZE(s) STRINGIZE2(s)
@@ -44,7 +44,7 @@
 #define CUSTOM_MACHINE_NAME "Pulse " MachineType "-" MODEL_NUMBER FIRMWARE_VERSION
 #define SHORT_BUILD_VERSION MachineType "-" MODEL_NUMBER
 
-#if BoardPlatform == 1
+#if BoardPlatform == 2
   #define NEO_HAL
 #endif
 #ifdef NEO_HAL
@@ -777,11 +777,17 @@
   #define Y_DRIVER_TYPE  TMC2660
   #define Z_DRIVER_TYPE  TMC2660
   #define E0_DRIVER_TYPE TMC2660
+  #define INVERT_X_DIR true
+  #define INVERT_Y_DIR false
+  #define INVERT_Z_DIR true
 #elif BoardPlatform ==1
   #define X_DRIVER_TYPE  TMC2130
   #define Y_DRIVER_TYPE  TMC2130
   #define Z_DRIVER_TYPE  TMC2130
   #define E0_DRIVER_TYPE TMC2130
+  #define INVERT_X_DIR false
+  #define INVERT_Y_DIR true
+  #define INVERT_Z_DIR false
 #endif
 //#define X2_DRIVER_TYPE A4988
 //#define Y2_DRIVER_TYPE A4988
@@ -1202,9 +1208,9 @@
 // @section machine
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#define INVERT_X_DIR true
-#define INVERT_Y_DIR false
-#define INVERT_Z_DIR true
+// #define INVERT_X_DIR true
+// #define INVERT_Y_DIR false
+// #define INVERT_Z_DIR true
 
 // @section extruder
 
