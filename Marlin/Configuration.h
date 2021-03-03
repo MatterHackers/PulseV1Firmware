@@ -27,16 +27,16 @@
 #define MachineType "E"
 
 #define BoardPlatform 1 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
-#define ExtruderType 4  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
-#define HotEndType 5  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
-#define LCDType 2 // 1 = None, 2 = RepRapLCD, 3 = Viki2
+#define ExtruderType 2  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
+#define HotEndType 2  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
+#define LCDType 3 // 1 = None, 2 = RepRapLCD, 3 = Viki2
 
 #define STRINGIZE2(s) #s
 #define STRINGIZE(s) STRINGIZE2(s)
 #define MODEL_NUMBER STRINGIZE(ExtruderType) STRINGIZE(HotEndType) STRINGIZE(LCDType)
 
 #if BoardPlatform == 1
-  #define FIRMWARE_VERSION " 1"
+  #define FIRMWARE_VERSION " 3"
 #elif BoardPlatform == 2
   #define FIRMWARE_VERSION "S 1"
 #endif
@@ -780,7 +780,7 @@
   #define INVERT_X_DIR true
   #define INVERT_Y_DIR false
   #define INVERT_Z_DIR true
-#elif BoardPlatform ==1
+#elif BoardPlatform == 1
   #define X_DRIVER_TYPE  TMC2130
   #define Y_DRIVER_TYPE  TMC2130
   #define Z_DRIVER_TYPE  TMC2130
@@ -789,6 +789,7 @@
   #define INVERT_Y_DIR true
   #define INVERT_Z_DIR false
 #endif
+
 //#define X2_DRIVER_TYPE A4988
 //#define Y2_DRIVER_TYPE A4988
 //#define Z2_DRIVER_TYPE A4988
@@ -853,7 +854,7 @@
   #define INVERT_E0_DIR false
 #elif ExtruderType == 4
   #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 415}
-  #define INVERT_E0_DIR false
+  #define INVERT_E0_DIR true
 #endif
 
 
@@ -1215,11 +1216,11 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#if ExtruderType == 1
-  #define INVERT_E0_DIR true
-#else
-  #define INVERT_E0_DIR false
-#endif
+// #if ExtruderType == 1
+//   #define INVERT_E0_DIR true
+// #else
+//   #define INVERT_E0_DIR false
+// #endif
 
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
@@ -1935,7 +1936,7 @@
 //========================   (Character-based LCDs)   =========================
 //=============================================================================
 #if LCDType == 1
-  #define REPRAP_DISCOUNT_SMART_CONTROLLER
+  #define VIKI2
   #define BABYSTEPPING
   #define REVERSE_ENCODER_DIRECTION
 #elif LCDType == 2
