@@ -23,6 +23,8 @@
 #include "../gcode.h"
 #include "../../module/motion.h"
 #include "../../module/stepper.h"
+#include "C:\Users\taylo\Documents\PulseV1Firmware\Marlin\src\HAL\neoHAL.h"
+
 
 #if ENABLED(I2C_POSITION_ENCODERS)
   #include "../../feature/encoder_i2c.h"

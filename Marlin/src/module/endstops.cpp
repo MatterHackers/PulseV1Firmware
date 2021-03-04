@@ -493,8 +493,8 @@ void _O2 Endstops::report_states() {
 	 float sensorDistance = (neo_rotation_count + (neo_last_angle / 4096.0)) * neo_circumference;
    int e = planner.position_float[E_AXIS];
    float motorDistance = e ;
-   SERIAL_ECHOLNPAIR("e planner position=", e);
-   SERIAL_ECHOLNPAIR_F("a=", planner.steps_dist_mm.e);
+   //SERIAL_ECHOLNPAIR("e planner position=", e);
+   //SERIAL_ECHOLNPAIR_F("a=", planner.steps_dist_mm.e);
    //SERIAL_ECHOLNPAIR_F("b=", lpos.e);
    SERIAL_ECHOLNPAIR_F("c=", Stepper::count_position[E_AXIS]);
    //SERIAL_ECHOLNPAIR_F("d=", npos.e);
