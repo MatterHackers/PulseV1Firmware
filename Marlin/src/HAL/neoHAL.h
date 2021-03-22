@@ -61,7 +61,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class neoHAL
 {  
 
-   public:
+public:
    neoHAL(uint8_t addr=0x36);
    void begin(uint8_t FTH=0b001, uint8_t SF=0b00);
    uint16_t readAngle();

@@ -20,33 +20,37 @@
  *
  */
 #pragma once
-#if BoardPlatform == 1
-  #include "src/neoHAL.h"
-#endif
+
 
 #define MachineType "E"
 
-#define BoardPlatform 1 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
-#define ExtruderType 2  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
-#define HotEndType 2  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
+#define BoardPlatform 2 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
+#define ExtruderType 4  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
+#define HotEndType 4  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
 #define LCDType 3 // 1 = None, 2 = RepRapLCD, 3 = Viki2
+
+
+#if BoardPlatform == 1
+  #define MODEL_LETTER ""
+#elif BoardPlatform == 2
+  #define MODEL_LETTER "S"
+#endif
+
 
 #define STRINGIZE2(s) #s
 #define STRINGIZE(s) STRINGIZE2(s)
 #define MODEL_NUMBER STRINGIZE(ExtruderType) STRINGIZE(HotEndType) STRINGIZE(LCDType)
 
+#define FIRMWARE_VERSION " 3"
+
+#define CUSTOM_MACHINE_NAME "Pulse " MachineType "-" MODEL_NUMBER MODEL_LETTER FIRMWARE_VERSION
+#define SHORT_BUILD_VERSION MachineType "-" MODEL_NUMBER MODEL_LETTER
+
 #if BoardPlatform == 1
-  #define FIRMWARE_VERSION " 3"
-#elif BoardPlatform == 2
-  #define FIRMWARE_VERSION "S 1"
-#endif
-
-#define CUSTOM_MACHINE_NAME "Pulse " MachineType "-" MODEL_NUMBER FIRMWARE_VERSION
-#define SHORT_BUILD_VERSION MachineType "-" MODEL_NUMBER
-
-#if BoardPlatform == 2
+  #include "src/neoHAL.h"
   #define NEO_HAL
 #endif
+
 #ifdef NEO_HAL
 	extern neoHAL neo_hal;
 	extern long neo_rotation_count;
@@ -854,7 +858,7 @@
   #define INVERT_E0_DIR false
 #elif ExtruderType == 4
   #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 415}
-  #define INVERT_E0_DIR true
+  #define INVERT_E0_DIR false
 #endif
 
 

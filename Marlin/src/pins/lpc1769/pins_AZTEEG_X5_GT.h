@@ -20,6 +20,7 @@
  *
  */
 #pragma once
+#include "C:\Users\taylo\Documents\PulseV1Firmware\Marlin\src\HAL\neoHAL.h"
 
 /**
  * Azteeg X5 GT pin assignments

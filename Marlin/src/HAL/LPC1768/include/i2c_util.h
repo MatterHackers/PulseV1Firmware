@@ -26,6 +26,7 @@
  */
 
 #include "../../../inc/MarlinConfigPre.h"
+#include "C:\Users\taylo\Documents\PulseV1Firmware\Marlin\src\HAL\neoHAL.h"
 
 #ifndef I2C_MASTER_ID
   #define I2C_MASTER_ID 1
