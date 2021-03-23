@@ -70,18 +70,20 @@ void GcodeSuite::G92() {
           const float l = parser.value_axis_units((AxisEnum)i),
                       v = i == E_AXIS ? l : LOGICAL_TO_NATIVE(l, i),
                       d = v - current_position[i];
-          if (i == E_AXIS) {
-            neo_hal.origin = 0;
-            uint16_t angle = neo_hal.readAngle();
-            if (angle < 2048) {
-              neo_hal.origin = angle + 2048;
+          #if BoardPlatform == 1
+            if (i == E_AXIS) {
+              neo_hal.origin = 0;
+              uint16_t angle = neo_hal.readAngle();
+              if (angle < 2048) {
+                neo_hal.origin = angle + 2048;
+              }
+              else {
+                neo_hal.origin = angle + 2048 - 4096;
+              }
+              neo_rotation_count = 0;
+              neo_last_angle = 0;
             }
-            else {
-              neo_hal.origin = angle + 2048 - 4096;
-            }
-            neo_rotation_count = 0;
-            neo_last_angle = 0;
-          }
+          #endif  
           if (!NEAR_ZERO(d)) {
             #if IS_SCARA || !HAS_POSITION_SHIFT
               if (i == E_AXIS) sync_E = true; else sync_XYZ = true;
