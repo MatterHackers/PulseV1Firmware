@@ -499,7 +499,7 @@ void _O2 Endstops::report_states() {
    SERIAL_ECHOLNPAIR_F(" STEPPER:", motorDistance);
    //SERIAL_ECHOLNPAIR_F("Actual Stepper Position:", stepper.position(E_AXIS));
 
-#endif
+  #endif
   #if HAS_FILAMENT_SENSOR
     #if NUM_RUNOUT_SENSORS == 1
       print_es_state(READ(FIL_RUNOUT_PIN) != FIL_RUNOUT_STATE, PSTR(STR_FILAMENT_RUNOUT_SENSOR));
