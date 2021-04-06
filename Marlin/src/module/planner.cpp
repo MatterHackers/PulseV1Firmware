@@ -206,7 +206,7 @@ skew_factor_t Planner::skew_factor; // Initialized by settings.load()
 // private:
 
 xyze_long_t Planner::position{0};
-
+abce_float_t Planner::steps_dist_mm{0};
 uint32_t Planner::cutoff_long;
 
 xyze_float_t Planner::previous_speed;
@@ -1857,10 +1857,12 @@ bool Planner::_populate_block(block_t * const block, bool split_move,
    * and B_AXIS) cannot be used for X and Y length, because A=X+Y and B=X-Y.
    * So we need to create other 2 "AXIS", named X_HEAD and Y_HEAD, meaning the real displacement of the Head.
    * Having the real displacement of the head, we can calculate the total movement length and apply the desired speed.
+   *
    */
-  struct DistanceMM : abce_float_t {
-    TERN_(IS_CORE, xyz_pos_t head);
-  } steps_dist_mm;
+  //abce_float_t Planner::steps_dist_mm{0};
+  // struct DistanceMM : abce_float_t {
+  //   TERN_(IS_CORE, xyz_pos_t head);
+  // } steps_dist_mm;
   #if IS_CORE
     #if CORE_IS_XY
       steps_dist_mm.head.x = da * steps_to_mm[A_AXIS];

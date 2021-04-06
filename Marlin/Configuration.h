@@ -21,21 +21,36 @@
  */
 #pragma once
 
-#include "src/neoHAL.h"
 
 #define MachineType "E"
-#define ExtruderType 1 // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
-#define HotEndType 1  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
-#define LCDType 1 // 1 = None, 2 = RepRapLCD, 3 = Viki2
+
+#define BoardPlatform 1 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
+#define ExtruderType 4  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
+#define HotEndType 4  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
+#define LCDType 2 // 1 = None, 2 = RepRapLCD, 3 = Viki2
+
+
+#if BoardPlatform == 1
+  #define MODEL_LETTER ""
+#elif BoardPlatform == 2
+  #define MODEL_LETTER "S"
+#endif
+
 
 #define STRINGIZE2(s) #s
 #define STRINGIZE(s) STRINGIZE2(s)
 #define MODEL_NUMBER STRINGIZE(ExtruderType) STRINGIZE(HotEndType) STRINGIZE(LCDType)
-#define FIRMWARE_VERSION " 2"
-#define CUSTOM_MACHINE_NAME "Pulse " MachineType "-" MODEL_NUMBER FIRMWARE_VERSION
-#define SHORT_BUILD_VERSION MachineType "-" MODEL_NUMBER
 
-#define NEO_HAL
+#define FIRMWARE_VERSION " 2"
+
+#define CUSTOM_MACHINE_NAME "Pulse " MachineType "-" MODEL_NUMBER MODEL_LETTER FIRMWARE_VERSION
+#define SHORT_BUILD_VERSION MachineType "-" MODEL_NUMBER MODEL_LETTER
+
+#if BoardPlatform == 1
+  #include "src/neoHAL.h"
+  #define NEO_HAL
+#endif
+
 #ifdef NEO_HAL
 	extern neoHAL neo_hal;
 	extern long neo_rotation_count;
@@ -128,7 +143,11 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#define SERIAL_PORT 0
+#if BoardPlatform == 2
+  #define SERIAL_PORT -1
+#elif BoardPlatform == 1
+  #define SERIAL_PORT 0
+#endif
 
 /**
  * Select a secondary serial port on the board to use for communication with the host.
@@ -151,9 +170,16 @@
 //#define BLUETOOTH
 
 // Choose the name from boards.h that matches your setup
-#ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_EINSY_RAMBO
+#if BoardPlatform == 1
+  #ifndef MOTHERBOARD
+    #define MOTHERBOARD BOARD_EINSY_RAMBO
+  #endif
+#elif BoardPlatform ==2
+  #ifndef MOTHERBOARD
+    #define MOTHERBOARD BOARD_AZTEEG_X5_GT
+  #endif
 #endif
+
 
 // Name displayed in the LCD "Ready" message and Info menu
 //#define CUSTOM_MACHINE_NAME "3D Printer"
@@ -749,10 +775,25 @@
  *          TMC5130, TMC5130_STANDALONE, TMC5160, TMC5160_STANDALONE
  * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'L6470', 'L6474', 'POWERSTEP01', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
  */
-#define X_DRIVER_TYPE  TMC2130
-#define Y_DRIVER_TYPE  TMC2130
-#define Z_DRIVER_TYPE  TMC2130
-#define E0_DRIVER_TYPE TMC2130
+
+#if BoardPlatform == 2
+  #define X_DRIVER_TYPE  TMC2660
+  #define Y_DRIVER_TYPE  TMC2660
+  #define Z_DRIVER_TYPE  TMC2660
+  #define E0_DRIVER_TYPE TMC2660
+  #define INVERT_X_DIR true
+  #define INVERT_Y_DIR false
+  #define INVERT_Z_DIR true
+#elif BoardPlatform == 1
+  #define X_DRIVER_TYPE  TMC2130
+  #define Y_DRIVER_TYPE  TMC2130
+  #define Z_DRIVER_TYPE  TMC2130
+  #define E0_DRIVER_TYPE TMC2130
+  #define INVERT_X_DIR false
+  #define INVERT_Y_DIR true
+  #define INVERT_Z_DIR false
+#endif
+
 //#define X2_DRIVER_TYPE A4988
 //#define Y2_DRIVER_TYPE A4988
 //#define Z2_DRIVER_TYPE A4988
@@ -873,7 +914,7 @@
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
  */
-#define CLASSIC_JERK
+//#define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
   #define DEFAULT_XJERK 8.0
   #define DEFAULT_YJERK 8.0
@@ -897,7 +938,7 @@
  *   https://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html
  */
 #if DISABLED(CLASSIC_JERK)
-  #define JUNCTION_DEVIATION_MM 0.013 // (mm) Distance from real junction edge
+  #define JUNCTION_DEVIATION_MM 0.025 // (mm) Distance from real junction edge
   #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
                                       // for small segments (< 1mm) with large junction angles (> 135°).
 #endif
@@ -910,7 +951,7 @@
  *
  * See https://github.com/synthetos/TinyG/wiki/Jerk-Controlled-Motion-Explained
  */
-//#define S_CURVE_ACCELERATION
+#define S_CURVE_ACCELERATION
 
 //===========================================================================
 //============================= Z Probe Options =============================
@@ -1072,7 +1113,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 23, 0, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { 30.5, 0, 0 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1172,18 +1213,18 @@
 // @section machine
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#define INVERT_X_DIR false
-#define INVERT_Y_DIR true
-#define INVERT_Z_DIR false
+// #define INVERT_X_DIR true
+// #define INVERT_Y_DIR false
+// #define INVERT_Z_DIR true
 
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#if ExtruderType == 1
-  #define INVERT_E0_DIR true
-#else
-  #define INVERT_E0_DIR false
-#endif
+// #if ExtruderType == 1
+//   #define INVERT_E0_DIR true
+// #else
+//   #define INVERT_E0_DIR false
+// #endif
 
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
@@ -1195,7 +1236,7 @@
 
 // @section homing
 
-//#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed
+#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed
 
 //#define UNKNOWN_Z_NO_RAISE      // Don't raise Z (lower the bed) if Z is "unknown." For beds that fall when Z is powered off.
 
@@ -1899,7 +1940,7 @@
 //========================   (Character-based LCDs)   =========================
 //=============================================================================
 #if LCDType == 1
-  #define REPRAP_DISCOUNT_SMART_CONTROLLER
+  #define VIKI2
   #define BABYSTEPPING
   #define REVERSE_ENCODER_DIRECTION
 #elif LCDType == 2
