@@ -109,14 +109,14 @@
 //
 #define SDSS                                  77 // PB0_SD-SS
 #define LED_PIN                               13
-#define CASE_LIGHT_PIN                        9
+//#define CASE_LIGHT_PIN                        9
 
 
 // LCD / Controller
 //
-#define BTN_EN1                         14  //TX3
-#define BTN_EN2                         72  //PJ2
-#define BTN_ENC                          9  //
+#define BTN_EN1                         14  // TX3
+#define BTN_EN2                         72  // PJ2
+#define BTN_ENC                          9  // PH6
 #define SD_DETECT_PIN                   15  // RX3
 
 
@@ -142,3 +142,11 @@
       #define BEEPER_PIN                      84
     #endif
     
+#if defined(FYSETC_MINI_12864_2_1)
+  #define DOGLCD_CS         61  // PF7
+  #define DOGLCD_A0         82  // PD5
+  //#define LCD_RESET_PIN     59
+  #define LCD_BACKLIGHT_PIN -1
+  #define NEOPIXEL_PIN      70  // 
+  #define BEEPER_PIN        84  // PH2
+#endif

@@ -489,7 +489,7 @@ void _O2 Endstops::report_states() {
    int e = planner.position[E_AXIS];
    float motorDistance = e / (float)415;
    SERIAL_ECHOLNPAIR("e=", e);
-   SERIAL_ECHOLNPAIR_F("stepper e=", stepper.count_position.e);
+   //SERIAL_ECHOLNPAIR_F("stepper e=", stepper.count_position.e);
 	 SERIAL_ECHOPAIR_F("pos_0: SENSOR:", sensorDistance);
 	 //float motorDistance = current_position[E_AXIS]
    //float motorDistance = (e / planner.settings.axis_steps_per_mm[E_AXIS_N(active_extruder)]);
