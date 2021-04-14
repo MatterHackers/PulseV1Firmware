@@ -2406,7 +2406,9 @@
    * Use for drivers that do not use a dedicated enable pin, but rather handle the same
    * function through a communication line such as SPI or UART.
    */
-  //#define SOFTWARE_DRIVER_ENABLE
+  #if BoardPlatform == 2
+    #define SOFTWARE_DRIVER_ENABLE
+  #endif
 
   /**
    * TMC2130, TMC2160, TMC2208, TMC2209, TMC5130 and TMC5160 only
@@ -2414,17 +2416,7 @@
    * When disabled, Marlin will use spreadCycle stepping mode.
    */
   #if BoardPlatform == 1
-    #define STEALTHCHOP_XY
-    #define STEALTHCHOP_Z
-    #define STEALTHCHOP_E
-
     #define HYBRID_THRESHOLD
-
-    #define X_HYBRID_THRESHOLD     100  // [mm/s]
-    #define Y_HYBRID_THRESHOLD     100
-    #define Z_HYBRID_THRESHOLD      10
-    #define E0_HYBRID_THRESHOLD      5
-
   #endif
 
   /**
@@ -2472,10 +2464,10 @@
    */
   // #define HYBRID_THRESHOLD
 
-  // #define X_HYBRID_THRESHOLD     100  // [mm/s]
-  // #define Y_HYBRID_THRESHOLD     100
-  // #define Z_HYBRID_THRESHOLD      10
-  // #define E0_HYBRID_THRESHOLD      5
+  #define X_HYBRID_THRESHOLD     100  // [mm/s]
+  #define Y_HYBRID_THRESHOLD     100
+  #define Z_HYBRID_THRESHOLD      10
+  #define E0_HYBRID_THRESHOLD      5
 
 
   #define X2_HYBRID_THRESHOLD    100

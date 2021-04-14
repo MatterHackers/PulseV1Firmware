@@ -475,6 +475,9 @@ void _O2 Endstops::report_states() {
   #if HAS_X_MIN
     ES_REPORT(X_MIN);
   #endif
+  #if HAS_X_MAX
+    ES_REPORT(X_MAX);
+  #endif
   #if HAS_Y_MIN
     ES_REPORT(Y_MIN);
   #endif
