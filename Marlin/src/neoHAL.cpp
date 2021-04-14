@@ -31,6 +31,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Arduino.h"
 #include "neoHAL.h"
 #include "Wire.h"
+#define PI 3.1415926535897932384626433832795
+
 
 neoHAL::neoHAL(uint8_t addr){
    // constructor
