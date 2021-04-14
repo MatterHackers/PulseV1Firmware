@@ -60,7 +60,7 @@
 #define Z_STOP_PIN                          62 // PK0
 #define Z_MIN_PIN                           11 // BLTouch Endstop
 #define SERVO0_PIN                          10 // BLTouch Servo
-
+#define X_MAX_PIN                           73 // conductive nozzle
 
 #define X_STEP_PIN                            37
 #define X_DIR_PIN                             49
@@ -82,7 +82,7 @@
 #define E0_ENABLE_PIN                         26
 #define E0_CS_PIN                             66
 
-#define FIL_RUNOUT_PIN                        73
+#define FIL_RUNOUT_PIN                        19
 // Temperature Sensors
 //
 #define TEMP_0_PIN                             0  // Analog Input

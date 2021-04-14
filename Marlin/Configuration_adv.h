@@ -551,6 +551,7 @@
 //
 #define NUM_Z_STEPPER_DRIVERS 1   // (1-4) Z options change based on how many
 
+
 #if NUM_Z_STEPPER_DRIVERS > 1
   //#define Z_MULTI_ENDSTOPS
   #if ENABLED(Z_MULTI_ENDSTOPS)
@@ -1612,7 +1613,7 @@
   //#define EXTRA_LIN_ADVANCE_K // Enable for second linear advance constants
   #define LIN_ADVANCE_K 0.0     // Unit: mm compression per 1mm/s extruder speed
   //#define LA_DEBUG            // If enabled, this will generate debug information output over USB.
-  //#define EXPERIMENTAL_SCURVE // Enable this option to permit S-Curve Acceleration
+  #define EXPERIMENTAL_SCURVE // Enable this option to permit S-Curve Acceleration
 #endif
 
 // @section leveling
@@ -2412,9 +2413,19 @@
    * Use Trinamic's ultra quiet stepping mode.
    * When disabled, Marlin will use spreadCycle stepping mode.
    */
-  #define STEALTHCHOP_XY
-  #define STEALTHCHOP_Z
-  #define STEALTHCHOP_E
+  #if BoardPlatform == 1
+    #define STEALTHCHOP_XY
+    #define STEALTHCHOP_Z
+    #define STEALTHCHOP_E
+
+    #define HYBRID_THRESHOLD
+
+    #define X_HYBRID_THRESHOLD     100  // [mm/s]
+    #define Y_HYBRID_THRESHOLD     100
+    #define Z_HYBRID_THRESHOLD      10
+    #define E0_HYBRID_THRESHOLD      5
+
+  #endif
 
   /**
    * Optimize spreadCycle chopper parameters by using predefined parameter sets
@@ -2459,12 +2470,12 @@
    * STEALTHCHOP_(XY|Z|E) must be enabled to use HYBRID_THRESHOLD.
    * M913 X/Y/Z/E to live tune the setting
    */
-  #define HYBRID_THRESHOLD
+  // #define HYBRID_THRESHOLD
 
-  #define X_HYBRID_THRESHOLD     100  // [mm/s]
-  #define Y_HYBRID_THRESHOLD     100
-  #define Z_HYBRID_THRESHOLD      10
-  #define E0_HYBRID_THRESHOLD      5
+  // #define X_HYBRID_THRESHOLD     100  // [mm/s]
+  // #define Y_HYBRID_THRESHOLD     100
+  // #define Z_HYBRID_THRESHOLD      10
+  // #define E0_HYBRID_THRESHOLD      5
 
 
   #define X2_HYBRID_THRESHOLD    100
@@ -3116,9 +3127,9 @@
 //#define NO_WORKSPACE_OFFSETS
 
 // Extra options for the M114 "Current Position" report
-//#define M114_DETAIL         // Use 'M114` for details to check planner calculations
-//#define M114_REALTIME       // Real current position based on forward kinematics
-//#define M114_LEGACY         // M114 used to synchronize on every call. Enable if needed.
+#define M114_DETAIL         // Use 'M114` for details to check planner calculations
+#define M114_REALTIME       // Real current position based on forward kinematics
+#define M114_LEGACY         // M114 used to synchronize on every call. Enable if needed.
 
 //#define REPORT_FAN_CHANGE   // Report the new fan speed when changed by M106 (and others)
 
