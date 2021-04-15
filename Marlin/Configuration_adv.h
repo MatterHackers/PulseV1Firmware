@@ -406,9 +406,6 @@
  *
  * Define one or both of these to override the default 0-255 range.
  */
-#if BoardPlatform == 2
-  #define FAN_MAX_PWM 75 
-#endif
 
 /**
  * FAST PWM FAN Settings
@@ -453,11 +450,18 @@
  */
 #if BoardPlatform == 2
   #define E0_AUTO_FAN_PIN P0_26
-#elif BoardPlatform == 1
-  #define E0_AUTO_FAN_PIN 8
+  #define FAN_MAX_PWM 255
+  #define EXTRUDER_AUTO_FAN_SPEED 255   // 255 == full speed
+  #define CHAMBER_AUTO_FAN_TEMPERATURE 30
+  #define CHAMBER_AUTO_FAN_SPEED 255 
 #endif
 
-#define EXTRUDER_AUTO_FAN_TEMPERATURE 50
+#if BoardPlatform == 1
+  #define E0_AUTO_FAN_PIN 8
+  #define EXTRUDER_AUTO_FAN_SPEED 255
+#endif
+
+#define EXTRUDER_AUTO_FAN_TEMPERATURE 40
 
 #define E1_AUTO_FAN_PIN -1
 #define E2_AUTO_FAN_PIN -1
@@ -467,14 +471,6 @@
 #define E6_AUTO_FAN_PIN -1
 #define E7_AUTO_FAN_PIN -1
 #define CHAMBER_AUTO_FAN_PIN -1
-
-#if BoardPlatform == 2
-  #define EXTRUDER_AUTO_FAN_SPEED 75   // 255 == full speed
-  #define CHAMBER_AUTO_FAN_TEMPERATURE 30
-  #define CHAMBER_AUTO_FAN_SPEED 255
-#elif BoardPlatform == 1
-  #define EXTRUDER_AUTO_FAN_SPEED 255
-#endif
 
 
 /**
