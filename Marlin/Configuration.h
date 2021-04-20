@@ -508,7 +508,7 @@
   #define HEATER_0_MAXTEMP 305
   #define HEATER_1_MAXTEMP 305
   #define BED_MAXTEMP 125
-  #define Z_MAX_POS 215
+  #define Z_MAX_POS 205
   #define DEFAULT_Kp 20.03
   #define DEFAULT_Ki 2.22
   #define DEFAULT_Kd 45.12
@@ -918,7 +918,7 @@
  *   https://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html
  */
 #if DISABLED(CLASSIC_JERK)
-  #define JUNCTION_DEVIATION_MM 0.025 // (mm) Distance from real junction edge
+  #define JUNCTION_DEVIATION_MM 0.015 // (mm) Distance from real junction edge
   #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
                                       // for small segments (< 1mm) with large junction angles (> 135°).
 #endif
@@ -1093,7 +1093,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 23, 0, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { 30.5, 0, 0 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1139,7 +1139,7 @@
 #define Z_CLEARANCE_MULTI_PROBE     7 // Z Clearance between multiple probes
 //#define Z_AFTER_PROBING           5 // Z position after probing is done
 
-#define Z_PROBE_LOW_POINT          -5 // Farthest distance below the trigger-point to go before stopping
+#define Z_PROBE_LOW_POINT          -10 // Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
 #define Z_PROBE_OFFSET_RANGE_MIN -20
