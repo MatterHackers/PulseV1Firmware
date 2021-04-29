@@ -24,16 +24,18 @@
 
 #define MachineType "E"
 
-#define BoardPlatform 2 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
+#define BoardPlatform 3 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT 3 = SKR Turbo
 #define ExtruderType 4  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
 #define HotEndType 5  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
-#define LCDType 3 // 1 = None, 2 = RepRapLCD, 3 = Viki2
+#define LCDType 4 // 1 = None, 2 = RepRapLCD, 3 = Viki2, 4 = Mini 1864
 
 
 #if BoardPlatform == 1
   #define MODEL_LETTER ""
 #elif BoardPlatform == 2
   #define MODEL_LETTER "S"
+#elif BoardPlatform == 3
+  #define MODEL_LETTER "SKR"
 #endif
 
 
@@ -147,6 +149,8 @@
   #define SERIAL_PORT -1
 #elif BoardPlatform == 1
   #define SERIAL_PORT 0
+#elif BoardPlatform == 3
+  #define SERIAL_PORT 0
 #endif
 
 /**
@@ -178,7 +182,12 @@
   #ifndef MOTHERBOARD
     #define MOTHERBOARD BOARD_AZTEEG_X5_GT
   #endif
+ #elif BoardPlatform == 3 
+  #ifndef MOTHERBOARD
+    #define MOTHERBOARD BOARD_BTT_SKR_V1_4_TURBO
+  #endif
 #endif
+
 
 
 // Name displayed in the LCD "Ready" message and Info menu
@@ -751,12 +760,12 @@
 #endif
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
-#define X_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
-#define Y_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
-#define Z_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
-#define X_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+#define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Z_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+#define Z_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
 
 /**
@@ -792,6 +801,14 @@
   #define INVERT_X_DIR false
   #define INVERT_Y_DIR true
   #define INVERT_Z_DIR false
+#elif BoardPlatform == 3
+  #define X_DRIVER_TYPE  TMC2209
+  #define Y_DRIVER_TYPE  TMC2209
+  #define Z_DRIVER_TYPE  TMC2209
+  #define E0_DRIVER_TYPE TMC2209
+  #define INVERT_X_DIR true
+  #define INVERT_Y_DIR false
+  #define INVERT_Z_DIR true 
 #endif
 
 //#define X2_DRIVER_TYPE A4988
@@ -967,7 +984,7 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+//#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 
 // Force the use of the probe for Z-axis homing
 //#define USE_PROBE_FOR_Z_HOMING
@@ -1958,6 +1975,10 @@
   #define BABYSTEPPING
   #define TEMP_STAT_LEDS
   //#define REVERSE_MENU_DIRECTION
+  #define REVERSE_ENCODER_DIRECTION
+#elif LCDType == 4
+  #define FYSETC_MINI_12864_X_X
+  #define BABYSTEPPING
   #define REVERSE_ENCODER_DIRECTION
 #endif
 
