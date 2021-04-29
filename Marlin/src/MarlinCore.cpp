@@ -735,7 +735,7 @@ void idle(TERN_(ADVANCED_PAUSE_FEATURE, bool no_stepper_sleep/*=false*/)) {
 		uint16_t stat = neo_hal.status();
 		int angle = neo_hal.readAngle() - 2048;
 
-		// check if we have move bast the start and on which side (since the last read)
+		// check if we have move past the start and on which side (since the last read)
 		if (angle > 1024 and neo_last_angle < -1024) {
 			neo_rotation_count--;
 		}

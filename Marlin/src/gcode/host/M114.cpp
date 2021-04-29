@@ -43,7 +43,7 @@
     }
     SERIAL_EOL();
   }
-  inline void report_xyz(const xyze_pos_t &pos) { report_xyze(pos, XYZ); }
+  inline void report_xyz(const xyze_pos_t &pos) { report_xyze(pos, XYZE); }
 
   void report_xyz(const xyz_pos_t &pos, const uint8_t precision=3) {
     char str[12];
@@ -58,11 +58,11 @@
 
     // Position as sent by G-code
     SERIAL_ECHOPGM("\nLogical:");
-    report_xyz(current_position.asLogical());
+    report_xyze(current_position.asLogical());
 
     // Cartesian position in native machine space
     SERIAL_ECHOPGM("Raw:    ");
-    report_xyz(current_position);
+    report_xyze(current_position);
 
     xyze_pos_t leveled = current_position;
 
@@ -175,7 +175,7 @@
 
     SERIAL_ECHOPGM("FromStp:");
     get_cartesian_from_steppers();  // writes 'cartes' (with forward kinematics)
-    xyze_pos_t from_steppers = { cartes.x, cartes.y, cartes.z, planner.get_axis_position_mm(E_AXIS) };
+    xyze_pos_t from_steppers = { cartes.x, cartes.y, cartes.z, cartes.e };
     report_xyze(from_steppers);
 
     const xyze_float_t diff = from_steppers - leveled;

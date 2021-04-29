@@ -411,6 +411,9 @@ class Planner {
         refresh_frequency_limit();
       }
     #endif
+    
+    static abce_float_t steps_dist_mm;
+
 
   private:
 
