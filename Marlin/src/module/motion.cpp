@@ -1575,7 +1575,7 @@ void homeaxis(const AxisEnum axis) {
   #endif
 
   #if DISABLED(DELTA) && defined(SENSORLESS_BACKOFF_MM)
-    const xy_float_t backoff = SENSORLESS_BACKOFF_MM;
+    const xyz_float_t backoff = SENSORLESS_BACKOFF_MM;
     if (((ENABLED(X_SENSORLESS) && axis == X_AXIS) || (ENABLED(Y_SENSORLESS) && axis == Y_AXIS)) && backoff[axis])
       do_homing_move(axis, -ABS(backoff[axis]) * axis_home_dir, homing_feedrate(axis));
   #endif

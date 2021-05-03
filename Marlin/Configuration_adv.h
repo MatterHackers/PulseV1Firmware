@@ -461,6 +461,15 @@
   #define EXTRUDER_AUTO_FAN_SPEED 255
 #endif
 
+#if BoardPlatform == 3
+  //#define E0_AUTO_FAN_PIN P2_03
+  #define FAN_MAX_PWM 90
+  #define EXTRUDER_AUTO_FAN_SPEED 90   // 255 == full speed
+  #define CHAMBER_AUTO_FAN_TEMPERATURE 30
+  #define CHAMBER_AUTO_FAN_SPEED 255 
+#endif
+
+
 #define EXTRUDER_AUTO_FAN_TEMPERATURE 40
 
 #define E1_AUTO_FAN_PIN -1
@@ -636,7 +645,7 @@
  */
 
 #if BoardPlatform == 3
-  #define SENSORLESS_BACKOFF_MM  { 2, 2 }     // (mm) Backoff from endstops before sensorless homing
+  #define SENSORLESS_BACKOFF_MM  { 5, 5, 5}     // (mm) Backoff from endstops before sensorless homing
 #endif
 
 #if BoardPlatform == 1 || BoardPlatform == 2
@@ -699,7 +708,7 @@
    * differs, a mode set eeprom write will be completed at initialization.
    * Use the option below to force an eeprom write to a V3.1 probe regardless.
    */
-  #define BLTOUCH_SET_5V_MODE
+  //#define BLTOUCH_SET_5V_MODE
 
   /**
    * Safety: Activate if connecting a probe with an unknown voltage mode.
@@ -1081,9 +1090,9 @@
   #if ENABLED(LED_CONTROL_MENU)
     #define LED_COLOR_PRESETS                 // Enable the Preset Color menu option
     #if ENABLED(LED_COLOR_PRESETS)
-      #define LED_USER_PRESET_RED        255  // User defined RED value
-      #define LED_USER_PRESET_GREEN      128  // User defined GREEN value
-      #define LED_USER_PRESET_BLUE         0  // User defined BLUE value
+      #define LED_USER_PRESET_RED        0    // User defined RED value
+      #define LED_USER_PRESET_GREEN      255  // User defined GREEN value
+      #define LED_USER_PRESET_BLUE       255  // User defined BLUE value
       #define LED_USER_PRESET_WHITE      255  // User defined WHITE value
       #define LED_USER_PRESET_BRIGHTNESS 255  // User defined intensity
       //#define LED_USER_PRESET_STARTUP       // Have the printer display the user preset color on startup
@@ -2599,7 +2608,7 @@
     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
     #define Y_STALL_SENSITIVITY  100
     #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
-    #define Z_STALL_SENSITIVITY  100
+    #define Z_STALL_SENSITIVITY  200
     #define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z3_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z4_STALL_SENSITIVITY Z_STALL_SENSITIVITY
