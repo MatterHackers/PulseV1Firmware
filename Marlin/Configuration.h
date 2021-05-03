@@ -24,10 +24,10 @@
 
 #define MachineType "E"
 
-#define BoardPlatform 2 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
+#define BoardPlatform 1 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
 #define ExtruderType 4  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
-#define HotEndType 5  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
-#define LCDType 3 // 1 = None, 2 = RepRapLCD, 3 = Viki2
+#define HotEndType 4  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
+#define LCDType 2 // 1 = None, 2 = RepRapLCD, 3 = Viki2
 
 
 #if BoardPlatform == 1
@@ -670,7 +670,7 @@
  * Note: For Bowden Extruders make this large enough to allow load/unload.
  */
 #define PREVENT_LENGTHY_EXTRUDE
-#define EXTRUDE_MAXLENGTH 200
+#define EXTRUDE_MAXLENGTH 800
 
 //===========================================================================
 //======================== Thermal Runaway Protection =======================
@@ -1305,7 +1305,7 @@
  * RAMPS-based boards use SERVO3_PIN for the first runout sensor.
  * For other boards you may need to define FIL_RUNOUT_PIN, FIL_RUNOUT2_PIN, etc.
  */
-#if BoardPlatfrom == 1
+#if BoardPlatform == 1
   #define FILAMENT_RUNOUT_SENSOR
 #endif
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
