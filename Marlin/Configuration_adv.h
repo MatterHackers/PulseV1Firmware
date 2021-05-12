@@ -462,7 +462,7 @@
 #endif
 
 #if BoardPlatform == 3
-  //#define E0_AUTO_FAN_PIN P2_03
+  #define E0_AUTO_FAN_PIN P2_03
   #define FAN_MAX_PWM 90
   #define EXTRUDER_AUTO_FAN_SPEED 90   // 255 == full speed
   #define CHAMBER_AUTO_FAN_TEMPERATURE 30
@@ -645,7 +645,7 @@
  */
 
 #if BoardPlatform == 3
-  #define SENSORLESS_BACKOFF_MM  { 5, 5, 5}     // (mm) Backoff from endstops before sensorless homing
+  #define SENSORLESS_BACKOFF_MM  { 5, 5}     // (mm) Backoff from endstops before sensorless homing
 #endif
 
 #if BoardPlatform == 1 || BoardPlatform == 2
@@ -2608,8 +2608,8 @@
     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
     #define Y_STALL_SENSITIVITY  100
     #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
-    #define Z_STALL_SENSITIVITY  200
-    #define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
+    //#define Z_STALL_SENSITIVITY  200
+    //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z3_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z4_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define SPI_ENDSTOPS              // TMC2130 only

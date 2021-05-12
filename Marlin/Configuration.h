@@ -554,7 +554,7 @@
   #define DEFAULT_Kd 55
 #elif HotEndType == 5
   #define HEATER_0_MAXTEMP 315
-  #define HEATER_1_MAXTEMP 315
+  //#define HEATER_1_MAXTEMP 315
   #define BED_MAXTEMP 125
   #define Z_MAX_POS 215
   #define DEFAULT_Kp 18
@@ -766,7 +766,7 @@
 #define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Z_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define Z_MAX_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
 #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
 
 /**
@@ -1980,7 +1980,7 @@
 #elif LCDType == 4
   #define FYSETC_MINI_12864_2_1
   #define BABYSTEPPING
-  //#define REVERSE_ENCODER_DIRECTION
+  #define REVERSE_ENCODER_DIRECTION
 #endif
 
 
@@ -2426,7 +2426,7 @@
 // However, control resolution will be halved for each increment;
 // at zero value, there are 128 effective control positions.
 // :[0,1,2,3,4,5,6,7]
-#define SOFT_PWM_SCALE 1
+#define SOFT_PWM_SCALE 2
 
 // If SOFT_PWM_SCALE is set to a value higher than 0, dithering can
 // be used to mitigate the associated resolution loss. If enabled,
