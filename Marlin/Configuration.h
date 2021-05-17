@@ -24,16 +24,16 @@
 
 #define MachineType "E"
 
-#define BoardPlatform 1 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
+#define BoardPlatform 2 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
 #define ExtruderType 4  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
 #define HotEndType 4  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
-#define LCDType 2 // 1 = None, 2 = RepRapLCD, 3 = Viki2
+#define LCDType 3 // 1 = None, 2 = RepRapLCD, 3 = Viki2
 
 
 #if BoardPlatform == 1
   #define MODEL_LETTER ""
 #elif BoardPlatform == 2
-  #define MODEL_LETTER "S"
+  #define MODEL_LETTER "M"
 #endif
 
 
@@ -858,7 +858,7 @@
   #define INVERT_E0_DIR false
 #elif ExtruderType == 4
   #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 415}
-  #define INVERT_E0_DIR false
+  #define INVERT_E0_DIR true
 #endif
 
 
