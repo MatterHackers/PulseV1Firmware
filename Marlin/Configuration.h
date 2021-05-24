@@ -556,7 +556,7 @@
   #define HEATER_0_MAXTEMP 315
   //#define HEATER_1_MAXTEMP 315
   #define BED_MAXTEMP 125
-  #define Z_MAX_POS 215
+  #define Z_MAX_POS 205
   #define DEFAULT_Kp 18
   #define DEFAULT_Ki 2.22
   #define DEFAULT_Kd 55
