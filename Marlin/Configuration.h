@@ -24,9 +24,9 @@
 
 #define MachineType "E"
 
-#define BoardPlatform 2 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
-#define ExtruderType 4  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
-#define HotEndType 4  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
+#define BoardPlatform 1 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
+#define ExtruderType 2  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
+#define HotEndType 2  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
 #define LCDType 3 // 1 = None, 2 = RepRapLCD, 3 = Viki2
 
 
@@ -1236,7 +1236,7 @@
 
 // @section homing
 
-//#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed
+#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed
 
 //#define UNKNOWN_Z_NO_RAISE      // Don't raise Z (lower the bed) if Z is "unknown." For beds that fall when Z is powered off.
 
