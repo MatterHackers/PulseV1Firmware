@@ -466,9 +466,7 @@
 #if BoardPlatform == 3
   #define E0_AUTO_FAN_PIN P2_03
   #define FAN_MAX_PWM 90
-  #define EXTRUDER_AUTO_FAN_SPEED 255   // 255 == full speed
-  #define CHAMBER_AUTO_FAN_TEMPERATURE 30
-  #define CHAMBER_AUTO_FAN_SPEED 255 
+  #define EXTRUDER_AUTO_FAN_SPEED 90   // 255 == full speed
 #endif
 
 
@@ -644,16 +642,16 @@
  * the position of the toolhead relative to the workspace.
  */
 
-#if BoardPlatform == 3
-  #define SENSORLESS_BACKOFF_MM  { 5, 5}     // (mm) Backoff from endstops before sensorless homing
-#endif
+//#if BoardPlatform == 3
+//  #define SENSORLESS_BACKOFF_MM  { 5, 5}     // (mm) Backoff from endstops before sensorless homing
+//#endif
 
 #if BoardPlatform == 1 || BoardPlatform == 2
   #define HOMING_BUMP_MM      { 5, 5, 5 }       // (mm) Backoff from endstops after first bump
   #define HOMING_BUMP_DIVISOR { 2, 2, 4 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 #endif
 #if BoardPlatform == 3
-  #define HOMING_BUMP_MM      { 0, 0, 0 }       // (mm) Backoff from endstops after first bump
+  #define HOMING_BUMP_MM      { 5, 5, 5 }       // (mm) Backoff from endstops after first bump
   #define HOMING_BUMP_DIVISOR { 2, 2, 4 }       // (mm) Backoff from endstops before sensorless homing
 #endif
 
@@ -2598,9 +2596,9 @@
    * IMPROVE_HOMING_RELIABILITY tunes acceleration and jerk when
    * homing and adds a guard period for endstop triggering.
    */
-  #if BoardPlatform == 3
-    #define SENSORLESS_HOMING // StallGuard capable drivers only
-  #endif
+ // #if BoardPlatform == 3
+ //   #define SENSORLESS_HOMING // StallGuard capable drivers only
+ // #endif
 
   #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
