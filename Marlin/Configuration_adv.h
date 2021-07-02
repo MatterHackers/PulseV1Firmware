@@ -465,7 +465,7 @@
 
 #if BoardPlatform == 3
   #define E0_AUTO_FAN_PIN P2_03
-  #define FAN_MAX_PWM 90
+  #define FAN_MAX_PWM 70
   #define EXTRUDER_AUTO_FAN_SPEED 90   // 255 == full speed
 #endif
 
@@ -1084,16 +1084,18 @@
    * LED Control Menu
    * Add LED Control to the LCD menu
    */
-  #define LED_CONTROL_MENU
-  #if ENABLED(LED_CONTROL_MENU)
-    #define LED_COLOR_PRESETS                 // Enable the Preset Color menu option
-    #if ENABLED(LED_COLOR_PRESETS)
-      #define LED_USER_PRESET_RED        0    // User defined RED value
-      #define LED_USER_PRESET_GREEN      255  // User defined GREEN value
-      #define LED_USER_PRESET_BLUE       255  // User defined BLUE value
-      #define LED_USER_PRESET_WHITE      255  // User defined WHITE value
-      #define LED_USER_PRESET_BRIGHTNESS 255  // User defined intensity
+  #if LCDType == 4
+    #define LED_CONTROL_MENU
+    #if ENABLED(LED_CONTROL_MENU)
+      #define LED_COLOR_PRESETS                 // Enable the Preset Color menu option
+        #if ENABLED(LED_COLOR_PRESETS)
+          #define LED_USER_PRESET_RED        0    // User defined RED value
+          #define LED_USER_PRESET_GREEN      255  // User defined GREEN value
+          #define LED_USER_PRESET_BLUE       255  // User defined BLUE value
+          #define LED_USER_PRESET_WHITE      255  // User defined WHITE value
+          #define LED_USER_PRESET_BRIGHTNESS 255  // User defined intensity
       //#define LED_USER_PRESET_STARTUP       // Have the printer display the user preset color on startup
+        #endif
     #endif
   #endif
 
@@ -1824,8 +1826,8 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-//#define MINIMUM_STEPPER_POST_DIR_DELAY 650
-//#define MINIMUM_STEPPER_PRE_DIR_DELAY 650
+#define MINIMUM_STEPPER_POST_DIR_DELAY 20
+#define MINIMUM_STEPPER_PRE_DIR_DELAY 20
 
 /**
  * Minimum stepper driver pulse width (in µs)
@@ -2324,7 +2326,7 @@
     #define Z_CHAIN_POS      -1
   #endif
    #if AXIS_IS_TMC(E0)
-    #define E0_CURRENT       600
+    #define E0_CURRENT       550
     #define E0_MICROSTEPS    16
     #define E0_RSENSE        0.11
     #define E0_CHAIN_POS     -1
@@ -2537,7 +2539,7 @@
   #define MONITOR_DRIVER_STATUS
 
   #if ENABLED(MONITOR_DRIVER_STATUS)
-    #define CURRENT_STEP_DOWN     25  // [mA]
+    #define CURRENT_STEP_DOWN     10  // [mA]
     #define REPORT_CURRENT_CHANGE
     #define STOP_ON_ERROR
   #endif
@@ -2556,7 +2558,7 @@
 
   #define X_HYBRID_THRESHOLD     100  // [mm/s]
   #define Y_HYBRID_THRESHOLD     100
-  #define Z_HYBRID_THRESHOLD      10
+  #define Z_HYBRID_THRESHOLD      25
   #define E0_HYBRID_THRESHOLD      5
 
 

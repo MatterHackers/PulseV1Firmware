@@ -35,7 +35,7 @@
 #elif BoardPlatform == 2
   #define MODEL_LETTER "S"
 #elif BoardPlatform == 3
-  #define MODEL_LETTER "SKR"
+  #define MODEL_LETTER "M"
 #endif
 
 
@@ -43,7 +43,7 @@
 #define STRINGIZE(s) STRINGIZE2(s)
 #define MODEL_NUMBER STRINGIZE(ExtruderType) STRINGIZE(HotEndType) STRINGIZE(LCDType)
 
-#define FIRMWARE_VERSION " 2"
+#define FIRMWARE_VERSION " 1"
 
 #define CUSTOM_MACHINE_NAME "Pulse " MachineType "-" MODEL_NUMBER MODEL_LETTER FIRMWARE_VERSION
 #define SHORT_BUILD_VERSION MachineType "-" MODEL_NUMBER MODEL_LETTER
@@ -149,7 +149,7 @@
   #define SERIAL_PORT -1
 #elif BoardPlatform == 1
   #define SERIAL_PORT 0
-#elif BoardPlatform == 3
+#elif BoardPlatform == 3   // Build with LPC 1769 env
   #define SERIAL_PORT -1
   #define SERIAL_PORT_2 0
 #endif
@@ -761,13 +761,13 @@
 #endif
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
-#define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Z_MAX_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
+// #define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+// #define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+// #define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+// #define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+// #define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+// #define Z_MAX_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+// #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
 
 /**
  * Stepper Drivers
@@ -794,6 +794,13 @@
   #define INVERT_X_DIR true
   #define INVERT_Y_DIR false
   #define INVERT_Z_DIR true
+  #define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define Z_MAX_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
 #elif BoardPlatform == 1
   #define X_DRIVER_TYPE  TMC2130
   #define Y_DRIVER_TYPE  TMC2130
@@ -802,14 +809,28 @@
   #define INVERT_X_DIR false
   #define INVERT_Y_DIR true
   #define INVERT_Z_DIR false
+  #define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define Z_MAX_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
 #elif BoardPlatform == 3
   #define X_DRIVER_TYPE  TMC2209
   #define Y_DRIVER_TYPE  TMC2209
   #define Z_DRIVER_TYPE  TMC2209
   #define E0_DRIVER_TYPE TMC2209
-  #define INVERT_X_DIR false
-  #define INVERT_Y_DIR true
-  #define INVERT_Z_DIR false 
+  #define INVERT_X_DIR true
+  #define INVERT_Y_DIR false
+  #define INVERT_Z_DIR true
+  #define X_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+  #define Y_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+  #define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define Z_MAX_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe. 
 #endif
 
 //#define X2_DRIVER_TYPE A4988
@@ -865,19 +886,37 @@
  * total number of extruders, the last value applies to the rest.
  */
 //#define DISTINCT_E_FACTORS
-#if ExtruderType == 1
-  #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 92.4}
-  #define INVERT_E0_DIR true
-#elif ExtruderType == 2
-  #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 470}
-  #define INVERT_E0_DIR false
-#elif ExtruderType == 3
-  #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 510}
-  #define INVERT_E0_DIR false
-#elif ExtruderType == 4
-  #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 415}
-  #define INVERT_E0_DIR false
-#endif
+#if BoardPlatform == 1 || BoardPlatform == 2
+  #if ExtruderType == 1
+    #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 92.4}
+    #define INVERT_E0_DIR true
+  #elif ExtruderType == 2
+    #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 470}
+    #define INVERT_E0_DIR false
+  #elif ExtruderType == 3
+    #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 510}
+    #define INVERT_E0_DIR false
+  #elif ExtruderType == 4
+    #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 415}
+    #define INVERT_E0_DIR false
+  #endif
+#endif  
+
+#if BoardPlatform == 3
+  #if ExtruderType == 1
+    #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 92.4}
+    #define INVERT_E0_DIR false  // Confirmed
+  #elif ExtruderType == 2
+    #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 470}
+    #define INVERT_E0_DIR false // Unconfirmed
+  #elif ExtruderType == 3
+    #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 510}
+    #define INVERT_E0_DIR false  // Unconfirmed
+  #elif ExtruderType == 4
+    #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 415}
+    #define INVERT_E0_DIR true  // confirmed
+  #endif
+#endif  
 
 
 /**
@@ -1964,13 +2003,15 @@
 //========================   (Character-based LCDs)   =========================
 //=============================================================================
 #if LCDType == 1
-  #define VIKI2
+  //#define VIKI2
   #define BABYSTEPPING
   #define REVERSE_ENCODER_DIRECTION
 #elif LCDType == 2
   #define REPRAP_DISCOUNT_SMART_CONTROLLER
   #define BABYSTEPPING
-  #define REVERSE_ENCODER_DIRECTION
+  #if BoardPlatform == 1 || BoardPlatform == 2
+    #define REVERSE_ENCODER_DIRECTION
+  #endif
 #elif LCDType == 3
   #define VIKI2
   #define BABYSTEPPING
