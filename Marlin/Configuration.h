@@ -24,9 +24,9 @@
 
 #define MachineType "E"
 
-#define BoardPlatform 1 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
+#define BoardPlatform 2 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
 #define ExtruderType 2  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
-#define HotEndType 2  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
+#define HotEndType 4  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
 #define LCDType 3 // 1 = None, 2 = RepRapLCD, 3 = Viki2
 
 
@@ -41,7 +41,7 @@
 #define STRINGIZE(s) STRINGIZE2(s)
 #define MODEL_NUMBER STRINGIZE(ExtruderType) STRINGIZE(HotEndType) STRINGIZE(LCDType)
 
-#define FIRMWARE_VERSION " 2"
+#define FIRMWARE_VERSION " 1"
 
 #define CUSTOM_MACHINE_NAME "Pulse " MachineType "-" MODEL_NUMBER MODEL_LETTER FIRMWARE_VERSION
 #define SHORT_BUILD_VERSION MachineType "-" MODEL_NUMBER MODEL_LETTER
@@ -938,7 +938,7 @@
  *   https://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html
  */
 #if DISABLED(CLASSIC_JERK)
-  #define JUNCTION_DEVIATION_MM 0.025 // (mm) Distance from real junction edge
+  #define JUNCTION_DEVIATION_MM 0.018 // (mm) Distance from real junction edge
   #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
                                       // for small segments (< 1mm) with large junction angles (> 135°).
 #endif
