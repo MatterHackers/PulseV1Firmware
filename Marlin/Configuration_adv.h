@@ -2325,12 +2325,22 @@
     #define Z_RSENSE         0.11
     #define Z_CHAIN_POS      -1
   #endif
-   #if AXIS_IS_TMC(E0)
-    #define E0_CURRENT       550
-    #define E0_MICROSTEPS    16
-    #define E0_RSENSE        0.11
-    #define E0_CHAIN_POS     -1
+   #if ExtruderType == 5
+    #if AXIS_IS_TMC(E0)
+      #define E0_CURRENT       350
+      #define E0_MICROSTEPS    16
+      #define E0_RSENSE        0.11
+      #define E0_CHAIN_POS     -1
+    #endif
+    #else
+      #if AXIS_IS_TMC(E0)
+        #define E0_CURRENT       550
+        #define E0_MICROSTEPS    16
+        #define E0_RSENSE        0.11
+        #define E0_CHAIN_POS     -1
+      #endif  
   #endif
+
 
   #if AXIS_IS_TMC(X2)
     #define X2_CURRENT      800
@@ -2857,7 +2867,7 @@
 //
 
 #if BoardPlatform == 2 || BoardPlatform == 3
-   #define I2C_MASTER_ID  1  // Set a value from 0 to 2
+   #define I2C_MASTER_ID  0  // Set a value from 0 to 2
 #endif
 
 /**

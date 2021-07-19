@@ -25,9 +25,9 @@
 #define MachineType "E"
 
 #define BoardPlatform 3 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT 3 = SKR Turbo
-#define ExtruderType 4  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
-#define HotEndType 2  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
-#define LCDType 2 // 1 = None, 2 = RepRapLCD, 3 = Viki2, 4 = Mini 1864
+#define ExtruderType 5  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG, 5 = LDO Orbiter 1.75mm
+#define HotEndType 1  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
+#define LCDType 1 // 1 = None, 2 = RepRapLCD, 3 = Viki2, 4 = Mini 1864
 
 
 #if BoardPlatform == 1
@@ -48,7 +48,7 @@
 #define CUSTOM_MACHINE_NAME "Pulse " MachineType "-" MODEL_NUMBER MODEL_LETTER FIRMWARE_VERSION
 #define SHORT_BUILD_VERSION MachineType "-" MODEL_NUMBER MODEL_LETTER
 
-#if BoardPlatform == 2
+#if BoardPlatform == 1
   #include "src/neoHAL.h"
   #define NEO_HAL
 #endif
@@ -900,6 +900,9 @@
     #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 415}
     #define INVERT_E0_DIR false
   #endif
+  #elif ExtruderType == 5
+    #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 690}
+    #define INVERT_E0_DIR false
 #endif  
 
 #if BoardPlatform == 3
@@ -915,6 +918,9 @@
   #elif ExtruderType == 4
     #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 415}
     #define INVERT_E0_DIR true  // confirmed
+  #elif ExtruderType == 5
+    #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 690}
+    #define INVERT_E0_DIR false
   #endif
 #endif  
 
@@ -931,7 +937,11 @@
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 300, 300, 30, 75 }
+#if ExtruderType == 5
+  #define DEFAULT_MAX_FEEDRATE          { 300, 300, 30, 60 }
+#else
+  #define DEFAULT_MAX_FEEDRATE          { 300, 300, 30, 75 }
+#endif
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -944,7 +954,12 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 1500, 1500, 100, 3000 }
+#if ExtruderType == 5
+  #define DEFAULT_MAX_ACCELERATION      { 1500, 1500, 100, 600 }
+#else
+  #define DEFAULT_MAX_ACCELERATION      { 1500, 1500, 100, 3000 }
+#endif
+
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
