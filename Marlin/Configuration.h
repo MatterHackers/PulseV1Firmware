@@ -899,10 +899,10 @@
   #elif ExtruderType == 4
     #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 415}
     #define INVERT_E0_DIR false
-  #endif
   #elif ExtruderType == 5
     #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 690}
-    #define INVERT_E0_DIR false
+    #define INVERT_E0_DIR true
+  #endif
 #endif  
 
 #if BoardPlatform == 3
@@ -920,7 +920,7 @@
     #define INVERT_E0_DIR true  // confirmed
   #elif ExtruderType == 5
     #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 690}
-    #define INVERT_E0_DIR false
+    #define INVERT_E0_DIR true
   #endif
 #endif  
 
