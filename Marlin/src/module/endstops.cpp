@@ -61,7 +61,7 @@ float LastStepperDistance;
 int ExtrusionDiscrepency;
 unsigned long RunOutDectectTime = 0;
 
-#if BoardPlatform == 1
+#if BoardPlatform == 2
   void Check_On_Runout()
   {
       if (!CardReader::isPrinting())

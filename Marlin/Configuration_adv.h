@@ -2417,6 +2417,9 @@
    */
   #if BoardPlatform == 1
     #define HYBRID_THRESHOLD
+    #define STEALTHCHOP_XY
+    #define STEALTHCHOP_Z
+    #define STEALTHCHOP_E
   #endif
 
   /**
@@ -2538,7 +2541,7 @@
    * Beta feature!
    * Create a 50/50 square wave step pulse optimal for stepper drivers.
    */
-  //#define SQUARE_WAVE_STEPPING
+  #define SQUARE_WAVE_STEPPING
 
   /**
    * Enable M122 debugging command for TMC stepper drivers.
