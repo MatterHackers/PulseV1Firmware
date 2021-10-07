@@ -141,7 +141,7 @@
       #define LCD_PINS_D6                     85
       #define LCD_PINS_D7                     71
       #define BEEPER_PIN                      84
-    #endif
+#endif
 
 #if LCDType == 4
   //#define LCD_PINS_D4                     59
