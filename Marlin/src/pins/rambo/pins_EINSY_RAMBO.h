@@ -114,11 +114,12 @@
 
 // LCD / Controller
 //
-#define BTN_EN1                         14  //TX3
-#define BTN_EN2                         72  //PJ2
-#define BTN_ENC                          9  //
-#define SD_DETECT_PIN                   15  // RX3
-
+#if LCDType == 2 || LCDType == 3
+  #define BTN_EN1                         14  //TX3
+  #define BTN_EN2                         72  //PJ2
+  #define BTN_ENC                          9  //
+  #define SD_DETECT_PIN                   15  // RX3
+#endif
 
 #if defined(VIKI2) || defined(miniVIKI)
     #define BEEPER_PIN 84   // PH2
@@ -141,4 +142,13 @@
       #define LCD_PINS_D7                     71
       #define BEEPER_PIN                      84
     #endif
-    
+
+#if LCDType == 4
+  //#define LCD_PINS_D4                     59
+  //#define LCD_PINS_D5                     70
+  #define LCD_PINS_D6                     85
+  #define LCD_PINS_D7                     71
+  #define BEEPER_PIN                      84
+  #define DOGLCD_A0                       82
+  #define DOGLCD_CS                       61
+#endif  

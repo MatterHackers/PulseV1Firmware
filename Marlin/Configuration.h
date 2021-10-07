@@ -27,7 +27,7 @@
 #define BoardPlatform 1 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
 #define ExtruderType 4  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
 #define HotEndType 2  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
-#define LCDType 2 // 1 = None, 2 = RepRapLCD, 3 = Viki2
+#define LCDType 4 // 1 = None, 2 = RepRapLCD, 3 = Viki2, 4 = Fysetc Mini 12864
 
 
 #if BoardPlatform == 1
@@ -1959,6 +1959,17 @@
   #define TEMP_STAT_LEDS
   //#define REVERSE_MENU_DIRECTION
   #define REVERSE_ENCODER_DIRECTION
+#elif LCDType == 4
+  #define FYSETC_MINI_12864_2_1
+  #define BABYSTEPPING
+  #define REVERSE_ENCODER_DIRECTION
+  #define NEOPIXEL_LED    
+  #define KILL_PIN        5
+  #define LCD_RESET_PIN   59
+  #define BTN_EN2         14
+  #define BTN_ENC         9
+  #define BTN_EN1         72
+  #define SD_DETECT_PIN   15
 #endif
 
 
@@ -2467,11 +2478,11 @@
 // Support for Adafruit Neopixel LED driver
 //#define NEOPIXEL_LED
 #if ENABLED(NEOPIXEL_LED)
-  #define NEOPIXEL_TYPE   NEO_GRBW // NEO_GRBW / NEO_GRB - four/three channel driver type (defined in Adafruit_NeoPixel.h)
-  #define NEOPIXEL_PIN     4       // LED driving pin
+  #define NEOPIXEL_TYPE   NEO_GRB // NEO_GRBW / NEO_GRB - four/three channel driver type (defined in Adafruit_NeoPixel.h)
+  #define NEOPIXEL_PIN     70       // LED driving pin
   //#define NEOPIXEL2_TYPE NEOPIXEL_TYPE
   //#define NEOPIXEL2_PIN    5
-  #define NEOPIXEL_PIXELS 30       // Number of LEDs in the strip, larger of 2 strips if 2 neopixel strips are used
+  #define NEOPIXEL_PIXELS 3       // Number of LEDs in the strip, larger of 2 strips if 2 neopixel strips are used
   #define NEOPIXEL_IS_SEQUENTIAL   // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
   #define NEOPIXEL_BRIGHTNESS 127  // Initial brightness (0-255)
   //#define NEOPIXEL_STARTUP_TEST  // Cycle through colors at startup
