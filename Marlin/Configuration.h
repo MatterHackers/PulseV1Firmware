@@ -26,7 +26,7 @@
 
 #define BoardPlatform   3    // 1 = Einsy RAMBo, 2 = Azteeg X5 GT 3 = SKR Turbo
 #define ExtruderType    4    // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG, 5 = LDO Orbiter 1.75mm
-#define HotEndType      4    // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
+#define HotEndType      2    // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
 #define LCDType         4    // 1 = None, 2 = RepRapLCD, 3 = Viki2, 4 = Mini 1864
 
 
@@ -580,7 +580,7 @@
 #define PIDTEMP
 #define BANG_MAX 255     // Limits current to nozzle while in bang-bang mode; 255=full current
 #define PID_MAX BANG_MAX // Limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
-#define PID_K1 0.95      // Smoothing factor within any PID loop
+#define PID_K1 0.55      // Smoothing factor within any PID loop
 
 #if ENABLED(PIDTEMP)
   #define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
