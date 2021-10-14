@@ -25,9 +25,9 @@
 #define MachineType "E"
 
 #define BoardPlatform   3    // 1 = Einsy RAMBo, 2 = Azteeg X5 GT 3 = SKR Turbo
-#define ExtruderType    4    // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG, 5 = LDO Orbiter 1.75mm
-#define HotEndType      2    // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
-#define LCDType         4    // 1 = None, 2 = RepRapLCD, 3 = Viki2, 4 = Mini 1864
+#define ExtruderType    1    // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG, 5 = LDO Orbiter 1.75mm
+#define HotEndType      1    // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
+#define LCDType         2    // 1 = None, 2 = RepRapLCD, 3 = Viki2, 4 = Mini 1864
 
 
 #if BoardPlatform == 1
@@ -1327,14 +1327,14 @@
 
 // The size of the print bed
 #define X_BED_SIZE 250
-#define Y_BED_SIZE 255
+#define Y_BED_SIZE 220
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
-#define Y_MAX_POS 255
+#define Y_MAX_POS 220
 //#define Z_MAX_POS 200
 
 
