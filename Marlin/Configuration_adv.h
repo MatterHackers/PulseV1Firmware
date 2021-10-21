@@ -464,9 +464,8 @@
 #endif
 
 #if BoardPlatform == 3
-  #define E0_AUTO_FAN_PIN P2_03
-  #define FAN_MAX_PWM 70
-  #define EXTRUDER_AUTO_FAN_SPEED 90   // 255 == full speed
+  #define E0_AUTO_FAN_PIN P1_26
+  #define EXTRUDER_AUTO_FAN_SPEED 255   // 255 == full speed
 #endif
 
 
@@ -1683,9 +1682,9 @@
 
 #if EITHER(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
   // Override the mesh area if the automatic (max) area is too large
-  #define MESH_MIN_X MESH_INSET
+  #define MESH_MIN_X 10
+  #define MESH_MAX_X 250
   #define MESH_MIN_Y 10
-  #define MESH_MAX_X X_BED_SIZE - (MESH_INSET)
   #define MESH_MAX_Y 220
 #endif
 
@@ -2430,7 +2429,7 @@
     #define E7_RSENSE         0.11
     #define E7_CHAIN_POS     -1
   #endif
-
+#endif
   /**
    * Override default SPI pins for TMC2130, TMC2160, TMC2660, TMC5130 and TMC5160 drivers here.
    * The default pins can be found in your board's pins file.
@@ -2663,7 +2662,7 @@
    */
   #define TMC_ADV() {  }
 
-#endif // HAS_TRINAMIC_CONFIG
+//#endif // HAS_TRINAMIC_CONFIG
 
 // @section L64XX
 

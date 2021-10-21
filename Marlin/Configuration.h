@@ -25,10 +25,15 @@
 #define MachineType "E"
 
 #define BoardPlatform   3    // 1 = Einsy RAMBo, 2 = Azteeg X5 GT 3 = SKR Turbo
-#define ExtruderType    1    // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG, 5 = LDO Orbiter 1.75mm
-#define HotEndType      1    // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
-#define LCDType         2    // 1 = None, 2 = RepRapLCD, 3 = Viki2, 4 = Mini 1864
+#define ExtruderType    4    // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG, 5 = LDO Orbiter 1.75mm
+#define HotEndType      2    // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
+#define LCDType         4    // 1 = None, 2 = RepRapLCD, 3 = Viki2, 4 = Mini 1864
 
+#define ConductiveBedProbe  1  // 0 = disabled, 1 = enabled
+
+#if ConductiveBedProbe == 1
+  #define Y_MESH_INSET 35
+#endif
 
 #if BoardPlatform == 1
   #define MODEL_LETTER ""
@@ -659,7 +664,7 @@
   //#define PID_DEBUG             // Sends debug data to the serial port. Use 'M303 D' to toggle activation.
   //#define PID_OPENLOOP          // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
   //#define SLOW_PWM_HEATERS      // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
-  #define PID_FUNCTIONAL_RANGE 10 // If the temperature difference between the target temperature and the actual temperature
+  #define PID_FUNCTIONAL_RANGE 16 // If the temperature difference between the target temperature and the actual temperature
                                   // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
 #endif
 
@@ -729,7 +734,9 @@
 // extra connectors. Leave undefined any used for non-endstop and non-probe purposes.
 #define USE_XMIN_PLUG
 #define USE_YMIN_PLUG
-//#define USE_ZMIN_PLUG
+#if BoardPlatform == 2
+  #define USE_ZMIN_PLUG
+#endif
 //#define USE_XMAX_PLUG
 //#define USE_YMAX_PLUG
 #define USE_ZMAX_PLUG
@@ -1039,7 +1046,9 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-//#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#if BoardPlatform == 2
+  #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#endif
 
 // Force the use of the probe for Z-axis homing
 //#define USE_PROBE_FOR_Z_HOMING
@@ -1334,7 +1343,7 @@
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
-#define Y_MAX_POS 220
+#define Y_MAX_POS 255
 //#define Z_MAX_POS 200
 
 
@@ -1486,6 +1495,7 @@
   #endif
 
 #endif
+
 
 #if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
