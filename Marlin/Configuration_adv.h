@@ -464,7 +464,8 @@
 #endif
 
 #if BoardPlatform == 3
-  #define E0_AUTO_FAN_PIN P1_26
+  //#define E0_AUTO_FAN_PIN P1_00
+  #define FAN_MAX_PWM 100
   #define EXTRUDER_AUTO_FAN_SPEED 255   // 255 == full speed
 #endif
 
@@ -1680,13 +1681,13 @@
   //#define PROBING_MARGIN_BACK PROBING_MARGIN
 #endif
 
-#if EITHER(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
-  // Override the mesh area if the automatic (max) area is too large
-  #define MESH_MIN_X 10
-  #define MESH_MAX_X 250
-  #define MESH_MIN_Y 10
-  #define MESH_MAX_Y 220
-#endif
+// #if EITHER(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
+//   // Override the mesh area if the automatic (max) area is too large
+//   #define MESH_MIN_X 10
+//   #define MESH_MAX_X 250
+//   #define MESH_MIN_Y 10
+//   #define MESH_MAX_Y 220
+// #endif
 
 /**
  * Repeatedly attempt G29 leveling until it succeeds.
@@ -2607,9 +2608,9 @@
    * IMPROVE_HOMING_RELIABILITY tunes acceleration and jerk when
    * homing and adds a guard period for endstop triggering.
    */
- // #if BoardPlatform == 3
- //   #define SENSORLESS_HOMING // StallGuard capable drivers only
- // #endif
+  #if SensorlessHoming == 1
+    #define SENSORLESS_HOMING // StallGuard capable drivers only
+  #endif
 
   #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63

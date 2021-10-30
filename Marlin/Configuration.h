@@ -24,16 +24,15 @@
 
 #define MachineType "E"
 
-#define BoardPlatform   3    // 1 = Einsy RAMBo, 2 = Azteeg X5 GT 3 = SKR Turbo
-#define ExtruderType    4    // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG, 5 = LDO Orbiter 1.75mm
-#define HotEndType      2    // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
-#define LCDType         4    // 1 = None, 2 = RepRapLCD, 3 = Viki2, 4 = Mini 1864
+#define BoardPlatform   1    // 1 = Einsy RAMBo, 2 = Azteeg X5 GT 3 = SKR Turbo
+#define ExtruderType    4    // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG, 5 = LDO Orbiter 1.75mm, 6 = Bondtech LGX
+#define HotEndType      2    // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum, 6 = LGX Mosquito
+#define LCDType         2    // 1 = None, 2 = RepRapLCD, 3 = Viki2, 4 = Mini 1864
 
-#define ConductiveBedProbe  1  // 0 = disabled, 1 = enabled
 
-#if ConductiveBedProbe == 1
-  #define Y_MESH_INSET 35
-#endif
+#define SensorlessHoming    0  // 0 = disabled, 1 = enabled
+#define ConductiveBedProbe  0  // 0 = disabled, 1 = enabled
+
 
 #if BoardPlatform == 1
   #define MODEL_LETTER ""
@@ -565,6 +564,14 @@
   #define DEFAULT_Kp 18
   #define DEFAULT_Ki 2.22
   #define DEFAULT_Kd 55
+#elif HotEndType == 6
+  #define HEATER_0_MAXTEMP 315
+  //#define HEATER_1_MAXTEMP 315
+  #define BED_MAXTEMP 125
+  #define Z_MAX_POS 205
+  #define DEFAULT_Kp 18
+  #define DEFAULT_Ki 2.22
+  #define DEFAULT_Kd 55  
 
 #endif
 
@@ -585,7 +592,7 @@
 #define PIDTEMP
 #define BANG_MAX 255     // Limits current to nozzle while in bang-bang mode; 255=full current
 #define PID_MAX BANG_MAX // Limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
-#define PID_K1 0.55      // Smoothing factor within any PID loop
+#define PID_K1 0.45      // Smoothing factor within any PID loop
 
 #if ENABLED(PIDTEMP)
   #define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
@@ -664,7 +671,7 @@
   //#define PID_DEBUG             // Sends debug data to the serial port. Use 'M303 D' to toggle activation.
   //#define PID_OPENLOOP          // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
   //#define SLOW_PWM_HEATERS      // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
-  #define PID_FUNCTIONAL_RANGE 16 // If the temperature difference between the target temperature and the actual temperature
+  #define PID_FUNCTIONAL_RANGE 20 // If the temperature difference between the target temperature and the actual temperature
                                   // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
 #endif
 
@@ -737,7 +744,9 @@
 #if BoardPlatform == 2
   #define USE_ZMIN_PLUG
 #endif
-//#define USE_XMAX_PLUG
+#if ConductiveBedProbe == 1
+  #define USE_XMAX_PLUG
+#endif
 //#define USE_YMAX_PLUG
 #define USE_ZMAX_PLUG
 
@@ -823,7 +832,7 @@
   #define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
   #define Z_MAX_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
   #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
-#elif BoardPlatform == 3
+#elif BoardPlatform == 3 && SensorlessHoming == 0
   #define X_DRIVER_TYPE  TMC2209
   #define Y_DRIVER_TYPE  TMC2209
   #define Z_DRIVER_TYPE  TMC2209
@@ -835,6 +844,21 @@
   #define Y_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
   #define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
   #define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define Z_MAX_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe. 
+#elif BoardPlatform == 3 && SensorlessHoming == 1
+  #define X_DRIVER_TYPE  TMC2209
+  #define Y_DRIVER_TYPE  TMC2209
+  #define Z_DRIVER_TYPE  TMC2209
+  #define E0_DRIVER_TYPE TMC2209
+  #define INVERT_X_DIR false
+  #define INVERT_Y_DIR true
+  #define INVERT_Z_DIR false
+  #define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+  #define X_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
   #define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
   #define Z_MAX_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
   #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe. 
@@ -909,6 +933,9 @@
   #elif ExtruderType == 5
     #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 690}
     #define INVERT_E0_DIR true
+  #elif ExtruderType == 6
+    #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 400}
+    #define INVERT_E0_DIR true  
   #endif
 #endif  
 
@@ -922,12 +949,18 @@
   #elif ExtruderType == 3
     #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 510}
     #define INVERT_E0_DIR false  // Unconfirmed
+  #elif ExtruderType == 4 && SensorlessHoming == 1
+    #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 415}
+    #define INVERT_E0_DIR false  // confirmed
   #elif ExtruderType == 4
     #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 415}
     #define INVERT_E0_DIR true  // confirmed
   #elif ExtruderType == 5
     #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 690}
     #define INVERT_E0_DIR true
+  #elif ExtruderType == 6
+    #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 400}
+    #define INVERT_E0_DIR false    
   #endif
 #endif  
 
@@ -1317,7 +1350,7 @@
 
 // @section homing
 
-//#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed
+#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed
 
 //#define UNKNOWN_Z_NO_RAISE      // Don't raise Z (lower the bed) if Z is "unknown." For beds that fall when Z is powered off.
 
@@ -1343,7 +1376,7 @@
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
-#define Y_MAX_POS 255
+#define Y_MAX_POS 220
 //#define Z_MAX_POS 200
 
 
