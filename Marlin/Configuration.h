@@ -41,7 +41,7 @@
 #define STRINGIZE(s) STRINGIZE2(s)
 #define MODEL_NUMBER STRINGIZE(ExtruderType) STRINGIZE(HotEndType) STRINGIZE(LCDType)
 
-#define FIRMWARE_VERSION " 1"
+#define FIRMWARE_VERSION " 2"
 
 #define CUSTOM_MACHINE_NAME "Pulse " MachineType "-" MODEL_NUMBER MODEL_LETTER FIRMWARE_VERSION
 #define SHORT_BUILD_VERSION MachineType "-" MODEL_NUMBER MODEL_LETTER
@@ -570,7 +570,7 @@
 #define PIDTEMP
 #define BANG_MAX 255     // Limits current to nozzle while in bang-bang mode; 255=full current
 #define PID_MAX BANG_MAX // Limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
-#define PID_K1 0.50      // Smoothing factor within any PID loop
+#define PID_K1 0.45      // Smoothing factor within any PID loop
 
 #if ENABLED(PIDTEMP)
   #define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
@@ -649,7 +649,7 @@
   //#define PID_DEBUG             // Sends debug data to the serial port. Use 'M303 D' to toggle activation.
   //#define PID_OPENLOOP          // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
   //#define SLOW_PWM_HEATERS      // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
-  #define PID_FUNCTIONAL_RANGE 16 // If the temperature difference between the target temperature and the actual temperature
+  #define PID_FUNCTIONAL_RANGE 20 // If the temperature difference between the target temperature and the actual temperature
                                   // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
 #endif
 
@@ -858,7 +858,7 @@
   #define INVERT_E0_DIR false
 #elif ExtruderType == 4
   #define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 415}
-  #define INVERT_E0_DIR false
+  #define INVERT_E0_DIR true
 #endif
 
 
