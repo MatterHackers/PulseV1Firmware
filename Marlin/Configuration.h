@@ -26,8 +26,8 @@
 
 #define BoardPlatform 1 // 1 = Einsy RAMBo, 2 = Azteeg X5 GT
 #define ExtruderType 4  // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG
-#define HotEndType 2  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
-#define LCDType 2 // 1 = None, 2 = RepRapLCD, 3 = Viki2, 4 = Fysetc Mini 12864
+#define HotEndType 4  // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum
+#define LCDType 4 // 1 = None, 2 = RepRapLCD, 3 = Viki2, 4 = Fysetc Mini 12864
 
 
 #if BoardPlatform == 1
@@ -41,7 +41,7 @@
 #define STRINGIZE(s) STRINGIZE2(s)
 #define MODEL_NUMBER STRINGIZE(ExtruderType) STRINGIZE(HotEndType) STRINGIZE(LCDType)
 
-#define FIRMWARE_VERSION " 2"
+#define FIRMWARE_VERSION " 1"
 
 #define CUSTOM_MACHINE_NAME "Pulse " MachineType "-" MODEL_NUMBER MODEL_LETTER FIRMWARE_VERSION
 #define SHORT_BUILD_VERSION MachineType "-" MODEL_NUMBER MODEL_LETTER
