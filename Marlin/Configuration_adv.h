@@ -162,7 +162,7 @@
  * THERMAL_PROTECTION_HYSTERESIS and/or THERMAL_PROTECTION_PERIOD
  */
 #if ENABLED(THERMAL_PROTECTION_HOTENDS)
-  #define THERMAL_PROTECTION_PERIOD 60        // Seconds
+  #define THERMAL_PROTECTION_PERIOD 90        // Seconds
   #define THERMAL_PROTECTION_HYSTERESIS 5     // Degrees Celsius
 
   //#define ADAPTIVE_FAN_SLOWING              // Slow part cooling fan if temperature drops
@@ -430,7 +430,7 @@
  *   USE_OCR2A_AS_TOP sacrifices duty cycle control resolution to achieve this broader range of frequencies.
  */
 #if ENABLED(FAST_PWM_FAN)
-  //#define FAST_PWM_FAN_FREQUENCY 31400
+  #define FAST_PWM_FAN_FREQUENCY 40000
   //#define USE_OCR2A_AS_TOP
 #endif
 
@@ -1681,13 +1681,13 @@
   //#define PROBING_MARGIN_BACK PROBING_MARGIN
 #endif
 
-// #if EITHER(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
+#if EITHER(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
 //   // Override the mesh area if the automatic (max) area is too large
 //   #define MESH_MIN_X 10
 //   #define MESH_MAX_X 250
 //   #define MESH_MIN_Y 10
 //   #define MESH_MAX_Y 220
-// #endif
+#endif
 
 /**
  * Repeatedly attempt G29 leveling until it succeeds.

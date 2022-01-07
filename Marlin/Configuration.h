@@ -25,13 +25,13 @@
 #define MachineType "E"
 
 #define BoardPlatform   3    // 1 = Einsy RAMBo, 2 = Azteeg X5 GT 3 = SKR Turbo
-#define ExtruderType    1    // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG, 5 = LDO Orbiter 1.75mm, 6 = Bondtech LGX
-#define HotEndType      1    // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum, 6 = LGX Mosquito
-#define LCDType         2    // 1 = None, 2 = RepRapLCD, 3 = Viki2, 4 = Mini 1864
+#define ExtruderType    6    // 1 = EZR, 2 = Bondtech QR 1.75mm, 3 = Bondtech QR 3mm, 4 = Bondtech BMG, 5 = LDO Orbiter 1.75mm, 6 = Bondtech LGX
+#define HotEndType      6    // 1 = E3D Lite6, 2 = E3Dv6 , 3 = E3D Volcano, 4 = Mosquito, 5 = Mosquito Magnum, 6 = LGX Mosquito
+#define LCDType         4    // 1 = None, 2 = RepRapLCD, 3 = Viki2, 4 = Mini 1864
 
 
-#define SensorlessHoming    0  // 0 = disabled, 1 = enabled
-#define ConductiveBedProbe  0  // 0 = disabled, 1 = enabled
+#define SensorlessHoming    1  // 0 = disabled, 1 = enabled
+#define ConductiveBedProbe  1  // 0 = disabled, 1 = enabled
 
 
 #if BoardPlatform == 1
@@ -1368,18 +1368,34 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 250
-#define Y_BED_SIZE 220
+// #define X_BED_SIZE 250
+// #define Y_BED_SIZE 220
 
-// Travel limits (mm) after homing, corresponding to endstop positions.
-#define X_MIN_POS 0
-#define Y_MIN_POS 0
-#define Z_MIN_POS 0
-#define X_MAX_POS X_BED_SIZE
-#define Y_MAX_POS 220
+// // Travel limits (mm) after homing, corresponding to endstop positions.
+// #define X_MIN_POS 0
+// #define Y_MIN_POS 0
+// #define Z_MIN_POS 0
+// #define X_MAX_POS X_BED_SIZE
+// #define Y_MAX_POS 255
 //#define Z_MAX_POS 200
 
-
+#if ExtruderType == 6
+  #define X_BED_SIZE 250
+  #define Y_BED_SIZE 250
+  #define X_MIN_POS 0
+  #define Y_MIN_POS 0
+  #define Z_MIN_POS 0
+  #define X_MAX_POS X_BED_SIZE
+  #define Y_MAX_POS 220
+#else
+  #define X_BED_SIZE 250
+  #define Y_BED_SIZE 220
+  #define X_MIN_POS 0
+  #define Y_MIN_POS 0
+  #define Z_MIN_POS 0
+  #define X_MAX_POS X_BED_SIZE
+  #define Y_MAX_POS 220
+#endif  
 
 
 
@@ -2518,20 +2534,33 @@
 // Use software PWM to drive the fan, as for the heaters. This uses a very low frequency
 // which is not as annoying as with the hardware PWM. On the other hand, if this frequency
 // is too low, you should also increment SOFT_PWM_SCALE.
-#define FAN_SOFT_PWM
+//#define FAN_SOFT_PWM
+
+
+#if BoardPlatform == 1
+  #define FAN_SOFT_PWM
+  #define SOFT_PWM_SCALE 2
+  #define SOFT_PWM_DITHER
+#endif  
+#if BoardPlatform == 3
+  //#define FAN_SOFT_PWM
+  //#define SOFT_PWM_SCALE 3
+  //#define SOFT_PWM_DITHER
+#endif
+
 
 // Incrementing this by 1 will double the software PWM frequency,
 // affecting heaters, and the fan if FAN_SOFT_PWM is enabled.
 // However, control resolution will be halved for each increment;
 // at zero value, there are 128 effective control positions.
 // :[0,1,2,3,4,5,6,7]
-#define SOFT_PWM_SCALE 2
+//#define SOFT_PWM_SCALE 1
 
 // If SOFT_PWM_SCALE is set to a value higher than 0, dithering can
 // be used to mitigate the associated resolution loss. If enabled,
 // some of the PWM cycles are stretched so on average the desired
 // duty cycle is attained.
-#define SOFT_PWM_DITHER
+//#define SOFT_PWM_DITHER
 
 // Temperature status LEDs that display the hotend and bed temperature.
 // If all hotends, bed temperature, and target temperature are under 54C
