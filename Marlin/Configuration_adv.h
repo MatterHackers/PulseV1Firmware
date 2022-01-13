@@ -162,7 +162,7 @@
  * THERMAL_PROTECTION_HYSTERESIS and/or THERMAL_PROTECTION_PERIOD
  */
 #if ENABLED(THERMAL_PROTECTION_HOTENDS)
-  #define THERMAL_PROTECTION_PERIOD 60        // Seconds
+  #define THERMAL_PROTECTION_PERIOD 90        // Seconds
   #define THERMAL_PROTECTION_HYSTERESIS 5     // Degrees Celsius
 
   //#define ADAPTIVE_FAN_SLOWING              // Slow part cooling fan if temperature drops
@@ -406,8 +406,6 @@
  *
  * Define one or both of these to override the default 0-255 range.
  */
-//#define FAN_MIN_PWM 50
-//#define FAN_MAX_PWM 128
 
 /**
  * FAST PWM FAN Settings
@@ -432,7 +430,7 @@
  *   USE_OCR2A_AS_TOP sacrifices duty cycle control resolution to achieve this broader range of frequencies.
  */
 #if ENABLED(FAST_PWM_FAN)
-  //#define FAST_PWM_FAN_FREQUENCY 31400
+  #define FAST_PWM_FAN_FREQUENCY 40000
   //#define USE_OCR2A_AS_TOP
 #endif
 
@@ -450,7 +448,28 @@
  * Multiple extruders can be assigned to the same pin in which case
  * the fan will turn on when any selected extruder is above the threshold.
  */
-#define E0_AUTO_FAN_PIN 8
+#define EXTRUDER_AUTO_FAN_TEMPERATURE 40
+
+#if BoardPlatform == 2
+  #define E0_AUTO_FAN_PIN P0_26
+  #define FAN_MAX_PWM 90
+  #define EXTRUDER_AUTO_FAN_SPEED 90   // 255 == full speed
+  #define CHAMBER_AUTO_FAN_TEMPERATURE 30
+  #define CHAMBER_AUTO_FAN_SPEED 255 
+#endif
+
+#if BoardPlatform == 1
+  #define E0_AUTO_FAN_PIN 8
+  #define EXTRUDER_AUTO_FAN_SPEED 255
+#endif
+
+#if BoardPlatform == 3
+  //#define E0_AUTO_FAN_PIN P1_00
+  #define FAN_MAX_PWM 100
+  #define EXTRUDER_AUTO_FAN_SPEED 255   // 255 == full speed
+#endif
+
+
 #define E1_AUTO_FAN_PIN -1
 #define E2_AUTO_FAN_PIN -1
 #define E3_AUTO_FAN_PIN -1
@@ -460,10 +479,6 @@
 #define E7_AUTO_FAN_PIN -1
 #define CHAMBER_AUTO_FAN_PIN -1
 
-#define EXTRUDER_AUTO_FAN_TEMPERATURE 50
-#define EXTRUDER_AUTO_FAN_SPEED 255   // 255 == full speed
-#define CHAMBER_AUTO_FAN_TEMPERATURE 30
-#define CHAMBER_AUTO_FAN_SPEED 255
 
 /**
  * Part-Cooling Fan Multiplexer
@@ -627,10 +642,18 @@
  * the position of the toolhead relative to the workspace.
  */
 
-//#define SENSORLESS_BACKOFF_MM  { 2, 2 }     // (mm) Backoff from endstops before sensorless homing
+//#if BoardPlatform == 3
+//  #define SENSORLESS_BACKOFF_MM  { 5, 5}     // (mm) Backoff from endstops before sensorless homing
+//#endif
 
-#define HOMING_BUMP_MM      { 5, 5, 5 }       // (mm) Backoff from endstops after first bump
-#define HOMING_BUMP_DIVISOR { 2, 2, 4 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
+#if BoardPlatform == 1 || BoardPlatform == 2
+  #define HOMING_BUMP_MM      { 5, 5, 5 }       // (mm) Backoff from endstops after first bump
+  #define HOMING_BUMP_DIVISOR { 2, 2, 4 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
+#endif
+#if BoardPlatform == 3
+  #define HOMING_BUMP_MM      { 5, 5, 5 }       // (mm) Backoff from endstops after first bump
+  #define HOMING_BUMP_DIVISOR { 2, 2, 4 }       // (mm) Backoff from endstops before sensorless homing
+#endif
 
 //#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }  // (mm) Backoff from endstops after homing
 
@@ -813,7 +836,7 @@
  * Set DISABLE_INACTIVE_? 'true' to shut down axis steppers after an idle period.
  * The Deactive Time can be overridden with M18 and M84. Set to 0 for No Timeout.
  */
-#define DEFAULT_STEPPER_DEACTIVE_TIME 120
+#define DEFAULT_STEPPER_DEACTIVE_TIME 30
 #define DISABLE_INACTIVE_X true
 #define DISABLE_INACTIVE_Y true
 #define DISABLE_INACTIVE_Z true  // Set 'false' if the nozzle could fall onto your printed part!
@@ -1061,16 +1084,18 @@
    * LED Control Menu
    * Add LED Control to the LCD menu
    */
-  //#define LED_CONTROL_MENU
-  #if ENABLED(LED_CONTROL_MENU)
-    #define LED_COLOR_PRESETS                 // Enable the Preset Color menu option
-    #if ENABLED(LED_COLOR_PRESETS)
-      #define LED_USER_PRESET_RED        255  // User defined RED value
-      #define LED_USER_PRESET_GREEN      128  // User defined GREEN value
-      #define LED_USER_PRESET_BLUE         0  // User defined BLUE value
-      #define LED_USER_PRESET_WHITE      255  // User defined WHITE value
-      #define LED_USER_PRESET_BRIGHTNESS 255  // User defined intensity
+  #if LCDType == 4
+    #define LED_CONTROL_MENU
+    #if ENABLED(LED_CONTROL_MENU)
+      #define LED_COLOR_PRESETS                 // Enable the Preset Color menu option
+        #if ENABLED(LED_COLOR_PRESETS)
+          #define LED_USER_PRESET_RED        0    // User defined RED value
+          #define LED_USER_PRESET_GREEN      255  // User defined GREEN value
+          #define LED_USER_PRESET_BLUE       255  // User defined BLUE value
+          #define LED_USER_PRESET_WHITE      255  // User defined WHITE value
+          #define LED_USER_PRESET_BRIGHTNESS 255  // User defined intensity
       //#define LED_USER_PRESET_STARTUP       // Have the printer display the user preset color on startup
+        #endif
     #endif
   #endif
 
@@ -1612,7 +1637,7 @@
   //#define EXTRA_LIN_ADVANCE_K // Enable for second linear advance constants
   #define LIN_ADVANCE_K 0.0     // Unit: mm compression per 1mm/s extruder speed
   //#define LA_DEBUG            // If enabled, this will generate debug information output over USB.
-  //#define EXPERIMENTAL_SCURVE // Enable this option to permit S-Curve Acceleration
+  #define EXPERIMENTAL_SCURVE // Enable this option to permit S-Curve Acceleration
 #endif
 
 // @section leveling
@@ -1657,11 +1682,11 @@
 #endif
 
 #if EITHER(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
-  // Override the mesh area if the automatic (max) area is too large
-  //#define MESH_MIN_X MESH_INSET
-  //#define MESH_MIN_Y MESH_INSET
-  //#define MESH_MAX_X X_BED_SIZE - (MESH_INSET)
-  //#define MESH_MAX_Y Y_BED_SIZE - (MESH_INSET)
+//   // Override the mesh area if the automatic (max) area is too large
+//   #define MESH_MIN_X 10
+//   #define MESH_MAX_X 250
+//   #define MESH_MIN_Y 10
+//   #define MESH_MAX_Y 220
 #endif
 
 /**
@@ -1801,8 +1826,8 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-//#define MINIMUM_STEPPER_POST_DIR_DELAY 650
-//#define MINIMUM_STEPPER_PRE_DIR_DELAY 650
+#define MINIMUM_STEPPER_POST_DIR_DELAY 20
+#define MINIMUM_STEPPER_PRE_DIR_DELAY 20
 
 /**
  * Minimum stepper driver pulse width (in µs)
@@ -1900,7 +1925,7 @@
  * Currently handles M108, M112, M410, M876
  * NOTE: Not yet implemented for all platforms.
  */
-//#define EMERGENCY_PARSER
+#define EMERGENCY_PARSER
 
 // Bad Serial-connections can miss a received command by sending an 'ok'
 // Therefore some clients abort after 30 seconds in a timeout.
@@ -2216,10 +2241,11 @@
  * https://github.com/teemuatlut/TMCStepper
  */
 #if HAS_TRINAMIC_CONFIG
-
   #define HOLD_MULTIPLIER    0.5       // Scales down the holding current from run current
   #define INTERPOLATE       true       // Interpolate X/Y/Z_MICROSTEPS to 256
+#endif
 
+#if BoardPlatform == 1
   #if AXIS_IS_TMC(X)
     #define X_CURRENT       800        // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
@@ -2227,6 +2253,94 @@
     #define X_RSENSE         0.22
     #define X_CHAIN_POS      0         // <=0 : Not chained. 1 : MCU MOSI connected. 2 : Next in chain, ...
   #endif
+  #if AXIS_IS_TMC(Y)
+    #define Y_CURRENT       800
+    #define Y_CURRENT_HOME  Y_CURRENT
+    #define Y_MICROSTEPS     16
+    #define Y_RSENSE         0.22
+    #define Y_CHAIN_POS      0
+  #endif
+    #if AXIS_IS_TMC(Z)
+    #define Z_CURRENT        800
+    #define Z_CURRENT_HOME   Z_CURRENT
+    #define Z_MICROSTEPS     16
+    #define Z_RSENSE         0.22
+    #define Z_CHAIN_POS      0
+  #endif
+   #if AXIS_IS_TMC(E0)
+    #define E0_CURRENT       500
+    #define E0_MICROSTEPS    16
+    #define E0_RSENSE        0.22
+    #define E0_CHAIN_POS     0
+  #endif
+#elif BoardPlatform == 2
+  #if AXIS_IS_TMC(X)
+    #define X_CURRENT       900        // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
+    #define X_MICROSTEPS     16        // 0..256
+    #define X_RSENSE         0.10
+    #define X_CHAIN_POS      0         // <=0 : Not chained. 1 : MCU MOSI connected. 2 : Next in chain, ...
+  #endif
+  #if AXIS_IS_TMC(Y)
+    #define Y_CURRENT       900
+    #define Y_CURRENT_HOME  Y_CURRENT
+    #define Y_MICROSTEPS     16
+    #define Y_RSENSE         0.10
+    #define Y_CHAIN_POS      0
+  #endif
+    #if AXIS_IS_TMC(Z)
+    #define Z_CURRENT        900
+    #define Z_CURRENT_HOME   Z_CURRENT
+    #define Z_MICROSTEPS     16
+    #define Z_RSENSE         0.10
+    #define Z_CHAIN_POS      0
+  #endif
+   #if AXIS_IS_TMC(E0)
+    #define E0_CURRENT       600
+    #define E0_MICROSTEPS    16
+    #define E0_RSENSE        0.10
+    #define E0_CHAIN_POS     0
+  #endif
+#endif
+
+#if BoardPlatform == 3
+  #if AXIS_IS_TMC(X)
+    #define X_CURRENT       725        // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
+    #define X_MICROSTEPS     16        // 0..256
+    #define X_RSENSE         0.11
+    #define X_CHAIN_POS      -1         // <=0 : Not chained. 1 : MCU MOSI connected. 2 : Next in chain, ...
+  #endif
+  #if AXIS_IS_TMC(Y)
+    #define Y_CURRENT       725
+    #define Y_CURRENT_HOME  Y_CURRENT
+    #define Y_MICROSTEPS     16
+    #define Y_RSENSE         0.11
+    #define Y_CHAIN_POS      -1
+  #endif
+    #if AXIS_IS_TMC(Z)
+    #define Z_CURRENT        725
+    #define Z_CURRENT_HOME   Z_CURRENT
+    #define Z_MICROSTEPS     16
+    #define Z_RSENSE         0.11
+    #define Z_CHAIN_POS      -1
+  #endif
+   #if ExtruderType == 5
+    #if AXIS_IS_TMC(E0)
+      #define E0_CURRENT       350
+      #define E0_MICROSTEPS    16
+      #define E0_RSENSE        0.11
+      #define E0_CHAIN_POS     -1
+    #endif
+    #else
+      #if AXIS_IS_TMC(E0)
+        #define E0_CURRENT       550
+        #define E0_MICROSTEPS    16
+        #define E0_RSENSE        0.11
+        #define E0_CHAIN_POS     -1
+      #endif  
+  #endif
+
 
   #if AXIS_IS_TMC(X2)
     #define X2_CURRENT      800
@@ -2236,28 +2350,12 @@
     #define X2_CHAIN_POS     -1
   #endif
 
-  #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT       800
-    #define Y_CURRENT_HOME  Y_CURRENT
-    #define Y_MICROSTEPS     16
-    #define Y_RSENSE         0.22
-    #define Y_CHAIN_POS      0
-  #endif
-
   #if AXIS_IS_TMC(Y2)
     #define Y2_CURRENT      800
     #define Y2_CURRENT_HOME Y2_CURRENT
     #define Y2_MICROSTEPS    16
     #define Y2_RSENSE         0.11
     #define Y2_CHAIN_POS     -1
-  #endif
-
-  #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT        800
-    #define Z_CURRENT_HOME   Z_CURRENT
-    #define Z_MICROSTEPS     16
-    #define Z_RSENSE         0.22
-    #define Z_CHAIN_POS      0
   #endif
 
   #if AXIS_IS_TMC(Z2)
@@ -2282,13 +2380,6 @@
     #define Z4_MICROSTEPS    16
     #define Z4_RSENSE         0.11
     #define Z4_CHAIN_POS     -1
-  #endif
-
-  #if AXIS_IS_TMC(E0)
-    #define E0_CURRENT       800
-    #define E0_MICROSTEPS    16
-    #define E0_RSENSE        0.22
-    #define E0_CHAIN_POS     0
   #endif
 
   #if AXIS_IS_TMC(E1)
@@ -2339,7 +2430,7 @@
     #define E7_RSENSE         0.11
     #define E7_CHAIN_POS     -1
   #endif
-
+#endif
   /**
    * Override default SPI pins for TMC2130, TMC2160, TMC2660, TMC5130 and TMC5160 drivers here.
    * The default pins can be found in your board's pins file.
@@ -2405,16 +2496,20 @@
    * Use for drivers that do not use a dedicated enable pin, but rather handle the same
    * function through a communication line such as SPI or UART.
    */
-  //#define SOFTWARE_DRIVER_ENABLE
+  #if BoardPlatform == 2
+    #define SOFTWARE_DRIVER_ENABLE
+  #endif
 
   /**
    * TMC2130, TMC2160, TMC2208, TMC2209, TMC5130 and TMC5160 only
    * Use Trinamic's ultra quiet stepping mode.
    * When disabled, Marlin will use spreadCycle stepping mode.
    */
-  #define STEALTHCHOP_XY
-  #define STEALTHCHOP_Z
-  #define STEALTHCHOP_E
+  #if BoardPlatform == 1 || BoardPlatform == 3
+    #define STEALTHCHOP_XY
+    #define STEALTHCHOP_Z
+    #define STEALTHCHOP_E
+  #endif
 
   /**
    * Optimize spreadCycle chopper parameters by using predefined parameter sets
@@ -2431,7 +2526,14 @@
    * Define you own with
    * { <off_time[1..15]>, <hysteresis_end[-3..12]>, hysteresis_start[1..8] }
    */
-  #define CHOPPER_TIMING CHOPPER_PRUSAMK3_24V
+  
+  #if BoardPlatform == 1
+    #define CHOPPER_TIMING CHOPPER_PRUSAMK3_24V
+  #elif BoardPlatform == 2
+    #define CHOPPER_TIMING { 4, -2, 1 }
+  #elif BoardPlatform == 3
+    #define CHOPPER_TIMING CHOPPER_DEFAULT_24V
+  #endif
 
   /**
    * Monitor Trinamic drivers
@@ -2447,9 +2549,9 @@
   #define MONITOR_DRIVER_STATUS
 
   #if ENABLED(MONITOR_DRIVER_STATUS)
-    #define CURRENT_STEP_DOWN     50  // [mA]
-    #define REPORT_CURRENT_CHANGE
-    #define STOP_ON_ERROR
+    //#define CURRENT_STEP_DOWN     10  // [mA]
+    //#define REPORT_CURRENT_CHANGE
+    //#define STOP_ON_ERROR
   #endif
 
   /**
@@ -2459,11 +2561,14 @@
    * STEALTHCHOP_(XY|Z|E) must be enabled to use HYBRID_THRESHOLD.
    * M913 X/Y/Z/E to live tune the setting
    */
-  #define HYBRID_THRESHOLD
+
+  #if BoardPlatform == 1 || BoardPlatform == 3
+    #define HYBRID_THRESHOLD
+  #endif
 
   #define X_HYBRID_THRESHOLD     100  // [mm/s]
   #define Y_HYBRID_THRESHOLD     100
-  #define Z_HYBRID_THRESHOLD      10
+  #define Z_HYBRID_THRESHOLD      25
   #define E0_HYBRID_THRESHOLD      5
 
 
@@ -2503,15 +2608,17 @@
    * IMPROVE_HOMING_RELIABILITY tunes acceleration and jerk when
    * homing and adds a guard period for endstop triggering.
    */
-  //#define SENSORLESS_HOMING // StallGuard capable drivers only
+  #if SensorlessHoming == 1
+    #define SENSORLESS_HOMING // StallGuard capable drivers only
+  #endif
 
   #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
-    #define X_STALL_SENSITIVITY  8
+    #define X_STALL_SENSITIVITY  100
     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    #define Y_STALL_SENSITIVITY  8
+    #define Y_STALL_SENSITIVITY  100
     #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
-    //#define Z_STALL_SENSITIVITY  8
+    //#define Z_STALL_SENSITIVITY  200
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z3_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z4_STALL_SENSITIVITY Z_STALL_SENSITIVITY
@@ -2535,7 +2642,7 @@
    * Beta feature!
    * Create a 50/50 square wave step pulse optimal for stepper drivers.
    */
-  //#define SQUARE_WAVE_STEPPING
+  #define SQUARE_WAVE_STEPPING
 
   /**
    * Enable M122 debugging command for TMC stepper drivers.
@@ -2556,7 +2663,7 @@
    */
   #define TMC_ADV() {  }
 
-#endif // HAS_TRINAMIC_CONFIG
+//#endif // HAS_TRINAMIC_CONFIG
 
 // @section L64XX
 
@@ -2758,7 +2865,10 @@
 // I2C Master ID for LPC176x LCD and Digital Current control
 // Does not apply to other peripherals based on the Wire library.
 //
-//#define I2C_MASTER_ID  1  // Set a value from 0 to 2
+
+#if BoardPlatform == 2 || BoardPlatform == 3
+   #define I2C_MASTER_ID  0  // Set a value from 0 to 2
+#endif
 
 /**
  * TWI/I2C BUS
@@ -2788,7 +2898,10 @@
  * echo:i2c-reply: from:99 bytes:5 data:hello
  */
 
-//#define EXPERIMENTAL_I2CBUS
+// #if BoardPlatform == 2
+//   #define EXPERIMENTAL_I2CBUS
+// #endif
+
 #if ENABLED(EXPERIMENTAL_I2CBUS)
   #define I2C_SLAVE_ADDRESS  0  // Set a value from 8 to 127 to act as a slave
 #endif
@@ -3116,9 +3229,9 @@
 //#define NO_WORKSPACE_OFFSETS
 
 // Extra options for the M114 "Current Position" report
-//#define M114_DETAIL         // Use 'M114` for details to check planner calculations
-//#define M114_REALTIME       // Real current position based on forward kinematics
-//#define M114_LEGACY         // M114 used to synchronize on every call. Enable if needed.
+#define M114_DETAIL         // Use 'M114` for details to check planner calculations
+#define M114_REALTIME       // Real current position based on forward kinematics
+#define M114_LEGACY         // M114 used to synchronize on every call. Enable if needed.
 
 //#define REPORT_FAN_CHANGE   // Report the new fan speed when changed by M106 (and others)
 

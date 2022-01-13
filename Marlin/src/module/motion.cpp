@@ -94,7 +94,7 @@ bool relative_mode; // = false;
  *   Used by 'line_to_current_position' to do a move after changing it.
  *   Used by 'sync_plan_position' to update 'planner.position'.
  */
-xyze_pos_t current_position = { X_HOME_POS, Y_HOME_POS, Z_HOME_POS };
+xyze_pos_t current_position = { X_HOME_POS, Y_HOME_POS, Z_HOME_POS};
 
 /**
  * Cartesian Destination
@@ -154,7 +154,7 @@ const feedRate_t homing_feedrate_mm_s[XYZ] PROGMEM = {
 };
 
 // Cartesian conversion result goes here:
-xyz_pos_t cartes;
+xyze_pos_t cartes;
 
 #if IS_KINEMATIC
 
@@ -277,9 +277,9 @@ void get_cartesian_from_steppers() {
         planner.get_axis_position_degrees(B_AXIS)
       );
     #else
-      cartes.set(planner.get_axis_position_mm(X_AXIS), planner.get_axis_position_mm(Y_AXIS));
+      cartes.set(planner.get_axis_position_mm(X_AXIS), planner.get_axis_position_mm(Y_AXIS), planner.get_axis_position_mm(Z_AXIS), planner.get_axis_position_mm(E_AXIS));
     #endif
-    cartes.z = planner.get_axis_position_mm(Z_AXIS);
+    //cartes.z = planner.get_axis_position_mm(Z_AXIS);
   #endif
 }
 
@@ -1575,7 +1575,7 @@ void homeaxis(const AxisEnum axis) {
   #endif
 
   #if DISABLED(DELTA) && defined(SENSORLESS_BACKOFF_MM)
-    const xy_float_t backoff = SENSORLESS_BACKOFF_MM;
+    const xyz_float_t backoff = SENSORLESS_BACKOFF_MM;
     if (((ENABLED(X_SENSORLESS) && axis == X_AXIS) || (ENABLED(Y_SENSORLESS) && axis == Y_AXIS)) && backoff[axis])
       do_homing_move(axis, -ABS(backoff[axis]) * axis_home_dir, homing_feedrate(axis));
   #endif

@@ -36,15 +36,15 @@
 // Servos
 //
 #define SERVO0_PIN                         P1_23
-
+#define FIL_RUNOUT_PIN                     P1_22
 //
 // Limit Switches
 //
 #define X_MIN_PIN                          P1_24
 #define X_MAX_PIN                          P1_27
-#define Y_MIN_PIN                          P1_25
-#define Y_MAX_PIN                          P1_28
-#define Z_MIN_PIN                          P1_26
+#define Y_MIN_PIN                          P1_25  // default: 1_25
+#define Y_MAX_PIN                          P1_28  // default: 1_28
+#define Z_MIN_PIN                          P1_26  // default: 1_26
 #define Z_MAX_PIN                          P1_29
 
 //
@@ -100,10 +100,10 @@
 #define HEATER_BED_PIN                     P2_07
 #define HEATER_0_PIN                       P2_04
 #define HEATER_1_PIN                       P2_05
-#ifndef FAN_PIN
-  #define FAN_PIN                          P0_26
-#endif
-#define FAN1_PIN                           P1_22
+//#ifndef FAN_PIN
+//  #define FAN_PIN                          P0_26
+//#endif
+#define FAN1_PIN                           P1_22  // 1_22 default
 
 //
 // Display
